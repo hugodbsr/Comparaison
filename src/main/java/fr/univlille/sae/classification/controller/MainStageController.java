@@ -27,9 +27,9 @@ public class MainStageController {
     public void openLoadData() throws IOException {
 
 
-        /*
+
         FXMLLoader loader = new FXMLLoader();
-        URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "main-stage.fxml").toURI().toURL();
+        URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "load-data-stage.fxml").toURI().toURL();
 
         if (fxmlFileUrl == null) {
             System.out.println("Impossible de charger le fichier fxml");
@@ -44,7 +44,7 @@ public class MainStageController {
         loadStage.setTitle("Chargement des donées");
 
         loadStage.showAndWait();
-        */
+
 
     }
 

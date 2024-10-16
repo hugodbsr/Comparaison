@@ -1,4 +1,4 @@
-package fr.univlille.sae.classification;
+package fr.univlille.sae.classification.model;
 
 import java.util.Set;
 
