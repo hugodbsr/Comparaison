@@ -1,13 +1,18 @@
 package fr.univlille.sae.classification.model;
 
+import fr.univlille.sae.classification.utils.Observable;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
-public class ClassificationModel {
+public class ClassificationModel extends Observable {
 
 
     private List<LoadableData> datas;
+    private List<LoadableData> dataToClass;
 
     public ClassificationModel() {
         this.datas = new ArrayList<>();
@@ -37,6 +42,10 @@ public class ClassificationModel {
      * @param data
      */
     private void classifierDonnee(LoadableData data) {
+
+        List<String> classes = new ArrayList<>(data.getClassificationTypes());
+        Random rdm = new Random();
+        data.setClassification(classes.get(rdm.nextInt(classes.size())));
 
     }
 

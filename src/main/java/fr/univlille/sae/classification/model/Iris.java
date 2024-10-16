@@ -10,9 +10,7 @@ public class Iris extends LoadableData{
     private double petalWidth;
     private double petalLength;
 
-    private static Set<String> classificationTypes;
 
-    private String classification;
 
 
     public Iris(double sepalWidth, double sepalLength, double petalWidth, double petalLength) {
@@ -20,22 +18,14 @@ public class Iris extends LoadableData{
     }
 
     public Iris(double sepalWidth, double sepalLength, double petalWidth, double petalLength, String classification) {
+        super();
         this.sepalWidth = sepalWidth;
         this.sepalLength = sepalLength;
         this.petalWidth = petalWidth;
         this.petalLength = petalLength;
-        this.classification = classification;
     }
 
-    @Override
-    public String getClassification() {
-        return this.classification;
-    }
 
-    @Override
-    public Set<String> getClassificationTypes() {
-       return classificationTypes;
-    }
 
 
     public double getSepalWidth() {
