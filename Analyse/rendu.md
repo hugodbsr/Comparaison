@@ -11,8 +11,18 @@
 
 *Pour chaque membre de l'équipe, préciser en 2--3 lignes:*
 
-- *Comment il ou elle a contribué au projet dans son ensemble.*
+- *Comment il ou elle a contribué au projet dans son ensemble.* 
 - *Comment il ou elle a contribuer plus particulièrement au dossier d'analyse.*
+
+MENNECART Matias : Travail sur le diagramme des cas d'utilisations, a fait une fiche descriptive en groupe de 2 avec Matisse DEKEISER, a finalisé le diagramme des classes de ce projet d'analyse et a participer à la conception de la maquette Figma.
+
+DEKEISER Matisse : Travail sur le diagramme des cas d'utilisations, a fait une fiche descriptive en groupe de 2 avec Matias MENNECART, a contribué au diagramme des classes de ce projet d'analyse et a participer à la conception de la maquette Figma.
+
+DEBUYSER Hugo : Travail sur le diagramme des cas d'utilisations, a fait deux fiches descriptives en groupe de 3 avec Hugo DESMONS et Maxence ANTOINE, a contribué au diagramme des classes, a commencé le rapport de ce projet d'analyse et a participer à la conception de la maquette Figma.
+
+DESMONS Hugo : Travail sur le diagramme des cas d'utilisations, a fait deux fiches descriptives en groupe de 3 avec Hugo DEBUYSER et Maxence ANTOINE, a contribué au diagramme des classes de ce projet d'analyse et a participer à la conception de la maquette Figma.
+
+ANTOINE Maxence : Travail sur le diagramme des cas d'utilisations, a fait deux fiches descriptives en groupe de 3 avec Hugo DEBUYSER et Hugo DESMONS, a contribué au diagramme des classes, a complété le rapport de ce projet d'analyse et a participer à la conception de la maquette Figma.
 
 ## Diagramme de cas d'utilisation
 
@@ -108,14 +118,29 @@
 
 ### Prototypes pour l'interface
 
-*Inclure des prototypes de l'interface utilisateur pour ces fonctionnalités:*
-
-
 [Prototype figma](https://www.figma.com/design/J7CNIyIPHg0QBvoMKEAZ2L/Untitled?node-id=0-1&t=rzTi4oB0jeOOZTxv-1)
 
+![Maquette Figma](./ressources/MaquetteFigma.png)
+
+![Charger les données](./ressources/ChargerDonnées.png)
+
+*Inclure des prototypes de l'interface utilisateur pour ces fonctionnalités:*
+
 - *Ajouter une donnée*
+
+![Ajouter une donnée](./ressources/AjouterDonnées.png)
+
+![Afficher les données](./ressources/AjoutDonnéesVisible.png)
+
 - *Classifier la donnée non classifiée*
+
+![Classifier une donnée](./ressources/ClassifierDonnées.png)
+
 - *Modifier les attributs pour l'affichage*
+
+![Modifier les attibuts](./ressources/ModifierAttributs.png)
+
+
 
 *Chaque prototype est constitué d'une suite d'écrans, ou d'une arborescence d'écrans si plusieurs chemins d'interaction sont possibles.*
 
