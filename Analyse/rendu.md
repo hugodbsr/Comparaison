@@ -3,26 +3,32 @@
 
 ### Équipe H4
 
--  [MENNECART Matias](matias.mennecart.etu@univ-lille.fr)
--  [DEKEISER Matisse](matisse.dekeiser.etu@univ-lille.fr)
--  [DEBUYSER Hugo](hugo.debuyser.etu@univ-lille.fr)
--  [DESMONS Hugo](hugo.desmons.etu@univ-lille.fr)
 -  [ANTOINE Maxence](maxence.antoine.etu@univ-lille.fr)
+-  [DEBUYSER Hugo](hugo.debuyser.etu@univ-lille.fr)
+-  [DEKEISER Matisse](matisse.dekeiser.etu@univ-lille.fr)
+-  [DESMONS Hugo](hugo.desmons.etu@univ-lille.fr)
+-  [MENNECART Matias](matias.mennecart.etu@univ-lille.fr)
 
-*Pour chaque membre de l'équipe, préciser en 2--3 lignes:*
+___
 
-- *Comment il ou elle a contribué au projet dans son ensemble.* 
-- *Comment il ou elle a contribuer plus particulièrement au dossier d'analyse.*
+## Contribution des membres de l'équipe
 
-MENNECART Matias : Travail sur le diagramme des cas d'utilisations, a fait une fiche descriptive en groupe de 2 avec Matisse DEKEISER, a finalisé le diagramme des classes de ce projet d'analyse et a participer à la conception de la maquette Figma.
+#### ANTOINE Maxence :
+Travail sur le diagramme de cas d'utilisations, a fait deux fiches descriptives avec Hugo DEBUYSER et Hugo DESMONS, a contribué au diagramme des classes, a complété le rapport de ce projet d'analyse et a participer à la conception de la maquette Figma.
 
-DEKEISER Matisse : Travail sur le diagramme des cas d'utilisations, a fait une fiche descriptive en groupe de 2 avec Matias MENNECART, a contribué au diagramme des classes de ce projet d'analyse et a participer à la conception de la maquette Figma.
+#### DEBUYSER Hugo :
+Travail sur le diagramme de cas d'utilisations, a fait deux fiches descriptives avec Hugo DESMONS et Maxence ANTOINE, a contribué au diagramme des classes, a commencé le rapport de ce projet d'analyse et a participer à la conception de la maquette Figma.
 
-DEBUYSER Hugo : Travail sur le diagramme des cas d'utilisations, a fait deux fiches descriptives en groupe de 3 avec Hugo DESMONS et Maxence ANTOINE, a contribué au diagramme des classes, a commencé le rapport de ce projet d'analyse et a participer à la conception de la maquette Figma.
+#### DEKEISER Matisse :
+Travail sur le diagramme de cas d'utilisations, a fait une fiche descriptive avec Matias MENNECART, a contribué au diagramme des classes de ce projet d'analyse et a participer à la conception de la maquette Figma.
 
-DESMONS Hugo : Travail sur le diagramme des cas d'utilisations, a fait deux fiches descriptives en groupe de 3 avec Hugo DEBUYSER et Maxence ANTOINE, a contribué au diagramme des classes de ce projet d'analyse et a participer à la conception de la maquette Figma.
+#### DESMONS Hugo :
+Travail sur le diagramme de cas d'utilisations, a fait deux fiches descriptives avec Hugo DEBUYSER et Maxence ANTOINE, a contribué au diagramme des classes de ce projet d'analyse et a participer à la conception de la maquette Figma.
 
-ANTOINE Maxence : Travail sur le diagramme des cas d'utilisations, a fait deux fiches descriptives en groupe de 3 avec Hugo DEBUYSER et Hugo DESMONS, a contribué au diagramme des classes, a complété le rapport de ce projet d'analyse et a participer à la conception de la maquette Figma.
+#### MENNECART Matias :
+Travail sur le diagramme de cas d'utilisations, a fait une fiche descriptive avec Matisse DEKEISER, a finalisé le diagramme des classes de ce projet d'analyse et a participer à la conception de la maquette Figma.
+
+___
 
 ## Diagramme de cas d'utilisation
 
@@ -120,25 +126,25 @@ ANTOINE Maxence : Travail sur le diagramme des cas d'utilisations, a fait deux f
 
 [Prototype figma](https://www.figma.com/design/J7CNIyIPHg0QBvoMKEAZ2L/Untitled?node-id=0-1&t=rzTi4oB0jeOOZTxv-1)
 
-![Maquette Figma](./ressources/MaquetteFigma.png)
+<img src="./ressources/MaquetteFigma.png" width="60%" height="60%" alt="Maquette Figma">
 
-![Charger les données](./ressources/ChargerDonnées.png)
+<img src="./ressources/ChargerDonnées.png" width="60%" height="60%" alt="Charger les données">
 
 *Inclure des prototypes de l'interface utilisateur pour ces fonctionnalités:*
 
 - *Ajouter une donnée*
 
-![Ajouter une donnée](./ressources/AjouterDonnées.png)
+<img src="./ressources/AjouterDonnées.png" width="60%" height="60%" alt="Ajouter une donnée">
 
-![Afficher les données](./ressources/AjoutDonnéesVisible.png)
+<img src="./ressources/AjoutDonnéesVisible.png" width="60%" height="60%" alt="Afficher les données">
 
 - *Classifier la donnée non classifiée*
 
-![Classifier une donnée](./ressources/ClassifierDonnées.png)
+<img src="./ressources/ClassifierDonnées.png" width="60%" height="60%" alt="Classifier une donnée">
 
 - *Modifier les attributs pour l'affichage*
 
-![Modifier les attibuts](./ressources/ModifierAttributs.png)
+<img src="./ressources/ModifierAttributs.png" width="60%" height="60%" alt="Modifier les attibuts">
 
 
 
@@ -152,7 +158,7 @@ ANTOINE Maxence : Travail sur le diagramme des cas d'utilisations, a fait deux f
 
 ## Diagramme de classes
 
-<img src="./ressources/DiagrammeClasse.png" width="60%" height="50%" alt="Diagramme de classe">
+<img src="./ressources/DiagrammeClasse.png" width="60%" height="60%" alt="Diagramme de classe">
 
 *Inclure un diagramme de classes qui permet d'**implémenter toutes les fonctionnalités**.*
 
