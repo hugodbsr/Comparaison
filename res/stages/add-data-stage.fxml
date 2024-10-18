@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.stage.*?>
 
-<Stage xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.AddDataController">
     <scene>
         <Scene>
             <AnchorPane prefHeight="200" prefWidth="200">
@@ -21,7 +21,7 @@
                      <HBox alignment="CENTER" layoutX="10.0" layoutY="47.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
                         <children>
                            <Label text="Valeur 2" />
-                           <ChoiceBox prefWidth="150.0" />
+                           <ChoiceBox prefHeight="26.0" prefWidth="163.0" />
                         </children>
                      </HBox>
                      <HBox alignment="CENTER" layoutX="10.0" layoutY="109.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
@@ -30,7 +30,7 @@
                            <Spinner />
                         </children>
                      </HBox>
-                     <Button mnemonicParsing="false" text="Valider" />
+                     <Button fx:id="confirmAdd" mnemonicParsing="false" text="Valider" />
                   </children></VBox>
             </children></AnchorPane>
         </Scene>

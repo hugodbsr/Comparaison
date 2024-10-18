@@ -13,24 +13,25 @@
             <children>
                <VBox prefHeight="488.0" prefWidth="691.0">
                   <children>
-                     <VBox alignment="CENTER" prefHeight="379.0" prefWidth="691.0">
+                     <HBox prefHeight="356.0" prefWidth="691.0">
                         <children>
+                           <Region prefHeight="338.0" prefWidth="65.0" />
                            <ScatterChart prefHeight="342.0" prefWidth="609.0">
                              <xAxis>
-                               <CategoryAxis prefHeight="21.0" prefWidth="498.0" side="BOTTOM" />
+                               <CategoryAxis fx:id="absAxe" prefHeight="21.0" prefWidth="498.0" side="BOTTOM" />
                              </xAxis>
                              <yAxis>
-                               <NumberAxis side="LEFT" />
+                               <NumberAxis fx:id="ordAxe" side="LEFT" />
                              </yAxis>
                            </ScatterChart>
-                           <Button mnemonicParsing="false" text="Configuration de l'affichage" />
+                           <Button fx:id="settings" mnemonicParsing="false" text="Réglage" />
                         </children>
-                     </VBox>
+                     </HBox>
                      <HBox alignment="CENTER" prefHeight="169.0" prefWidth="691.0" spacing="50.0">
                         <children>
-                           <Button mnemonicParsing="false" onAction="#openLoadData" prefHeight="27.0" prefWidth="185.0" text="Charger un jeu de données" />
-                           <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="141.0" text="Ajouter une donnée" />
-                           <Button disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="157.0" text="Classifier une donnée" />
+                           <Button fx:id="loadData" mnemonicParsing="false" onAction="#openLoadData" prefHeight="27.0" prefWidth="185.0" text="Charger un jeu de données" />
+                           <Button fx:id="addData" mnemonicParsing="false" prefHeight="26.0" prefWidth="141.0" text="Ajouter une donnée" />
+                           <Button fx:id="classifyData" disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="157.0" text="Classifier une donnée" />
                         </children>
                      </HBox>
                   </children>

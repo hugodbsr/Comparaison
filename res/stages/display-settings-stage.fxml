@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.stage.*?>
 
-<Stage xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<Stage  fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.DisplaySettingsController">
     <scene>
         <Scene>
             <AnchorPane prefHeight="200" prefWidth="200">
@@ -15,9 +15,9 @@
                      <HBox alignment="CENTER" prefHeight="58.0" prefWidth="294.0" spacing="20.0">
                         <children>
                            <Label text="Nouvel ajout" />
-                           <ColorPicker editable="true" />
+                           <ColorPicker fx:id="addColor" editable="true" />
                         </children></HBox>
-                     <Button mnemonicParsing="false" text="Valider" />
+                     <Button fx:id="confirmSettings" mnemonicParsing="false" text="Valider" />
                   </children></VBox>
             </children></AnchorPane>
         </Scene>

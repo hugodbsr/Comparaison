@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.stage.*?>
 
-<Stage xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.AxesSettingsController">
     <scene>
         <Scene>
             <AnchorPane prefHeight="200" prefWidth="200">
@@ -15,16 +15,16 @@
                      <HBox alignment="CENTER" prefHeight="46.0" prefWidth="406.0" spacing="20.0">
                         <children>
                            <Label text="Valeur des ordonnées" />
-                           <ChoiceBox prefWidth="150.0" />
+                           <ChoiceBox fx:id="selectOrd" prefWidth="150.0" />
                         </children>
                      </HBox>
                      <HBox alignment="CENTER" prefHeight="44.0" prefWidth="406.0" spacing="20.0">
                         <children>
                            <Label text="Valeur des abscisses" />
-                           <ChoiceBox prefWidth="150.0" />
+                           <ChoiceBox fx:id="selectAbs" prefWidth="150.0" />
                         </children>
                      </HBox>
-                     <Button mnemonicParsing="false" text="Valider" />
+                     <Button fx:id="confirmAxes" mnemonicParsing="false" text="Valider" />
                   </children>
                </VBox>
             </children></AnchorPane>

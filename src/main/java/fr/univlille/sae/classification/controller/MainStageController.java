@@ -2,10 +2,9 @@ package fr.univlille.sae.classification.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import javafx.scene.chart.*;
+import javafx.scene.control.Button;
+import javafx.stage.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +16,25 @@ public class MainStageController {
     @FXML
     Stage stage;
 
+    @FXML
+    CategoryAxis absAxe;
+
+    @FXML
+    NumberAxis ordAxe;
+
+    @FXML
+    Button settings;
+
+    @FXML
+    Button loadData;
+
+    @FXML
+    Button addData;
+
+    @FXML
+    Button classifyData;
+
+
 
     Stage loadStage;
 
@@ -25,9 +43,6 @@ public class MainStageController {
      * @throws IOException
      */
     public void openLoadData() throws IOException {
-
-
-
         FXMLLoader loader = new FXMLLoader();
         URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "load-data-stage.fxml").toURI().toURL();
 
