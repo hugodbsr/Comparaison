@@ -128,25 +128,104 @@ ___
 
 <img src="./ressources/MaquetteFigma.png" width="60%" height="60%" alt="Maquette Figma">
 
+#### Interface principale
+
+La première page de l’interface se compose des éléments suivants :
+
+- **Zone principale d’affichage (grisée)** :  
+  Une grande zone située dans la partie supérieure de l’écran, encadrée par deux axes — un axe vertical (ordonnées) et un axe horizontal (abscisses). Elle est probablement destinée à afficher des graphiques, des tableaux ou des visualisations de données une fois celles-ci chargées et traitées. Le placement des axes suggère que des représentations visuelles (par exemple, des diagrammes ou des courbes) seront présentées dans cet espace après l'exécution des différentes opérations.
+
+- **Icône d'engrenage (paramètres)** :  
+  Située en haut à droite de la zone d’affichage, cette icône en forme de roue dentée permet d'accéder à un menu de paramètres ou d’options de configuration pour l’application.
+
+- **Boutons d'action** :  
+  Trois boutons sont situés en bas de la page, permettant l’interaction avec l’application :
+    - **Charger des données** : Ce bouton permet à l’utilisateur d'importer un fichier contenant des données dans l'application. Cette fonction pourrait ouvrir une fenêtre pour sélectionner et charger un fichier depuis le système local.
+    - **Ajouter une donnée** : Cette option permet à l’utilisateur d’ajouter des données spécifiques, soit manuellement, soit à partir d'une autre source.
+    - **Classifier les données** : Ce bouton semble être destiné à déclencher une fonction de classification des données, possiblement à l’aide d’un algorithme d’apprentissage automatique ou d’un autre modèle statistique.
+
+---
+
 <img src="./ressources/ChargerDonnées.png" width="60%" height="60%" alt="Charger les données">
 
 *Inclure des prototypes de l'interface utilisateur pour ces fonctionnalités:*
+
+#### Fenêtre de chargement de fichier
+
+La deuxième page correspond à une étape spécifique dans le flux de travail, orientée vers la sélection et l’importation de fichiers. Elle se compose des éléments suivants :
+
+- **Zone centrale (grisée)** :  
+  Cette zone est structurée pour faciliter le choix de fichier par l’utilisateur.
+  - **Nom fichier** : Une étiquette ou une zone texte où s’affichera le nom du fichier sélectionné après avoir utilisé le bouton de navigation.
+  - **Bouton "PARCOURIR"** : Ce bouton permet à l’utilisateur d'ouvrir une fenêtre de navigation dans ses fichiers locaux afin de sélectionner le fichier de données à importer dans l’application.
+  - **Bouton "Valider"** : Une fois le fichier sélectionné, ce bouton permet de confirmer le choix et de lancer le chargement du fichier pour traitement.
+
+---
 
 - *Ajouter une donnée*
 
 <img src="./ressources/AjouterDonnées.png" width="60%" height="60%" alt="Ajouter une donnée">
 
+#### Formulaire d'ajout de données
+
+Cette page présente une interface permettant à l’utilisateur d'ajouter manuellement de nouvelles données dans l’application. Les éléments principaux sont :
+
+- **Zone centrale (grisée)** :
+  - **Champs de saisie pour les valeurs** : Quatre champs de texte sont affichés dans une boîte. Ils sont étiquetés comme suit :
+    - Valeur 1
+    - Valeur 2
+    - Valeur 3
+    - Valeur 4  
+      Ces champs permettent à l’utilisateur de saisir manuellement quatre valeurs différentes.
+  - **Bouton "Valider"** : Après avoir rempli les champs de saisie, l’utilisateur peut cliquer sur ce bouton pour valider l’entrée des données. Cela enregistrera la nouvelle donnée et l’ajoutera à l’ensemble de données existant.
+
+---
+
 <img src="./ressources/AjoutDonnéesVisible.png" width="60%" height="60%" alt="Afficher les données">
+
+#### Visualisation des données classifiées
+
+Cette page représente la visualisation graphique des données après l’étape de classification. Les éléments affichés sont :
+
+- **Zone centrale (grisée)** :
+  - **Graphique de dispersion** : La zone est désormais utilisée pour afficher un diagramme de dispersion. On y voit plusieurs points de deux couleurs différentes, probablement représentatifs de deux classes distinctes de données :
+    - **Points rouges** : Ces points représentent une première catégorie de données classifiées.
+    - **Points bleus** : Ils représentent une deuxième catégorie de données classifiées.
+    - **Étoile bleue** : Ce symbole représente la nouvelle donnée que l’utilisateur a ajoutée manuellement. L’étoile montre la position de cette donnée sur le graphique, suggérant qu'elle a été classée dans la même catégorie que les points bleus.
+
+---
 
 - *Classifier la donnée non classifiée*
 
 <img src="./ressources/ClassifierDonnées.png" width="60%" height="60%" alt="Classifier une donnée">
 
+#### Classification d'une donnée non classifiée
+
+Cette page permet à l'utilisateur de classifier une donnée qui n'a pas encore été attribuée à une catégorie spécifique. Voici les éléments de cette page :
+
+- **Zone centrale (grisée)** :
+  - **Liste déroulante "Formes"** : Cette liste permet à l'utilisateur de choisir une forme spécifique pour représenter la donnée (par exemple, cercle, carré, étoile, etc.). Ce choix semble influer sur la manière dont la donnée sera affichée graphiquement.
+  - **Liste déroulante "Couleur"** : De manière similaire, cette liste déroulante permet à l'utilisateur de sélectionner la couleur de la donnée non classifiée. Ce choix permettra probablement d'assigner une catégorie visuelle spécifique (comme un groupe de points ou une classe dans un diagramme).
+  - **Bouton "Valider"** : Une fois les deux attributs sélectionnés (forme et couleur), ce bouton permet de confirmer et d'enregistrer la classification de la donnée. Elle sera ensuite traitée avec ces caractéristiques visuelles lors de son affichage.
+
+
+---
+
 - *Modifier les attributs pour l'affichage*
 
 <img src="./ressources/ModifierAttributs.png" width="60%" height="60%" alt="Modifier les attibuts">
 
+#### Modification des attributs d'affichage
 
+Cette page permet à l’utilisateur de modifier les attributs utilisés pour représenter les données sur le graphique, en particulier les valeurs des axes X (abscisses) et Y (ordonnées).
+
+- **Zone centrale (grisée)** :
+  - **Champ "Valeur Ordonnée"** : L'utilisateur peut saisir ici la valeur qu'il souhaite voir représentée sur l'axe des ordonnées (Y) du graphique. Cela pourrait être une variable ou une métrique spécifique à la donnée.
+  - **Champ "Valeur Abscisse"** : Ce champ permet de spécifier la valeur qui sera affichée sur l'axe des abscisses (X) du graphique. Cela permet de définir quelle dimension ou quelle caractéristique de la donnée sera tracée le long de cet axe.
+  - **Bouton "Valider"** : Une fois les valeurs des axes définies, l’utilisateur peut cliquer sur ce bouton pour appliquer ces paramètres et afficher les données selon les nouveaux attributs choisis.
+
+
+---
 
 *Chaque prototype est constitué d'une suite d'écrans, ou d'une arborescence d'écrans si plusieurs chemins d'interaction sont possibles.*
 
