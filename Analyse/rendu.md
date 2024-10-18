@@ -128,25 +128,78 @@ ___
 
 <img src="./ressources/MaquetteFigma.png" width="60%" height="60%" alt="Maquette Figma">
 
+#### Interface principale
+
+La première page de l’interface se compose des éléments suivants :
+
+- **Zone principale d’affichage** : Pour l'instant vide.
+
+- **Icône d'engrenage** :Située en haut à droite de la zone d’affichage permet d'accéder à un menu de paramètres de configuration pour l’application.
+
+- **Bouton charger des données** : Ce bouton ouvre une fenêtre qui permet à l’utilisateur d'importer un fichier contenant des données dans l'application.
+- **Bouton ajouter une donnée** : Cette option permet à l’utilisateur d’ajouter une donnée spécifique.
+- **Bouton classifier les données** : Ce bouton permet la classification des données grâce a un algorithme d’apprentissage automatique.
+
+---
+
 <img src="./ressources/ChargerDonnées.png" width="60%" height="60%" alt="Charger les données">
 
 *Inclure des prototypes de l'interface utilisateur pour ces fonctionnalités:*
 
+#### Fenêtre de chargement de fichier
+
+  - **Nom fichier** : une zone texte où s’affichera le nom du fichier sélectionné après avoir utilisé le bouton "PARCOURIR".
+  - **Bouton "PARCOURIR"** : Ce bouton permet à l’utilisateur d'ouvrir une fenêtre de navigation dans ses fichiers locaux afin de sélectionner le fichier de données à importer dans l’application.
+  - **Bouton "Valider"** : Une fois le fichier sélectionné, ce bouton permet de confirmer le choix et de lancer le chargement du fichier dans le graphe.
+
+---
+
 - *Ajouter une donnée*
 
 <img src="./ressources/AjouterDonnées.png" width="60%" height="60%" alt="Ajouter une donnée">
+<img src="./ressources/AjoutDonnéesVisible.png" width="60%" height="60%" alt="Classifier une donnée">
+
+
+#### Formulaire d'ajout de données
+
+Cette page présente une interface permettant à l’utilisateur d'ajouter manuellement de nouvelles données dans l’application.
+
+- **Champs de saisie pour les valeurs** : Quatre champs de texte sont affichés dans une boîte.  
+- **Zone texte Valeur**: Ces champs permettent à l’utilisateur de saisir manuellement quatre valeurs différentes.
+- **Bouton "Valider"** : Après avoir rempli les champs de saisie, l’utilisateur peut cliquer sur ce bouton pour valider l'entrée. Cela ajoutera la donnée sur le graphe.
+- **Ajout d'une donnée** : On remarque qu'après avoir cliqué sur le bouton "Valider", une valeur a été ajouté sous la forme d'une étoile de couleur verte.
+---
 
 <img src="./ressources/AjoutDonnéesVisible.png" width="60%" height="60%" alt="Afficher les données">
-
-- *Classifier la donnée non classifiée*
-
 <img src="./ressources/ClassifierDonnées.png" width="60%" height="60%" alt="Classifier une donnée">
+
+#### Visualisation des données classifiées
+
+Cette page représente la visualisation graphique des données après l’étape de classification.
+
+
+- **Graphique** : La zone est désormais utilisée pour afficher un graphique. On y voit plusieurs points de deux couleurs différentes, représentant deux classes distinctes de données :
+- **Bouton "Classifier les données"** : En appuyant sur ce bouton, la donnée ajoutée se classifie selon ses valeurs renseignés.
+- **Points rouges** : Ces points représentent une première catégorie de données classifiées.
+- **Points bleus** : Ils représentent une deuxième catégorie de données classifiées.
+- **Étoile bleue** : Ce symbole représente la nouvelle donnée que l’utilisateur a ajoutée manuellement. L’étoile montre la position de cette donnée sur le graphique, suggérant qu'elle a été classée dans la même catégorie que les points bleus.
+
+---
 
 - *Modifier les attributs pour l'affichage*
 
 <img src="./ressources/ModifierAttributs.png" width="60%" height="60%" alt="Modifier les attibuts">
 
+#### Modification des attributs d'affichage
 
+Cette page permet à l’utilisateur de modifier les attributs utilisés pour représenter les données sur le graphique, en particulier les valeurs des axes X (abscisses) et Y (ordonnées).
+
+- **Champ "Valeur Ordonnée"** : L'utilisateur peut selectioner ici la valeur qu'il souhaite voir représentée sur l'axe des ordonnées (Y) du graphique.
+- **Champ "Valeur Abscisse"** : L'utilisateur peut selectioner ici la valeur qu'il souhaite voir représentée sur l'axe des abscisses (X) du graphique.
+- **Bouton "Valider"** : Une fois les valeurs des axes définies, l’utilisateur peut cliquer sur ce bouton pour appliquer ces paramètres et afficher les données selon les nouveaux attributs choisis.
+
+
+---
 
 *Chaque prototype est constitué d'une suite d'écrans, ou d'une arborescence d'écrans si plusieurs chemins d'interaction sont possibles.*
 
