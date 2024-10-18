@@ -31,7 +31,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>fr.univlille.sae.classification.view.MainStage</mainClass>
+                    <mainClass>fr.univlille.sae.classification.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
