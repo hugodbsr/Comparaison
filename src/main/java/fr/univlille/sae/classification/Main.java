@@ -11,7 +11,7 @@ public class Main extends Application {
 
 
     public void start(Stage stage) throws IOException {
-            ClassificationModel model = new ClassificationModel();
+            ClassificationModel model = ClassificationModel.getClassificationModel();
             MainStageView view = new MainStageView(model);
 
             view.show();

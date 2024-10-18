@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
+
 public class ClassificationModel extends Observable {
 
 
@@ -18,11 +19,25 @@ public class ClassificationModel extends Observable {
 
     private DataType type;
 
-    public ClassificationModel() {
+
+    private static ClassificationModel model;
+
+    /**
+     * Renvoie une instance unique du model. Par default le type de ce modele est Iris.
+     * Modifier en .setType(DataType).
+     * @return l'instance du model
+     */
+    public static ClassificationModel getClassificationModel() {
+        if(model == null) model = new ClassificationModel();
+        return model;
+    }
+
+
+    private ClassificationModel() {
         this(DataType.IRIS);
     }
 
-    public ClassificationModel(DataType type) {
+    private ClassificationModel(DataType type) {
         this.datas = new ArrayList<>();
         this.dataToClass = new ArrayList<>();
         this.type = type;
@@ -34,7 +49,7 @@ public class ClassificationModel extends Observable {
      * @param coords toutes les données du points
      * @throws IllegalArgumentException Exception levée si le nombre de parametres est insuffisant pour creer un point du type du model
      */
-    private void ajouterDonnee(double... coords) {
+    public void ajouterDonnee(double... coords) {
         LoadableData newData = PointFactory.createPoint(type, coords);
         this.dataToClass.add(newData);
         notifyObservers(newData);
@@ -45,11 +60,12 @@ public class ClassificationModel extends Observable {
      * TODO
      * @param file
      */
-    private void loadData(File file) throws IOException {
+    public void loadData(File file) throws IOException {
         this.datas = new CsvToBeanBuilder<LoadableData>(Files.newBufferedReader(file.toPath()))
                 .withSeparator(',')
                 .withType(Iris.class)
                 .build().parse();
+
         Set<String> types = new HashSet<>();
         for (LoadableData d : datas) {
             types.add(d.getClassification());
@@ -63,12 +79,31 @@ public class ClassificationModel extends Observable {
      * TODO
      * @param data
      */
-    private void classifierDonnee(LoadableData data) {
+    public void classifierDonnee(LoadableData data) {
 
         List<String> classes = new ArrayList<>(data.getClassificationTypes());
         Random rdm = new Random();
         data.setClassification(classes.get(rdm.nextInt(classes.size())));
         notifyObservers(data);
 
+    }
+
+
+    public void setType(DataType type) {
+        this.type = type;
+    }
+
+
+    public List<LoadableData> getDatas() {
+        return datas;
+    }
+
+    public List<LoadableData> getDataToClass() {
+        return dataToClass;
+    }
+
+
+    public DataType getType() {
+        return type;
     }
 }
