@@ -14,13 +14,13 @@
                   <children>
                      <HBox alignment="CENTER" prefHeight="91.0" prefWidth="272.0">
                         <children>
-                           <Button mnemonicParsing="false" onAction="#openFileChooser" text="Parcourir" />
-                           <TextField prefHeight="26.0" prefWidth="207.0" />
+                           <Button fx:id="browseFile" mnemonicParsing="false" onAction="#openFileChooser" text="Parcourir" />
+                           <TextField fx:id="filePath" prefHeight="26.0" prefWidth="207.0" />
                         </children>
                      </HBox>
                      <HBox alignment="CENTER" prefHeight="76.0" prefWidth="310.0">
                         <children>
-                           <Button mnemonicParsing="false" onAction="#validate" text="Valider" />
+                           <Button fx:id="confirmDataSelection" mnemonicParsing="false" onAction="#validate" text="Valider" />
                         </children>
                      </HBox>
                   </children>

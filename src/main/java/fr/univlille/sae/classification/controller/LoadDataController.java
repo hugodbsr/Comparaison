@@ -1,7 +1,9 @@
 package fr.univlille.sae.classification.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -14,7 +16,13 @@ public class LoadDataController {
     Stage stage;
 
     @FXML
-    Label filenamelab;
+    Button browseFile;
+
+    @FXML
+    Button confirmDataSelection;
+
+    @FXML
+    TextField filePath;
 
     File file;
 
@@ -34,7 +42,7 @@ public class LoadDataController {
          this.file = fileChooser.showOpenDialog(stage);
 
         if(file != null) {
-            filenamelab.setText(file.getName());
+            filePath.setText(file.getName());
         }
 
     }
