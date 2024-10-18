@@ -1,8 +1,12 @@
 package fr.univlille.sae.classification.model;
 
+import com.opencsv.bean.CsvToBeanBuilder;
 import fr.univlille.sae.classification.utils.Observable;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -33,8 +37,11 @@ public class ClassificationModel extends Observable {
      * TODO
      * @param file
      */
-    private void loadData(File file) {
-
+    private void loadData(File file) throws IOException {
+        this.datas = new CsvToBeanBuilder<LoadableData>(Files.newBufferedReader(file.toPath()))
+                .withSeparator(',')
+                .withType(Iris.class)
+                .build().parse();
     }
 
     /**
@@ -48,6 +55,4 @@ public class ClassificationModel extends Observable {
         data.setClassification(classes.get(rdm.nextInt(classes.size())));
 
     }
-
-
 }
