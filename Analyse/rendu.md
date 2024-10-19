@@ -138,6 +138,20 @@ La première page de l’interface se compose des éléments suivants :
 
 ---
 
+#### Interface principale
+
+La première page de l’interface se compose des éléments suivants :
+
+- **Zone principale d’affichage** : Pour l'instant vide.
+
+- **Icône d'engrenage** :Située en haut à droite de la zone d’affichage permet d'accéder à un menu de paramètres de configuration pour l’application.
+
+- **Bouton charger des données** : Ce bouton ouvre une fenêtre qui permet à l’utilisateur d'importer un fichier contenant des données dans l'application.
+- **Bouton ajouter une donnée** : Cette option permet à l’utilisateur d’ajouter une donnée spécifique.
+- **Bouton classifier les données** : Ce bouton permet la classification des données grâce a un algorithme d’apprentissage automatique.
+
+---
+
 <img src="./ressources/ChargerDonnées.png" width="60%" height="60%" alt="Charger les données">
 
 
@@ -188,6 +202,14 @@ Cette page permet à l’utilisateur de modifier les attributs utilisés pour re
 - **Champ "Valeur Abscisse"** : L'utilisateur peut selectioner ici la valeur qu'il souhaite voir représentée sur l'axe des abscisses (X) du graphique.
 - **Bouton "Valider"** : Une fois les valeurs des axes définies, l’utilisateur peut cliquer sur ce bouton pour appliquer ces paramètres et afficher les données selon les nouveaux attributs choisis.
 
+Cette page permet à l’utilisateur de modifier les attributs utilisés pour représenter les données sur le graphique, en particulier les valeurs des axes X (abscisses) et Y (ordonnées).
+
+- **Champ "Valeur Ordonnée"** : L'utilisateur peut selectioner ici la valeur qu'il souhaite voir représentée sur l'axe des ordonnées (Y) du graphique.
+- **Champ "Valeur Abscisse"** : L'utilisateur peut selectioner ici la valeur qu'il souhaite voir représentée sur l'axe des abscisses (X) du graphique.
+- **Bouton "Valider"** : Une fois les valeurs des axes définies, l’utilisateur peut cliquer sur ce bouton pour appliquer ces paramètres et afficher les données selon les nouveaux attributs choisis.
+
+
+---
 
 ---
 
