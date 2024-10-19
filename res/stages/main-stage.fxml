@@ -16,9 +16,9 @@
                      <HBox prefHeight="356.0" prefWidth="691.0">
                         <children>
                            <Region prefHeight="338.0" prefWidth="65.0" />
-                           <ScatterChart prefHeight="342.0" prefWidth="609.0">
+                           <ScatterChart fx:id="scatterChart" prefHeight="342.0" prefWidth="609.0">
                              <xAxis>
-                               <CategoryAxis fx:id="absAxe" prefHeight="21.0" prefWidth="498.0" side="BOTTOM" />
+                               <NumberAxis fx:id="absAxe" prefHeight="21.0" prefWidth="498.0" side="BOTTOM" />
                              </xAxis>
                              <yAxis>
                                <NumberAxis fx:id="ordAxe" side="LEFT" />

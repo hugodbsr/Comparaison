@@ -1,10 +1,18 @@
 package fr.univlille.sae.classification.view;
 
+import fr.univlille.sae.classification.controller.LoadDataController;
+import fr.univlille.sae.classification.controller.MainStageController;
 import fr.univlille.sae.classification.model.ClassificationModel;
+import fr.univlille.sae.classification.model.DataType;
+import fr.univlille.sae.classification.model.Iris;
+import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.utils.Observable;
 import fr.univlille.sae.classification.utils.Observer;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -14,7 +22,11 @@ import java.net.URL;
 public class MainStageView implements Observer {
 
 
+
+
     private ClassificationModel model;
+
+    private ScatterChart scatterChart;
 
     public MainStageView(ClassificationModel model) {
         this.model = model;
@@ -36,11 +48,28 @@ public class MainStageView implements Observer {
         root.setResizable(false);
         root.setTitle("SAE3.3 - Logiciel de classification");
         root.show();
+        loader.getController();
+        MainStageController controller = loader.getController();
+        scatterChart = controller.getScatterChart();
+
     }
 
 
     @Override
     public void update(Observable observable) {
+        if(scatterChart == null) throw new IllegalStateException();
+        if(!(observable instanceof ClassificationModel)) throw new IllegalStateException();
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Dice Launch");
+        scatterChart.getData().add(series1);
+        for(LoadableData i : model.getDatas()) {
+            if(model.getType() == DataType.IRIS) {
+                series1.getData().add(new XYChart.Data<>(((Iris)i).getPetalLength(),
+                        ((Iris)i).getPetalWidth()));
+
+            }
+        }
+
 
     }
 

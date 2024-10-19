@@ -1,5 +1,7 @@
 package fr.univlille.sae.classification.controller;
 
+import fr.univlille.sae.classification.model.ClassificationModel;
+import fr.univlille.sae.classification.view.LoadDataView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.*;
@@ -17,7 +19,7 @@ public class MainStageController {
     Stage stage;
 
     @FXML
-    CategoryAxis absAxe;
+    NumberAxis absAxe;
 
     @FXML
     NumberAxis ordAxe;
@@ -34,6 +36,8 @@ public class MainStageController {
     @FXML
     Button classifyData;
 
+    @FXML
+    ScatterChart scatterChart;
 
 
     Stage loadStage;
@@ -43,24 +47,15 @@ public class MainStageController {
      * @throws IOException
      */
     public void openLoadData() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "load-data-stage.fxml").toURI().toURL();
 
-        if (fxmlFileUrl == null) {
-            System.out.println("Impossible de charger le fichier fxml");
-            System.exit(-1);
-        }
-        loader.setLocation(fxmlFileUrl);
-        loadStage = loader.load();
-
-        loadStage.setResizable(false);
-        loadStage.initOwner(stage);
-        loadStage.initModality(Modality.APPLICATION_MODAL);
-        loadStage.setTitle("Chargement des donées");
-
-        loadStage.showAndWait();
+        LoadDataView loadDataView = new LoadDataView(ClassificationModel.getClassificationModel(), stage);
+        loadDataView.show();
 
 
     }
 
+
+    public ScatterChart getScatterChart() {
+        return this.scatterChart;
+    }
 }
