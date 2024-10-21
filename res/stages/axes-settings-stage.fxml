@@ -24,7 +24,7 @@
                            <ChoiceBox fx:id="selectAbs" prefWidth="150.0" />
                         </children>
                      </HBox>
-                     <Button fx:id="confirmAxes" mnemonicParsing="false" text="Valider" />
+                     <Button fx:id="confirmAxes" onAction="#validate" mnemonicParsing="false" text="Valider" />
                   </children>
                </VBox>
             </children></AnchorPane>

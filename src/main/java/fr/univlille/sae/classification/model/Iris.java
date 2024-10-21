@@ -46,6 +46,34 @@ public class Iris extends LoadableData{
         return petalLength;
     }
 
+    public double getDataType(String axes){
+        if(axes==null){
+            return sepalWidth;
+        }
+        switch (axes){
+            case "sepalWidth":
+                return sepalWidth;
+            case "sepalLength":
+                return sepalLength;
+            case "petalWidth":
+                return petalWidth;
+            case "petalLength":
+                return petalLength;
+            default:
+                return sepalLength;
+        }
+    }
+
+    public String[] getAttributesName() {
+        String[] names = new String[]{
+                "sepalWidth",
+                "sepalLength",
+                "petalWidth",
+                "petalLength"
+        };
+        return names;
+    }
+
     @Override
     public String toString() {
         return "Iris{" +

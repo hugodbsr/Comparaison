@@ -27,4 +27,6 @@ public abstract class LoadableData {
         this.classification = classification;
     }
 
+    public abstract String[] getAttributesName();
+
 }

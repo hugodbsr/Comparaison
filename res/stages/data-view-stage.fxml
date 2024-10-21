@@ -35,7 +35,8 @@
                               </graphic>
                               <HBox.margin>
                                  <Insets right="10.0" top="30.0" />
-                              </HBox.margin></Button>
+                              </HBox.margin>
+                           </Button>
                         </children>
                      </HBox>
                   </children>
