@@ -13,11 +13,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainStageView implements Observer {
 
@@ -61,12 +65,17 @@ public class MainStageView implements Observer {
         scatterChart.getData().clear();
         if(!(observable instanceof ClassificationModel)) throw new IllegalStateException();
         XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Dice Launch");
         scatterChart.getData().add(series1);
-        for(LoadableData i : model.getDatas()) {
-            if(model.getType() == DataType.IRIS) {
-                series1.getData().add(new XYChart.Data<>(((Iris)i).getDataType(actualX),
-                        ((Iris)i).getDataType(actualY)));
+        if(model.getType() == DataType.IRIS) {
+            series1.setName("Iris");
+            for(LoadableData i : model.getDatas()) {
+                Iris iris = (Iris)i;
+                XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX),
+                        iris.getDataType(actualY));
+                Circle circle = new Circle(5);
+                circle.setFill(iris.getColor());
+                dataPoint.setNode(circle);
+                series1.getData().add(dataPoint);
             }
         }
     }
@@ -76,20 +85,20 @@ public class MainStageView implements Observer {
 
     }
 
-    public String getActualX() {
-        return actualX;
-    }
-
-    public String getActualY() {
-        return actualY;
-    }
-
     public void setActualX(String actualX) {
         this.actualX = actualX;
     }
 
     public void setActualY(String actualY) {
         this.actualY = actualY;
+    }
+
+    public String getActualX() {
+        return actualX;
+    }
+
+    public String getActualY() {
+        return actualY;
     }
 
     public Observable getModel() {
