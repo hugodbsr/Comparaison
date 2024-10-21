@@ -25,11 +25,13 @@ public class AxesSettingsController{
     public void setSelectOrd(String[] fields){
         selectOrd.getItems().clear();
         selectOrd.getItems().addAll(fields);
+        selectOrd.setValue(mainStageView.getActualY());
     }
 
     public void setSelectAbs(String[] fields){
         selectAbs.getItems().clear();
         selectAbs.getItems().addAll(fields);
+        selectAbs.setValue(mainStageView.getActualX());
     }
 
     public void setMainStageView(MainStageView mainStageView) {
