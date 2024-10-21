@@ -21,12 +21,11 @@ import java.net.URL;
 
 public class MainStageView implements Observer {
 
-
-
-
     private ClassificationModel model;
-
     private ScatterChart scatterChart;
+
+    private String actualX;
+    private String actualY;
 
     public MainStageView(ClassificationModel model) {
         this.model = model;
@@ -50,6 +49,7 @@ public class MainStageView implements Observer {
         root.show();
         loader.getController();
         MainStageController controller = loader.getController();
+        controller.setMainStageView(this);
         scatterChart = controller.getScatterChart();
 
     }
@@ -58,23 +58,41 @@ public class MainStageView implements Observer {
     @Override
     public void update(Observable observable) {
         if(scatterChart == null) throw new IllegalStateException();
+        scatterChart.getData().clear();
         if(!(observable instanceof ClassificationModel)) throw new IllegalStateException();
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Dice Launch");
         scatterChart.getData().add(series1);
         for(LoadableData i : model.getDatas()) {
             if(model.getType() == DataType.IRIS) {
-                series1.getData().add(new XYChart.Data<>(((Iris)i).getPetalLength(),
-                        ((Iris)i).getPetalWidth()));
-
+                series1.getData().add(new XYChart.Data<>(((Iris)i).getDataType(actualX),
+                        ((Iris)i).getDataType(actualY)));
             }
         }
-
-
     }
 
     @Override
     public void update(Observable observable, Object data) {
 
+    }
+
+    public String getActualX() {
+        return actualX;
+    }
+
+    public String getActualY() {
+        return actualY;
+    }
+
+    public void setActualX(String actualX) {
+        this.actualX = actualX;
+    }
+
+    public void setActualY(String actualY) {
+        this.actualY = actualY;
+    }
+
+    public Observable getModel() {
+        return this.model;
     }
 }
