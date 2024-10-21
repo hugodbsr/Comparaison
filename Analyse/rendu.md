@@ -3,11 +3,11 @@
 
 ### Équipe H4
 
--  [ANTOINE Maxence](maxence.antoine.etu@univ-lille.fr)
--  [DEBUYSER Hugo](hugo.debuyser.etu@univ-lille.fr)
--  [DEKEISER Matisse](matisse.dekeiser.etu@univ-lille.fr)
--  [DESMONS Hugo](hugo.desmons.etu@univ-lille.fr)
--  [MENNECART Matias](matias.mennecart.etu@univ-lille.fr)
+-  [ANTOINE Maxence](mailto:maxence.antoine.etu@univ-lille.fr)
+-  [DEBUYSER Hugo](mailto:hugo.debuyser.etu@univ-lille.fr)
+-  [DEKEISER Matisse](mailto:matisse.dekeiser.etu@univ-lille.fr)
+-  [DESMONS Hugo](mailto:hugo.desmons.etu@univ-lille.fr)
+-  [MENNECART Matias](mailto:matias.mennecart.etu@univ-lille.fr)
 
 ___
 
@@ -32,12 +32,14 @@ ___
 
 ## Diagramme de cas d'utilisation
 
+Systeme: Application de classification de données
+
 ![Diagramme de cas d'utilisation](./ressources/DiagrammeUtilisation.png)
 
 ### Fiches descriptives
 
 #### Fiche descriptive: Utilisation du logiciel, Charger l'ensemble des données
-    
+
     Système: Logiciel de classification
     Cas d'utilisation: Charger l'ensemble des données
     
@@ -66,7 +68,7 @@ ___
     A)  4) Le système vérifie les données implémentées et renvoie une erreur à l'utilisateur.
 
 #### Fiche descriptive: Utilisation du logiciel, Ajouter une donnée
-    
+
     Système: Logiciel de classification
     
     Cas d'utilisation: Ajouter une donnée
@@ -116,17 +118,25 @@ ___
         1) L'utilisateur actionne le bouton "classifier les données".
         2) Le système classifie les points de façon aléatoire et modifie leurs couleurs en fonction de la classe choisis.
 
-*Inclure les fiches descriptives pour ces fonctionnalités:*
 
-- *Charger l'ensemble de données*
-- *Ajouter une donnée*
-- *Classifier la donnée non classifiée*
 
 ### Prototypes pour l'interface
 
-[Prototype figma](https://www.figma.com/design/J7CNIyIPHg0QBvoMKEAZ2L/Untitled?node-id=0-1&t=rzTi4oB0jeOOZTxv-1)
+Vous pouvez retrouver le [Prototype figma](https://www.figma.com/design/J7CNIyIPHg0QBvoMKEAZ2L/Untitled?node-id=0-1&t=rzTi4oB0jeOOZTxv-1) afin de tester une démonstration de la maquette de l'application.
 
-<img src="./ressources/MaquetteFigma.png" width="60%" height="60%" alt="Maquette Figma">
+#### Interface principale
+
+La première page de l’interface se compose des éléments suivants :
+
+- **Nuage de points** : Pour l'instant vide, permettra d'afficher le nuage de points..
+
+- **Icône d'engrenage** :Située en haut à droite de la zone d’affichage permet d'accéder à un menu de paramètres pour configurer l'affichage.
+
+- **Bouton charger des données** : Ce bouton ouvre une fenêtre qui permet à l’utilisateur d'importer un fichier contenant les données avec lesquelles il souhaite travailler.
+- **Bouton ajouter une donnée** : Cette option permet à l’utilisateur d’ajouter une donnée au nuage de point.
+- **Bouton classifier les données** : Ce bouton permet la classification des données non classifiées grâce a un algorithme (Pour le jalon 1, cette classification est aléatoire).
+
+---
 
 #### Interface principale
 
@@ -144,30 +154,27 @@ La première page de l’interface se compose des éléments suivants :
 
 <img src="./ressources/ChargerDonnées.png" width="60%" height="60%" alt="Charger les données">
 
-*Inclure des prototypes de l'interface utilisateur pour ces fonctionnalités:*
 
 #### Fenêtre de chargement de fichier
 
-  - **Nom fichier** : une zone texte où s’affichera le nom du fichier sélectionné après avoir utilisé le bouton "PARCOURIR".
-  - **Bouton "PARCOURIR"** : Ce bouton permet à l’utilisateur d'ouvrir une fenêtre de navigation dans ses fichiers locaux afin de sélectionner le fichier de données à importer dans l’application.
-  - **Bouton "Valider"** : Une fois le fichier sélectionné, ce bouton permet de confirmer le choix et de lancer le chargement du fichier dans le graphe.
+- **Bouton "PARCOURIR"** : Ce bouton permet à l’utilisateur d'ouvrir une fenêtre de navigation dans ses fichiers locaux afin de sélectionner le fichier de données à importer dans l’application.
+- **Nom fichier** : une zone texte où s’affichera le chemin vers le fichier sélectionné après avoir utilisé le bouton "PARCOURIR".
+- **Bouton "Valider"** : Une fois le fichier sélectionné, ce bouton permet de confirmer le choix et de lancer le chargement du fichier dans le nuage de points.
 
 ---
 
-- *Ajouter une donnée*
 
 <img src="./ressources/AjouterDonnées.png" width="60%" height="60%" alt="Ajouter une donnée">
 <img src="./ressources/AjoutDonnéesVisible.png" width="60%" height="60%" alt="Classifier une donnée">
 
 
-#### Formulaire d'ajout de données
+#### Ajouter une donnée
 
-Cette page présente une interface permettant à l’utilisateur d'ajouter manuellement de nouvelles données dans l’application.
+Cette page présente une interface permettant à l’utilisateur d'ajouter manuellement de nouvelles données pour lesquelles il souhaite déterminer une classification.
 
-- **Champs de saisie pour les valeurs** : Quatre champs de texte sont affichés dans une boîte.  
-- **Zone texte Valeur**: Ces champs permettent à l’utilisateur de saisir manuellement quatre valeurs différentes.
-- **Bouton "Valider"** : Après avoir rempli les champs de saisie, l’utilisateur peut cliquer sur ce bouton pour valider l'entrée. Cela ajoutera la donnée sur le graphe.
-- **Ajout d'une donnée** : On remarque qu'après avoir cliqué sur le bouton "Valider", une valeur a été ajouté sous la forme d'une étoile de couleur verte.
+- **Champs de saisie pour les valeurs** : Quatre champs de texte sont affichés permettant d'inscrire les 4 valeurs necessaires pour ajouter une donnée (Uniquement des Iris pour le jalon 1).
+- **Bouton "Valider"** : Après avoir rempli les champs de saisie, l’utilisateur peut cliquer sur ce bouton pour valider l'entrée. Cela ajoutera la donnée dans le nuage de points.
+- **Ajout d'une donnée** : On remarque qu'après avoir cliqué sur le bouton "Valider", une valeur a été ajouté sous une forme et une couleur diférenciées des autres.
 ---
 
 <img src="./ressources/AjoutDonnéesVisible.png" width="60%" height="60%" alt="Afficher les données">
@@ -175,18 +182,15 @@ Cette page présente une interface permettant à l’utilisateur d'ajouter manue
 
 #### Visualisation des données classifiées
 
-Cette page représente la visualisation graphique des données après l’étape de classification.
+Cette page représente la visualisation graphique des données après l’étape de classification (réalisé par l'action sur le bouton `classifier les données`, ainsi tous les points non classifiés le sont).
 
 
-- **Graphique** : La zone est désormais utilisée pour afficher un graphique. On y voit plusieurs points de deux couleurs différentes, représentant deux classes distinctes de données :
 - **Bouton "Classifier les données"** : En appuyant sur ce bouton, la donnée ajoutée se classifie selon ses valeurs renseignés.
-- **Points rouges** : Ces points représentent une première catégorie de données classifiées.
-- **Points bleus** : Ils représentent une deuxième catégorie de données classifiées.
-- **Étoile bleue** : Ce symbole représente la nouvelle donnée que l’utilisateur a ajoutée manuellement. L’étoile montre la position de cette donnée sur le graphique, suggérant qu'elle a été classée dans la même catégorie que les points bleus.
+
+La donnée qui avait été ajoutée par l'utilisateur garde un symbole différenciateur mais adopte la couleur de la classification qui lui a été déterminer.
 
 ---
 
-- *Modifier les attributs pour l'affichage*
 
 <img src="./ressources/ModifierAttributs.png" width="60%" height="60%" alt="Modifier les attibuts">
 
@@ -198,27 +202,19 @@ Cette page permet à l’utilisateur de modifier les attributs utilisés pour re
 - **Champ "Valeur Abscisse"** : L'utilisateur peut selectioner ici la valeur qu'il souhaite voir représentée sur l'axe des abscisses (X) du graphique.
 - **Bouton "Valider"** : Une fois les valeurs des axes définies, l’utilisateur peut cliquer sur ce bouton pour appliquer ces paramètres et afficher les données selon les nouveaux attributs choisis.
 
+Cette page permet à l’utilisateur de modifier les attributs utilisés pour représenter les données sur le graphique, en particulier les valeurs des axes X (abscisses) et Y (ordonnées).
+
+- **Champ "Valeur Ordonnée"** : L'utilisateur peut selectioner ici la valeur qu'il souhaite voir représentée sur l'axe des ordonnées (Y) du graphique.
+- **Champ "Valeur Abscisse"** : L'utilisateur peut selectioner ici la valeur qu'il souhaite voir représentée sur l'axe des abscisses (X) du graphique.
+- **Bouton "Valider"** : Une fois les valeurs des axes définies, l’utilisateur peut cliquer sur ce bouton pour appliquer ces paramètres et afficher les données selon les nouveaux attributs choisis.
+
 
 ---
 
-*Chaque prototype est constitué d'une suite d'écrans, ou d'une arborescence d'écrans si plusieurs chemins d'interaction sont possibles.*
-
-*Pour les deux fonctionnalités dont on demande le prototype et la fiche descriptive, vous ferez le lien entre le prototype et la fiche descriptive. Plus précisément, pour chaque étape de la fiche descriptive, vous indiquerez à quel écran elle correspond. Vous pouvez par exemple mettre une légende sous l'écran, par ex. "Écran pour l'étape 3 de la fiche descriptive du UC Ajouter une donnée."*
-
-*Les prototypes peuvent être en faible fidélité.*
-
-*Les prototypes peuvent être dessinés à la main ou générés en utilisant un logiciel. Dans les deux cas, veillez à ce que les images soient lisibles et avec une bonne résolution (possibilité de zoomer pour lire le texte qui s'y trouve).*
+---
 
 ## Diagramme de classes
 
 <img src="./ressources/DiagrammeClasse.png" width="60%" height="60%" alt="Diagramme de classe">
 
-*Inclure un diagramme de classes qui permet d'**implémenter toutes les fonctionnalités**.*
-
-*Le diagramme de classes doit suivre le design pattern MVC, mais vous ne ferez pas figurer les classes de la vue. Il doit être clair quelles classes font partie du contrôleur (par exemple grâce à un nom de classe qui contient 'Controleur'); les classes restantes seront considérées faisant partie du modèle.*
-
-*L'image du diagramme doit être de résolution suffisante permettant de zoomer et lire le texte qui y figure.*
-
-
-
-
+Nous avons fais le choix d'implémenter la classe `ClassificationModel`comme un singleton afin d'éviter que plusieurs model se retrouve au sein de la même application et créé des incohérences.

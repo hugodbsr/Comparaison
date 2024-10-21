@@ -2,23 +2,28 @@ package fr.univlille.sae.classification.model;
 
 import java.util.Set;
 
-public class LoadableData {
+public abstract class LoadableData {
 
     private static Set<String> classificationTypes;
 
     private String classification;
 
 
-    public LoadableData() {
+    protected LoadableData() {
 
     }
     public String getClassification() {
         return this.classification;
     }
-    Set<String> getClassificationTypes() {
+    public static Set<String> getClassificationTypes() {
         return classificationTypes;
     }
-    void setClassification(String classification) {
+
+    public static void setClassificationTypes(Set<String> classificationTypes) {
+        LoadableData.classificationTypes = classificationTypes;
+    }
+
+    public void setClassification(String classification) {
         this.classification = classification;
     }
 
