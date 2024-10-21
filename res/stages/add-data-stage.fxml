@@ -16,38 +16,28 @@
                             <HBox alignment="CENTER" layoutX="10.0" layoutY="109.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
                                 <children>
                                     <Label text="Sepal Length" />
-                                    <Spinner />
+                                    <Spinner fx:id="sepalLengthSpinner"/>
                                 </children>
                             </HBox>
                             <HBox alignment="CENTER" layoutX="10.0" layoutY="102.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
                                 <children>
                                     <Label text="Sepal Width" />
-                                    <Spinner />
+                                    <Spinner fx:id="sepalWidthSpinner"/>
                                 </children>
                             </HBox>
                             <HBox alignment="CENTER" layoutX="10.0" layoutY="102.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
                                 <children>
                                     <Label text="Petal Length" />
-                                    <Spinner />
+                                    <Spinner fx:id="petalLengthSpinner" />
                                 </children>
                             </HBox>
                             <HBox alignment="CENTER" layoutX="10.0" layoutY="17.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
                                 <children>
-                                    <Label text="Sepal Width" />
-                                    <Spinner />
+                                    <Label text="Petal Width" />
+                                    <Spinner fx:id="petalWidthSpinner" />
                                 </children>
                             </HBox>
-                            <HBox alignment="CENTER" layoutX="10.0" layoutY="102.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
-                                <children>
-                                    <HBox alignment="CENTER" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
-                                        <children>
-                                            <Label text="Variety" />
-                                            <ChoiceBox prefHeight="26.0" prefWidth="137.0" />
-                                        </children>
-                                    </HBox>
-                                </children>
-                            </HBox>
-                            <Button fx:id="confirmAdd" mnemonicParsing="false" text="Valider" />
+                            <Button fx:id="confirmAdd" mnemonicParsing="false" onAction="#validate" text="Valider" />
                         </children></VBox>
                 </children></AnchorPane>
         </Scene>
