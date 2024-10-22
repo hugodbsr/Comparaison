@@ -64,9 +64,7 @@ public class MainStageView implements Observer {
         scatterChart.getData().add(series1);
         for(LoadableData i : model.getDatas()) {
             if(model.getType() == DataType.IRIS) {
-                series1.getData().add(new XYChart.Data<>(((Iris)i).getPetalLength(),
-                        ((Iris)i).getPetalWidth()));
-
+                series1.getData().add(new XYChart.Data<>(((Iris)i).getPetalLength(), ((Iris)i).getPetalWidth()));
             }
         }
 
@@ -75,6 +73,14 @@ public class MainStageView implements Observer {
 
     @Override
     public void update(Observable observable, Object data) {
+        if(scatterChart == null) throw new IllegalStateException();
+        if(!(observable instanceof ClassificationModel)) throw new IllegalStateException();
+
+        if(data instanceof Iris){
+            Iris temp = (Iris)data;
+
+
+        }
 
     }
 }
