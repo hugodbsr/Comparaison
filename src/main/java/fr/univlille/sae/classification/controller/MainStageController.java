@@ -2,15 +2,16 @@ package fr.univlille.sae.classification.controller;
 
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.view.LoadDataView;
+import fr.univlille.sae.classification.view.AddDataView;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.stage.*;
 
-import java.io.File;
+
 import java.io.IOException;
-import java.net.URL;
+
 
 public class MainStageController {
 
@@ -50,6 +51,18 @@ public class MainStageController {
 
         LoadDataView loadDataView = new LoadDataView(ClassificationModel.getClassificationModel(), stage);
         loadDataView.show();
+
+
+    }
+
+    /**
+     * Ouvre l'interface d'ajout de donnée.
+     * @throws IOException
+     */
+    public void openAddData() throws IOException {
+
+        AddDataView addDataView = new AddDataView(ClassificationModel.getClassificationModel(), stage);
+        addDataView.show();
 
 
     }

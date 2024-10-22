@@ -5,34 +5,41 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.stage.*?>
 
+
 <Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.AddDataController">
     <scene>
         <Scene>
             <AnchorPane prefHeight="200" prefWidth="200">
-            <children>
-               <VBox alignment="CENTER" prefHeight="224.0" prefWidth="384.0" spacing="20.0">
-                  <children>
-                     <HBox alignment="CENTER" prefHeight="18.0" prefWidth="335.0" spacing="20.0">
+                <children>
+                    <VBox alignment="CENTER" prefHeight="279.0" prefWidth="384.0" spacing="20.0">
                         <children>
-                           <Label text="Valeur 1" />
-                           <TextField />
-                        </children>
-                     </HBox>
-                     <HBox alignment="CENTER" layoutX="10.0" layoutY="47.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
-                        <children>
-                           <Label text="Valeur 2" />
-                           <ChoiceBox prefHeight="26.0" prefWidth="163.0" />
-                        </children>
-                     </HBox>
-                     <HBox alignment="CENTER" layoutX="10.0" layoutY="109.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
-                        <children>
-                           <Label text="Valeur 3" />
-                           <Spinner />
-                        </children>
-                     </HBox>
-                     <Button fx:id="confirmAdd" mnemonicParsing="false" text="Valider" />
-                  </children></VBox>
-            </children></AnchorPane>
+                            <HBox alignment="CENTER" layoutX="10.0" layoutY="109.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
+                                <children>
+                                    <Label text="Sepal Length" />
+                                    <Spinner fx:id="sepalLengthSpinner"/>
+                                </children>
+                            </HBox>
+                            <HBox alignment="CENTER" layoutX="10.0" layoutY="102.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
+                                <children>
+                                    <Label text="Sepal Width" />
+                                    <Spinner fx:id="sepalWidthSpinner"/>
+                                </children>
+                            </HBox>
+                            <HBox alignment="CENTER" layoutX="10.0" layoutY="102.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
+                                <children>
+                                    <Label text="Petal Length" />
+                                    <Spinner fx:id="petalLengthSpinner" />
+                                </children>
+                            </HBox>
+                            <HBox alignment="CENTER" layoutX="10.0" layoutY="17.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
+                                <children>
+                                    <Label text="Petal Width" />
+                                    <Spinner fx:id="petalWidthSpinner" />
+                                </children>
+                            </HBox>
+                            <Button fx:id="confirmAdd" mnemonicParsing="false" onAction="#validate" text="Valider" />
+                        </children></VBox>
+                </children></AnchorPane>
         </Scene>
     </scene>
 </Stage>
