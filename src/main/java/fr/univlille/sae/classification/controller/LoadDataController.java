@@ -30,15 +30,12 @@ public class LoadDataController {
 
 
     public void loadData() {
-
         System.out.println("Loading data");
         stage.close();
-
     }
 
 
     public void openFileChooser() {
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisissez le fichier à importer");
          this.file = fileChooser.showOpenDialog(stage);
@@ -46,8 +43,6 @@ public class LoadDataController {
         if(file != null) {
             filePath.setText(file.getPath());
         }
-
-
 
     }
 

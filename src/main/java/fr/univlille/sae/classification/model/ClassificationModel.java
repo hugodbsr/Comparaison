@@ -19,8 +19,8 @@ public class ClassificationModel extends Observable {
 
     private DataType type;
 
-
     private static ClassificationModel model;
+
 
     /**
      * Renvoie une instance unique du model. Par default le type de ce modele est Iris.
@@ -101,7 +101,6 @@ public class ClassificationModel extends Observable {
     public List<LoadableData> getDataToClass() {
         return dataToClass;
     }
-
 
     public DataType getType() {
         return type;
