@@ -3,6 +3,8 @@ package fr.univlille.sae.classification.model;
 import com.opencsv.bean.*;
 import javafx.scene.paint.Color;
 
+import java.util.Random;
+
 public class Iris extends LoadableData{
 
     @CsvBindByName(column = "sepal.width")
@@ -54,9 +56,6 @@ public class Iris extends LoadableData{
     }
 
     public double getDataType(String axes){
-        if(axes==null){
-            return sepalWidth;
-        }
         switch (axes){
             case "sepalWidth":
                 return sepalWidth;

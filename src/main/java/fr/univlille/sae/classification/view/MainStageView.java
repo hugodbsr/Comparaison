@@ -22,11 +22,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MainStageView implements Observer {
 
     private ClassificationModel model;
     private ScatterChart scatterChart;
+    private MainStageController controller;
 
     private String actualX;
     private String actualY;
@@ -52,10 +54,10 @@ public class MainStageView implements Observer {
         root.setTitle("SAE3.3 - Logiciel de classification");
         root.show();
         loader.getController();
-        MainStageController controller = loader.getController();
+        controller = loader.getController();
         controller.setMainStageView(this);
         scatterChart = controller.getScatterChart();
-
+        controller.setAxesSelected("Aucun fichier sélectionné");
     }
 
 
@@ -65,17 +67,23 @@ public class MainStageView implements Observer {
         scatterChart.getData().clear();
         if(!(observable instanceof ClassificationModel)) throw new IllegalStateException();
         XYChart.Series series1 = new XYChart.Series();
-        scatterChart.getData().add(series1);
+        series1.setName("Iris");
         if(model.getType() == DataType.IRIS) {
-            series1.setName("Iris");
-            for(LoadableData i : model.getDatas()) {
-                Iris iris = (Iris)i;
-                XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX),
-                        iris.getDataType(actualY));
-                Circle circle = new Circle(5);
-                circle.setFill(iris.getColor());
-                dataPoint.setNode(circle);
-                series1.getData().add(dataPoint);
+            controller.setAxesSelected("");
+            if(actualX==null && actualY==null){
+                controller.setAxesSelected("Aucuns axes sélectionnés");
+            }
+            else{
+                scatterChart.getData().add(series1);
+                for(LoadableData i : model.getDatas()) {
+                    Iris iris = (Iris)i;
+                    XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX),
+                            iris.getDataType(actualY));
+                    Circle circle = new Circle(5);
+                    circle.setFill(iris.getColor());
+                    dataPoint.setNode(circle);
+                    series1.getData().add(dataPoint);
+                }
             }
         }
     }

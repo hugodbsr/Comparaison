@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.stage.*?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.image.Image?>
 <Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.MainStageController">
     <scene>
         <Scene>
@@ -16,27 +16,39 @@
             <children>
                <VBox prefHeight="488.0" prefWidth="691.0">
                   <children>
-                     <HBox prefHeight="356.0" prefWidth="691.0">
+                     <HBox alignment="TOP_CENTER" prefHeight="356.0" prefWidth="691.0" spacing="5.0">
                         <children>
-                           <Region prefHeight="338.0" prefWidth="65.0" />
-                           <ScatterChart fx:id="scatterChart" prefHeight="342.0" prefWidth="609.0">
-                             <xAxis>
-                               <NumberAxis fx:id="absAxe" prefHeight="21.0" prefWidth="498.0" side="BOTTOM" />
-                             </xAxis>
-                             <yAxis>
-                               <NumberAxis fx:id="ordAxe" side="LEFT" />
-                             </yAxis>
-                           </ScatterChart>
-                            <Button fx:id="settingsView" onAction="#openAxesSetting" mnemonicParsing="false">
+                           <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                              <children>
+                                 <Region prefHeight="338.0" prefWidth="65.0" />
+                                 <ScatterChart fx:id="scatterChart" prefHeight="342.0" prefWidth="609.0">
+                                   <xAxis>
+                                     <NumberAxis fx:id="absAxe" prefHeight="21.0" prefWidth="498.0" side="BOTTOM" />
+                                   </xAxis>
+                                   <yAxis>
+                                     <NumberAxis fx:id="ordAxe" side="LEFT" />
+                                   </yAxis>
+                                 </ScatterChart>
+                                 <Label fx:id="AxesSelected" alignment="CENTER" layoutX="175.0" layoutY="152.0" prefHeight="38.0" prefWidth="259.0">
+                                    <font>
+                                       <Font size="21.0" />
+                                    </font></Label>
+                              </children>
+                              <HBox.margin>
+                                 <Insets left="10.0" />
+                              </HBox.margin>
+                           </AnchorPane>
+                            <Button fx:id="settingsView" mnemonicParsing="false" onAction="#openAxesSetting">
                                 <graphic>
                                     <ImageView fitHeight="100.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
                                             <Image url="@gear.png" />
-                                        </image></ImageView>
+                                        </image>
+                                 </ImageView>
                                 </graphic>
-                                <HBox.margin>
-                                    <Insets right="10.0" top="30.0" />
-                                </HBox.margin>
+                              <HBox.margin>
+                                 <Insets top="40.0" />
+                              </HBox.margin>
                             </Button>
                         </children>
                      </HBox>

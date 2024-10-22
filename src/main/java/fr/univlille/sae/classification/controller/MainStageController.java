@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.*;
 
 import java.io.File;
@@ -41,6 +42,9 @@ public class MainStageController {
     @FXML
     ScatterChart scatterChart;
 
+    @FXML
+    Label AxesSelected;
+
 
     Stage loadStage;
     private MainStageView mainStageView;
@@ -65,5 +69,9 @@ public class MainStageController {
 
     public ScatterChart getScatterChart() {
         return this.scatterChart;
+    }
+
+    public void setAxesSelected(String texte) {
+        this.AxesSelected.setText(texte);
     }
 }
