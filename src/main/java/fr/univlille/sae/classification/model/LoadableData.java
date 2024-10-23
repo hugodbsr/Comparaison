@@ -8,13 +8,18 @@ public abstract class LoadableData {
 
     private String classification;
 
-
     protected LoadableData() {
 
     }
+
+    public void addClassification(String classificationType) {
+        this.classificationTypes.add(classificationType);
+    }
+
     public String getClassification() {
         return this.classification;
     }
+
     public static Set<String> getClassificationTypes() {
         return classificationTypes;
     }
@@ -26,5 +31,7 @@ public abstract class LoadableData {
     public void setClassification(String classification) {
         this.classification = classification;
     }
+
+    public abstract String[] getAttributesName();
 
 }

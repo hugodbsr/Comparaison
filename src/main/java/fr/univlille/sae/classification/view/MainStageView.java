@@ -13,20 +13,25 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class MainStageView implements Observer {
 
-
-
-
     private ClassificationModel model;
-
     private ScatterChart scatterChart;
+    private MainStageController controller;
+
+    private String actualX;
+    private String actualY;
 
     public MainStageView(ClassificationModel model) {
         this.model = model;
@@ -49,32 +54,62 @@ public class MainStageView implements Observer {
         root.setTitle("SAE3.3 - Logiciel de classification");
         root.show();
         loader.getController();
-        MainStageController controller = loader.getController();
+        controller = loader.getController();
+        controller.setMainStageView(this);
         scatterChart = controller.getScatterChart();
-
+        controller.setAxesSelected("Aucun fichier sélectionné");
     }
 
 
     @Override
     public void update(Observable observable) {
         if(scatterChart == null) throw new IllegalStateException();
+        scatterChart.getData().clear();
         if(!(observable instanceof ClassificationModel)) throw new IllegalStateException();
         XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Dice Launch");
-        scatterChart.getData().add(series1);
-        for(LoadableData i : model.getDatas()) {
-            if(model.getType() == DataType.IRIS) {
-                series1.getData().add(new XYChart.Data<>(((Iris)i).getPetalLength(),
-                        ((Iris)i).getPetalWidth()));
-
+        series1.setName("Iris");
+        if(model.getType() == DataType.IRIS) {
+            controller.setAxesSelected("");
+            if(actualX==null && actualY==null){
+                controller.setAxesSelected("Aucuns axes sélectionnés");
+            }
+            else{
+                scatterChart.getData().add(series1);
+                for(LoadableData i : model.getDatas()) {
+                    Iris iris = (Iris)i;
+                    XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX),
+                            iris.getDataType(actualY));
+                    Circle circle = new Circle(5);
+                    circle.setFill(iris.getColor());
+                    dataPoint.setNode(circle);
+                    series1.getData().add(dataPoint);
+                }
             }
         }
-
-
     }
 
     @Override
     public void update(Observable observable, Object data) {
 
+    }
+
+    public void setActualX(String actualX) {
+        this.actualX = actualX;
+    }
+
+    public void setActualY(String actualY) {
+        this.actualY = actualY;
+    }
+
+    public String getActualX() {
+        return actualX;
+    }
+
+    public String getActualY() {
+        return actualY;
+    }
+
+    public Observable getModel() {
+        return this.model;
     }
 }
