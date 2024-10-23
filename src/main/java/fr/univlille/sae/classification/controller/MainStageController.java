@@ -5,6 +5,7 @@ import fr.univlille.sae.classification.view.AxesSettingsView;
 import fr.univlille.sae.classification.view.LoadDataView;
 import fr.univlille.sae.classification.view.MainStageView;
 import fr.univlille.sae.classification.view.AddDataView;
+import fr.univlille.sae.classification.view.MainStageView;
 import javafx.fxml.FXML;
 
 import javafx.scene.chart.*;
@@ -76,6 +77,7 @@ public class MainStageController {
 
         AddDataView addDataView = new AddDataView(ClassificationModel.getClassificationModel(), stage);
         addDataView.show();
+    }
 
 
     }
