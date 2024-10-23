@@ -1,5 +1,7 @@
 package fr.univlille.sae.classification.view;
 
+import fr.univlille.sae.classification.controller.AddDataController;
+import fr.univlille.sae.classification.controller.AxesSettingsController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
@@ -13,10 +15,12 @@ public class AddDataView {
 
     private ClassificationModel model;
     private Stage owner;
+    private MainStageView mainStageView;
 
-    public AddDataView(ClassificationModel model, Stage owner) {
+    public AddDataView(ClassificationModel model, Stage owner, MainStageView mainStageView) {
         this.model = model;
         this.owner = owner;
+        this.mainStageView = mainStageView;
     }
 
 
@@ -32,6 +36,10 @@ public class AddDataView {
         }
         loader.setLocation(fxmlFileUrl);
         Stage root = loader.load();
+
+        AddDataController controller = loader.getController();
+
+        controller.setMainStageView(mainStageView);
 
         root.setResizable(false);
         root.initOwner(owner);

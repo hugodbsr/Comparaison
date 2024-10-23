@@ -3,7 +3,6 @@ package fr.univlille.sae.classification.controller;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.view.AxesSettingsView;
 import fr.univlille.sae.classification.view.LoadDataView;
-import fr.univlille.sae.classification.view.MainStageView;
 import fr.univlille.sae.classification.view.AddDataView;
 import fr.univlille.sae.classification.view.MainStageView;
 import javafx.fxml.FXML;
@@ -75,9 +74,8 @@ public class MainStageController {
      */
     public void openAddData() throws IOException {
 
-        AddDataView addDataView = new AddDataView(ClassificationModel.getClassificationModel(), stage);
+        AddDataView addDataView = new AddDataView(ClassificationModel.getClassificationModel(), stage, mainStageView);
         addDataView.show();
-    }
 
 
     }

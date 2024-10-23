@@ -1,6 +1,8 @@
 package fr.univlille.sae.classification.controller;
 
 import fr.univlille.sae.classification.model.ClassificationModel;
+import fr.univlille.sae.classification.model.Iris;
+import fr.univlille.sae.classification.view.MainStageView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
@@ -31,6 +33,8 @@ public class AddDataController {
     @FXML
     private Spinner<Double> petalWidthSpinner;
 
+    MainStageView mainStageView;
+
     @FXML
     public void initialize() {
         sepalLengthSpinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 200.0, 3.0,0.1));
@@ -44,23 +48,16 @@ public class AddDataController {
         petalLengthSpinner.setEditable(true);
         petalWidthSpinner.setEditable(true);
 
-
-        confirmAdd.setOnAction(event -> handleConfirmAdd());
     }
 
-    private void handleConfirmAdd() {
-        double sepalLength = sepalLengthSpinner.getValue();
-        double sepalWidth = sepalWidthSpinner.getValue();
-        double petalLength = petalLengthSpinner.getValue();
-        double petalWidth = petalWidthSpinner.getValue();
-
-        stage.close();
+    public void setMainStageView(MainStageView mainStageView) {
+        this.mainStageView = mainStageView;
     }
 
     public void validate() throws IOException {
-
-
+        System.out.println("validé");
         ClassificationModel.getClassificationModel().ajouterDonnee(sepalLengthSpinner.getValue(), sepalWidthSpinner.getValue(), petalLengthSpinner.getValue(), petalWidthSpinner.getValue());
+        mainStageView.update(mainStageView.getModel(),new Iris(sepalWidthSpinner.getValue(),sepalLengthSpinner.getValue(),petalWidthSpinner.getValue(),petalLengthSpinner.getValue()));
         stage.close();
     }
 

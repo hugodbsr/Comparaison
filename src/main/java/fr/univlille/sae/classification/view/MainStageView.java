@@ -90,7 +90,26 @@ public class MainStageView implements Observer {
 
     @Override
     public void update(Observable observable, Object data) {
-
+        if(scatterChart == null) throw new IllegalStateException();
+        if(!(observable instanceof ClassificationModel)) throw new IllegalStateException();
+        if(data instanceof Iris) {
+            Iris iris = (Iris) data;
+            if(actualX == null || actualY == null) {
+                controller.setAxesSelected("Aucuns axes sélectionnés");
+                return;
+            }
+            XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
+                    iris.getDataType(actualX),
+                    iris.getDataType(actualY)
+            );
+            Circle circle = new Circle(5);
+            circle.setFill(iris.getColor());
+            dataPoint.setNode(circle);
+            if (!scatterChart.getData().isEmpty()) {
+                XYChart.Series series = (XYChart.Series) scatterChart.getData().get(0);
+                series.getData().add(dataPoint);
+            }
+        }
     }
 
     public void setActualX(String actualX) {
