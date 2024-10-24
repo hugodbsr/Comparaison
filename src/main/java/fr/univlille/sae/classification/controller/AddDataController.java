@@ -56,6 +56,7 @@ public class AddDataController {
 
     public void validate() throws IOException {
         System.out.println("validé");
+        mainStageView.getController().getClassifyData().setDisable(false);
         ClassificationModel.getClassificationModel().ajouterDonnee(sepalLengthSpinner.getValue(), sepalWidthSpinner.getValue(), petalLengthSpinner.getValue(), petalWidthSpinner.getValue());
         stage.close();
     }

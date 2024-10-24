@@ -128,4 +128,8 @@ public class MainStageView implements Observer {
         return actualY;
     }
 
+    public MainStageController getController() {
+        return controller;
+    }
+
 }

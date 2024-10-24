@@ -81,11 +81,21 @@ public class MainStageController {
     }
 
 
+
+    public void classifyDatas() {
+        ClassificationModel.getClassificationModel().classifierDonnees();
+    }
+
+
     public ScatterChart getScatterChart() {
         return this.scatterChart;
     }
 
     public void setAxesSelected(String texte) {
         this.AxesSelected.setText(texte);
+    }
+
+    public Button getClassifyData() {
+        return this.classifyData;
     }
 }

@@ -26,6 +26,16 @@ public class Iris extends LoadableData{
         //
     }
 
+    @Override
+    public String getClassification() {
+        return variety;
+    }
+
+    @Override
+    public void setClassification(String classification) {
+        this.variety = classification;
+    }
+
     public Iris(double sepalWidth, double sepalLength, double petalWidth, double petalLength, String variety) {
         super();
         this.sepalWidth = sepalWidth;
@@ -51,9 +61,6 @@ public class Iris extends LoadableData{
         return petalLength;
     }
 
-                        public String getVariety() {
-        return variety;
-    }
 
     public double getDataType(String axes){
         switch (axes){

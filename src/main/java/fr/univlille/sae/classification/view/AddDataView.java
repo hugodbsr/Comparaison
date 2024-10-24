@@ -42,6 +42,7 @@ public class AddDataView {
 
         controller.setMainStageView(mainStageView);
 
+
         if(model.getDatas().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Erreur");

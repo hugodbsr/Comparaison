@@ -75,11 +75,16 @@ public class ClassificationModel extends Observable {
         notifyObservers();
     }
 
+
+    public void classifierDonnees() {
+        dataToClass.forEach(this::classifierDonnee);
+    }
+
     /**
      * TODO
      * @param data
      */
-    public void classifierDonnee(LoadableData data) {
+    private void classifierDonnee(LoadableData data) {
 
         List<String> classes = new ArrayList<>(data.getClassificationTypes());
         Random rdm = new Random();

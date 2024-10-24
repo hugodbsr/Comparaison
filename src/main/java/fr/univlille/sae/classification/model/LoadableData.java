@@ -6,7 +6,8 @@ public abstract class LoadableData {
 
     private static Set<String> classificationTypes;
 
-    private String classification;
+
+
 
     protected LoadableData() {
 
@@ -16,9 +17,7 @@ public abstract class LoadableData {
         this.classificationTypes.add(classificationType);
     }
 
-    public String getClassification() {
-        return this.classification;
-    }
+    public abstract String getClassification() ;
 
     public static Set<String> getClassificationTypes() {
         return classificationTypes;
@@ -28,9 +27,7 @@ public abstract class LoadableData {
         LoadableData.classificationTypes = classificationTypes;
     }
 
-    public void setClassification(String classification) {
-        this.classification = classification;
-    }
+    public abstract void setClassification(String classification);
 
     public abstract String[] getAttributesName();
 
