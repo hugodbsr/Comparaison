@@ -62,7 +62,6 @@ public class Iris extends LoadableData{
         return petalLength;
     }
 
-
     public double getDataType(String axes){
         switch (axes){
             case "sepalWidth":
