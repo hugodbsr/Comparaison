@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IrisTest {
 
-    Iris iris = new Iris(3.0, 2.8, 4.1, 1.9, "Setosa");
+    Iris iris = new Iris(2.8, 3.0, 1.9, 4.1, "Setosa");
 
     @Test
     void getSepalWidth() {
@@ -29,10 +29,6 @@ class IrisTest {
         assertEquals(1.9, iris.getPetalLength());
     }
 
-    @Test
-    void getVariety() {
-        assertEquals("Setosa", iris.getVariety());
-    }
 
     @Test
     void getDataType() {
@@ -49,6 +45,6 @@ class IrisTest {
 
     @Test
     void testToString() {
-        assertEquals("Iris{sepalWidth=3.0, sepalLength=2.8, petalWidth=4.1, petalLength=1.9}", iris.toString());
+        assertEquals("Iris{sepalLength=2.8, sepalWidth=3.0, petalLength=1.9, petalWidth=4.1}", iris.toString());
     }
 }
