@@ -66,16 +66,14 @@ public class MainStageView extends DataVisualizationView implements Observer {
     public void update(Observable observable) {
         if(scatterChart == null) throw new IllegalStateException();
         if(!(observable instanceof ClassificationModel)) throw new IllegalStateException();
-        //on vide le nuage pour s'assurer que celui-ci est bien vide
         scatterChart.getData().clear();
 
         XYChart.Series series1 = new XYChart.Series();
         XYChart.Series series2 = new XYChart.Series();
         XYChart.Series series3 = new XYChart.Series();
 
-        series1.setName("Setosa");
-        series2.setName("Versicolor");
-        series3.setName("Virginica");
+
+
         //Jalon 1: on verifie que le type de donnée est bien IRIS
         if(model.getType() == DataType.IRIS) {
 
@@ -85,13 +83,9 @@ public class MainStageView extends DataVisualizationView implements Observer {
             }
             else{
                 controller.setAxesSelected("");
-                // On ajoute la serie au nuage
-                scatterChart.getData().addAll(series1, series2, series3);
 
-                //On recupere les données du model
                 List<LoadableData> points = new ArrayList<>(model.getDatas());
                 points.addAll(model.getDataToClass());
-                // on ajoute chaque point a la serie
                 for(LoadableData i : points) {
 
                     Iris iris = (Iris)i;
@@ -100,15 +94,21 @@ public class MainStageView extends DataVisualizationView implements Observer {
 
                     dataPoint.setNode(getForm(iris, new Circle(5)));
 
-                    if(iris.getVariety().equals("Setosa")){
+                    if(iris.getClassification().equals("Setosa")){
                         series1.getData().add(dataPoint);
-                    }else if(iris.getVariety().equals("Versicolor")){
+                    }else if(iris.getClassification().equals("Versicolor")){
                         series2.getData().add(dataPoint);
-                    }else if(iris.getVariety().equals("Virginica")){
+                    }else if(iris.getClassification().equals("Virginica")){
                         series3.getData().add(dataPoint);
                     }
 
                 }
+
+                series1.setName("Setosa");
+                series2.setName("Versicolor");
+                series3.setName("Virginica");
+
+                scatterChart.getData().addAll(series1, series2, series3);
             }
         }
     }
