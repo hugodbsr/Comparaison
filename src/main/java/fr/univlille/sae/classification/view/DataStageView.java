@@ -1,6 +1,6 @@
 package fr.univlille.sae.classification.view;
 
-import fr.univlille.sae.classification.controller.LoadDataController;
+import fr.univlille.sae.classification.controller.DataStageController;
 import fr.univlille.sae.classification.controller.MainStageController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.DataType;
@@ -8,41 +8,36 @@ import fr.univlille.sae.classification.model.Iris;
 import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.utils.Observable;
 import fr.univlille.sae.classification.utils.Observer;
-import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainStageView extends DataVisualizationView implements Observer {
+public class DataStageView extends DataVisualizationView implements Observer {
 
     private ClassificationModel model;
-    private MainStageController controller;
+    private DataStageController controller;
 
     private Stage root;
 
-    public MainStageView(ClassificationModel model) {
+    public DataStageView(ClassificationModel model) {
         this.model = model;
         model.attach(this);
     }
 
-
     public void show() throws IOException {
         FXMLLoader loader = new FXMLLoader();
 
-        URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "main-stage.fxml").toURI().toURL();
+        URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "data-view-stage.fxml").toURI().toURL();
 
         if (fxmlFileUrl == null) {
             System.out.println("Impossible de charger le fichier fxml");
@@ -55,12 +50,14 @@ public class MainStageView extends DataVisualizationView implements Observer {
         root.show();
         loader.getController();
         controller = loader.getController();
-        controller.setMainStageView(this);
+        controller.setDataStageView(this);
         scatterChart = controller.getScatterChart();
         controller.setAxesSelected("Aucun fichier sélectionné");
 
+        if (!model.getDatas().isEmpty()) {
+            update(model);
+        }
     }
-
 
     @Override
     public void update(Observable observable) {
@@ -70,23 +67,17 @@ public class MainStageView extends DataVisualizationView implements Observer {
         scatterChart.getData().clear();
 
         XYChart.Series series1 = new XYChart.Series();
-        XYChart.Series series2 = new XYChart.Series();
-        XYChart.Series series3 = new XYChart.Series();
+        series1.setName("Iris");
 
-        series1.setName("Setosa");
-        series2.setName("Versicolor");
-        series3.setName("Virginica");
         //Jalon 1: on verifie que le type de donnée est bien IRIS
         if(model.getType() == DataType.IRIS) {
-
-
             if(actualX==null && actualY==null){
                 controller.setAxesSelected("Aucuns axes sélectionnés");
             }
             else{
                 controller.setAxesSelected("");
                 // On ajoute la serie au nuage
-                scatterChart.getData().addAll(series1, series2, series3);
+                scatterChart.getData().add(series1);
 
                 //On recupere les données du model
                 List<LoadableData> points = new ArrayList<>(model.getDatas());
@@ -98,24 +89,20 @@ public class MainStageView extends DataVisualizationView implements Observer {
                     XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX),
                             iris.getDataType(actualY));
 
-                    dataPoint.setNode(getForm(iris, new Circle(5)));
+                    dataPoint.setNode(getCircle(iris));
 
-                    if(iris.getVariety().equals("Setosa")){
-                        series1.getData().add(dataPoint);
-                    }else if(iris.getVariety().equals("Versicolor")){
-                        series2.getData().add(dataPoint);
-                    }else if(iris.getVariety().equals("Virginica")){
-                        series3.getData().add(dataPoint);
-                    }
+                    series1.getData().add(dataPoint);
 
                 }
             }
         }
     }
 
-    private Shape getForm(Iris iris, Shape form) {
-        form.setFill(iris.getColor());
-        form.setOnMouseClicked(e -> {
+
+    private Circle getCircle(Iris iris) {
+        Circle circle = new Circle(5);
+        circle.setFill(iris.getColor());
+        circle.setOnMouseClicked(e -> {
             ContextMenu contextMenu = new ContextMenu();
             for(String attributes : iris.getAttributesName()) {
                 contextMenu.getItems().add(new MenuItem(attributes + " : " + iris.getDataType(attributes)));
@@ -123,7 +110,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
             contextMenu.show(root, e.getScreenX(), e.getScreenY());
         });
 
-        return form;
+        return  circle;
     }
 
 
@@ -143,7 +130,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
                     iris.getDataType(actualY)
             );
 
-            dataPoint.setNode(getForm(iris, new Rectangle(10, 10)));
+            dataPoint.setNode(getCircle(iris));
             if (!scatterChart.getData().isEmpty()) {
                 XYChart.Series series = (XYChart.Series) scatterChart.getData().get(0);
                 series.getData().add(dataPoint);
@@ -151,7 +138,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
         }
     }
 
-    public MainStageController getController() {
+    public DataStageController getController() {
         return controller;
     }
 

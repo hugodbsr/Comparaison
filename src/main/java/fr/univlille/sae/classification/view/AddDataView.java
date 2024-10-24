@@ -24,8 +24,6 @@ public class AddDataView {
         this.mainStageView = mainStageView;
     }
 
-
-
     public void show() throws IOException {
 
         FXMLLoader loader = new FXMLLoader();

@@ -1,6 +1,7 @@
 package fr.univlille.sae.classification.view;
 
 import fr.univlille.sae.classification.controller.AxesSettingsController;
+import fr.univlille.sae.classification.controller.DataStageController;
 import fr.univlille.sae.classification.controller.MainStageController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.LoadableData;
@@ -9,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -18,12 +20,12 @@ public class AxesSettingsView {
 
     private ClassificationModel model;
     private Stage owner;
-    private MainStageView mainStageView;
+    private DataVisualizationView dataVisualizationView;
 
-    public AxesSettingsView(ClassificationModel model, Stage owner, MainStageView mainStageView){
+    public AxesSettingsView(ClassificationModel model, Stage owner, DataVisualizationView dataVisualizationView){
         this.model = model;
         this.owner = owner;
-        this.mainStageView = mainStageView;
+        this.dataVisualizationView = dataVisualizationView;
     }
 
     public void show() throws IOException {
@@ -44,7 +46,7 @@ public class AxesSettingsView {
         root.setTitle("Configuration des axes");
         AxesSettingsController controller = loader.getController();
 
-        controller.setMainStageView(mainStageView);
+        controller.setdataVisualizationView(dataVisualizationView);
 
         if(model.getDatas().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
