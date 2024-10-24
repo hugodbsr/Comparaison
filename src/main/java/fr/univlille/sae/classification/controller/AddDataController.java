@@ -4,13 +4,11 @@ import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.Iris;
 import fr.univlille.sae.classification.view.MainStageView;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.function.UnaryOperator;
 
 public class AddDataController {
@@ -56,8 +54,10 @@ public class AddDataController {
 
     public void validate() throws IOException {
         System.out.println("validé");
+        mainStageView.getController().getClassifyData().setDisable(false);
+
+
         ClassificationModel.getClassificationModel().ajouterDonnee(sepalLengthSpinner.getValue(), sepalWidthSpinner.getValue(), petalLengthSpinner.getValue(), petalWidthSpinner.getValue());
-        mainStageView.update(mainStageView.getModel(),new Iris(sepalWidthSpinner.getValue(),sepalLengthSpinner.getValue(),petalWidthSpinner.getValue(),petalLengthSpinner.getValue()));
         stage.close();
     }
 

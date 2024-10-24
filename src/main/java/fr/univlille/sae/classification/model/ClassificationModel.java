@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class ClassificationModel extends Observable {
@@ -39,7 +41,7 @@ public class ClassificationModel extends Observable {
 
     private ClassificationModel(DataType type) {
         this.datas = new ArrayList<>();
-        this.dataToClass = new ArrayList<>();
+        this.dataToClass = new CopyOnWriteArrayList<>();
         this.type = type;
     }
 
@@ -75,16 +77,22 @@ public class ClassificationModel extends Observable {
         notifyObservers();
     }
 
+
+    public void classifierDonnees() {
+        dataToClass.forEach(this::classifierDonnee);
+    }
+
     /**
      * TODO
      * @param data
      */
-    public void classifierDonnee(LoadableData data) {
+    private void classifierDonnee(LoadableData data) {
 
         List<String> classes = new ArrayList<>(data.getClassificationTypes());
         Random rdm = new Random();
         data.setClassification(classes.get(rdm.nextInt(classes.size())));
         notifyObservers(data);
+        dataToClass.remove(data);
 
     }
 
