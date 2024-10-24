@@ -2,6 +2,7 @@ package fr.univlille.sae.classification.controller;
 
 import fr.univlille.sae.classification.model.ClassificationModel;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -29,10 +30,6 @@ public class LoadDataController {
     File file;
 
 
-    public void loadData() {
-        System.out.println("Loading data");
-        stage.close();
-    }
 
 
     public void openFileChooser() {
@@ -49,7 +46,14 @@ public class LoadDataController {
     public void validate() throws IOException {
 
         if (file == null) {
-            stage.close();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de chargement du fichier");
+            alert.setHeaderText(null);
+            alert.initOwner(stage);
+            alert.setContentText("Le chargement du fichier à echoué, veuillez reessayer !");
+            alert.showAndWait();
+            openFileChooser();
+            return;
             //throw exception
         }
         ClassificationModel.getClassificationModel().loadData(file);

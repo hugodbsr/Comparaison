@@ -5,6 +5,7 @@ import fr.univlille.sae.classification.controller.MainStageController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.LoadableData;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -43,9 +44,19 @@ public class AxesSettingsView {
         root.setTitle("Configuration des axes");
         AxesSettingsController controller = loader.getController();
 
+        controller.setMainStageView(mainStageView);
+
+        if(model.getDatas().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez d'abord charger les données avant de modifier les parametres");
+            alert.showAndWait();
+            return;
+        }
+
         LoadableData dataType = model.getDatas().get(0);
 
-        controller.setMainStageView(mainStageView);
 
         controller.setSelectAbs(dataType.getAttributesName());
         controller.setSelectOrd(dataType.getAttributesName());
