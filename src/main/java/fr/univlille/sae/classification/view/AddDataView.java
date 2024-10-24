@@ -4,6 +4,7 @@ import fr.univlille.sae.classification.controller.AddDataController;
 import fr.univlille.sae.classification.controller.AxesSettingsController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -40,6 +41,16 @@ public class AddDataView {
         AddDataController controller = loader.getController();
 
         controller.setMainStageView(mainStageView);
+
+        if(model.getDatas().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez d'abord charger les données avant pouvoir ajouter un point");
+            alert.showAndWait();
+            return;
+        }
+
 
         root.setResizable(false);
         root.initOwner(owner);

@@ -57,7 +57,6 @@ public class AddDataController {
     public void validate() throws IOException {
         System.out.println("validé");
         ClassificationModel.getClassificationModel().ajouterDonnee(sepalLengthSpinner.getValue(), sepalWidthSpinner.getValue(), petalLengthSpinner.getValue(), petalWidthSpinner.getValue());
-        mainStageView.update(mainStageView.getModel(),new Iris(sepalWidthSpinner.getValue(),sepalLengthSpinner.getValue(),petalWidthSpinner.getValue(),petalLengthSpinner.getValue()));
         stage.close();
     }
 

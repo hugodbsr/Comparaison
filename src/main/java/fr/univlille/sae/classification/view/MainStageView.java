@@ -20,9 +20,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class MainStageView implements Observer {
 
@@ -75,7 +73,9 @@ public class MainStageView implements Observer {
             }
             else{
                 scatterChart.getData().add(series1);
-                for(LoadableData i : model.getDatas()) {
+                List<LoadableData> points = new ArrayList<>(model.getDatas());
+                points.addAll(model.getDataToClass());
+                for(LoadableData i : points) {
                     Iris iris = (Iris)i;
                     XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX),
                             iris.getDataType(actualY));
@@ -128,7 +128,4 @@ public class MainStageView implements Observer {
         return actualY;
     }
 
-    public Observable getModel() {
-        return this.model;
-    }
 }

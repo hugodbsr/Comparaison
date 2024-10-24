@@ -1,5 +1,6 @@
 package fr.univlille.sae.classification.controller;
 
+import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.view.MainStageView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -41,7 +42,8 @@ public class AxesSettingsController{
     public void validate(){
         mainStageView.setActualX(selectAbs.getValue().toString());
         mainStageView.setActualY(selectOrd.getValue().toString());
-        mainStageView.update(mainStageView.getModel());
+
+        mainStageView.update(ClassificationModel.getClassificationModel());
         stage.close();
     }
 }
