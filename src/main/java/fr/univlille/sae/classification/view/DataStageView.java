@@ -22,14 +22,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataStageView implements Observer {
+public class DataStageView extends DataVisualizationView implements Observer {
 
     private ClassificationModel model;
-    private ScatterChart scatterChart;
     private DataStageController controller;
 
-    private String actualX;
-    private String actualY;
     private Stage root;
 
     public DataStageView(ClassificationModel model) {
@@ -56,6 +53,10 @@ public class DataStageView implements Observer {
         controller.setDataStageView(this);
         scatterChart = controller.getScatterChart();
         controller.setAxesSelected("Aucun fichier sélectionné");
+
+        if (!model.getDatas().isEmpty()) {
+            update(model);
+        }
     }
 
     @Override
@@ -137,23 +138,12 @@ public class DataStageView implements Observer {
         }
     }
 
-    public void setActualX(String actualX) {
-        this.actualX = actualX;
-    }
-
-    public void setActualY(String actualY) {
-        this.actualY = actualY;
-    }
-
-    public String getActualX() {
-        return actualX;
-    }
-
-    public String getActualY() {
-        return actualY;
-    }
-
     public DataStageController getController() {
         return controller;
+    }
+
+    @Override
+    public void reload() {
+        this.update(ClassificationModel.getClassificationModel());
     }
 }

@@ -20,19 +20,12 @@ public class AxesSettingsView {
 
     private ClassificationModel model;
     private Stage owner;
-    private MainStageView mainStageView;
-    private DataStageView dataStageView;
+    private DataVisualizationView dataVisualizationView;
 
-    public AxesSettingsView(ClassificationModel model, Stage owner, MainStageView mainStageView){
+    public AxesSettingsView(ClassificationModel model, Stage owner, DataVisualizationView dataVisualizationView){
         this.model = model;
         this.owner = owner;
-        this.mainStageView = mainStageView;
-    }
-
-    public AxesSettingsView(ClassificationModel model, Stage owner, DataStageView dataStageView) {
-        this.model = model;
-        this.owner = owner;
-        this.dataStageView = dataStageView;
+        this.dataVisualizationView = dataVisualizationView;
     }
 
     public void show() throws IOException {
@@ -53,7 +46,7 @@ public class AxesSettingsView {
         root.setTitle("Configuration des axes");
         AxesSettingsController controller = loader.getController();
 
-        controller.setMainStageView(mainStageView);
+        controller.setdataVisualizationView(dataVisualizationView);
 
         if(model.getDatas().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);

@@ -24,14 +24,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class MainStageView implements Observer {
+public class MainStageView extends DataVisualizationView implements Observer {
 
     private ClassificationModel model;
-    private ScatterChart scatterChart;
     private MainStageController controller;
 
-    private String actualX;
-    private String actualY;
     private Stage root;
 
     public MainStageView(ClassificationModel model) {
@@ -144,24 +141,12 @@ public class MainStageView implements Observer {
         }
     }
 
-    public void setActualX(String actualX) {
-        this.actualX = actualX;
-    }
-
-    public void setActualY(String actualY) {
-        this.actualY = actualY;
-    }
-
-    public String getActualX() {
-        return actualX;
-    }
-
-    public String getActualY() {
-        return actualY;
-    }
-
     public MainStageController getController() {
         return controller;
     }
 
+    @Override
+    public void reload() {
+        this.update(ClassificationModel.getClassificationModel());
+    }
 }
