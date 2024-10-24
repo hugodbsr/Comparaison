@@ -2,6 +2,7 @@ package fr.univlille.sae.classification.controller;
 
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.Iris;
+import fr.univlille.sae.classification.view.DataVisualizationView;
 import fr.univlille.sae.classification.view.MainStageView;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

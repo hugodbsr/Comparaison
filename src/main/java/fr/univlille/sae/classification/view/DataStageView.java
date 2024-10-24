@@ -1,6 +1,6 @@
 package fr.univlille.sae.classification.view;
 
-import fr.univlille.sae.classification.controller.LoadDataController;
+import fr.univlille.sae.classification.controller.DataStageController;
 import fr.univlille.sae.classification.controller.MainStageController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.DataType;
@@ -8,39 +8,36 @@ import fr.univlille.sae.classification.model.Iris;
 import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.utils.Observable;
 import fr.univlille.sae.classification.utils.Observer;
-import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainStageView extends DataVisualizationView implements Observer {
+public class DataStageView extends DataVisualizationView implements Observer {
 
     private ClassificationModel model;
-    private MainStageController controller;
+    private DataStageController controller;
 
     private Stage root;
 
-    public MainStageView(ClassificationModel model) {
+    public DataStageView(ClassificationModel model) {
         this.model = model;
         model.attach(this);
     }
 
-
     public void show() throws IOException {
         FXMLLoader loader = new FXMLLoader();
 
-        URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "main-stage.fxml").toURI().toURL();
+        URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "data-view-stage.fxml").toURI().toURL();
 
         if (fxmlFileUrl == null) {
             System.out.println("Impossible de charger le fichier fxml");
@@ -53,12 +50,14 @@ public class MainStageView extends DataVisualizationView implements Observer {
         root.show();
         loader.getController();
         controller = loader.getController();
-        controller.setMainStageView(this);
+        controller.setDataStageView(this);
         scatterChart = controller.getScatterChart();
         controller.setAxesSelected("Aucun fichier sélectionné");
 
+        if (!model.getDatas().isEmpty()) {
+            update(model);
+        }
     }
-
 
     @Override
     public void update(Observable observable) {
@@ -72,8 +71,6 @@ public class MainStageView extends DataVisualizationView implements Observer {
 
         //Jalon 1: on verifie que le type de donnée est bien IRIS
         if(model.getType() == DataType.IRIS) {
-
-
             if(actualX==null && actualY==null){
                 controller.setAxesSelected("Aucuns axes sélectionnés");
             }
@@ -141,7 +138,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
         }
     }
 
-    public MainStageController getController() {
+    public DataStageController getController() {
         return controller;
     }
 
