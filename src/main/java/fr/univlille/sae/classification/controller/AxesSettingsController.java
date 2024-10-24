@@ -42,6 +42,8 @@ public class AxesSettingsController{
     public void validate(){
         mainStageView.setActualX(selectAbs.getValue().toString());
         mainStageView.setActualY(selectOrd.getValue().toString());
+        mainStageView.getController().getScatterChart().getXAxis().setLabel(mainStageView.getActualX());
+        mainStageView.getController().getScatterChart().getYAxis().setLabel(mainStageView.getActualY());
 
         mainStageView.update(ClassificationModel.getClassificationModel());
         stage.close();

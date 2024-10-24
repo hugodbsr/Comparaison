@@ -84,6 +84,7 @@ public class MainStageController {
 
     public void classifyDatas() {
         ClassificationModel.getClassificationModel().classifierDonnees();
+        classifyData.setDisable(true);
     }
 
 

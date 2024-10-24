@@ -7,19 +7,20 @@ import java.util.Random;
 
 public class Iris extends LoadableData{
 
-    @CsvBindByName(column = "sepal.width")
-    private double sepalWidth;
+
     @CsvBindByName(column = "sepal.length")
     private double sepalLength;
-    @CsvBindByName(column = "petal.width")
-    private double petalWidth;
+    @CsvBindByName(column = "sepal.width")
+    private double sepalWidth;
     @CsvBindByName(column = "petal.length")
     private double petalLength;
+    @CsvBindByName(column = "petal.width")
+    private double petalWidth;
     @CsvBindByName(column = "variety")
     private String variety;
 
-    public Iris(double sepalWidth, double sepalLength, double petalWidth, double petalLength) {
-        this(sepalWidth, sepalLength, petalWidth, petalLength, "undefined");
+    public Iris(double sepalLength, double sepalWidth, double petalLength, double petalWidth) {
+        this(sepalLength, sepalWidth, petalLength, petalWidth, "undefined");
     }
 
     public Iris() {
@@ -36,7 +37,7 @@ public class Iris extends LoadableData{
         this.variety = classification;
     }
 
-    public Iris(double sepalWidth, double sepalLength, double petalWidth, double petalLength, String variety) {
+    public Iris(double sepalLength, double sepalWidth, double petalLength, double petalWidth, String variety) {
         super();
         this.sepalWidth = sepalWidth;
         this.sepalLength = sepalLength;
@@ -92,10 +93,10 @@ public class Iris extends LoadableData{
 
     public String[] getAttributesName() {
         String[] names = new String[]{
-                "sepalWidth",
                 "sepalLength",
-                "petalWidth",
-                "petalLength"
+                "sepalWidth",
+                "petalLength",
+                "petalWidth"
         };
         return names;
     }
@@ -103,10 +104,10 @@ public class Iris extends LoadableData{
     @Override
     public String toString() {
         return "Iris{" +
-                "sepalWidth=" + sepalWidth +
-                ", sepalLength=" + sepalLength +
-                ", petalWidth=" + petalWidth +
+                "sepalLength=" + sepalLength +
+                ", sepalWidth=" + sepalWidth +
                 ", petalLength=" + petalLength +
+                ", petalWidth=" + petalWidth +
                 '}';
     }
 }
