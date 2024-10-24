@@ -9,7 +9,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.stage.*?>
 
-<Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.MainStageController">
+<Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.MainStageController">
     <scene>
         <Scene>
             <AnchorPane prefHeight="487.0" prefWidth="692.0">
@@ -52,13 +52,18 @@
                             </Button>
                         </children>
                      </HBox>
-                     <HBox alignment="CENTER" prefHeight="169.0" prefWidth="691.0" spacing="50.0">
+                     <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                         <children>
-                           <Button fx:id="loadData" mnemonicParsing="false" onAction="#openLoadData" prefHeight="27.0" prefWidth="185.0" text="Charger un jeu de données" />
-                           <Button fx:id="addData" mnemonicParsing="false" onAction="#openAddData" prefHeight="26.0" prefWidth="141.0" text="Ajouter une donnée" />
-                           <Button fx:id="classifyData" disable="true" mnemonicParsing="false"  onAction="#classifyDatas" prefHeight="26.0" prefWidth="157.0" text="Classifier les données" />
+                           <HBox alignment="CENTER" prefHeight="85.0" prefWidth="691.0" spacing="50.0">
+                              <children>
+                                 <Button fx:id="loadData" mnemonicParsing="false" onAction="#openLoadData" prefHeight="27.0" prefWidth="185.0" text="Charger un jeu de données" />
+                                 <Button fx:id="addData" mnemonicParsing="false" onAction="#openAddData" prefHeight="26.0" prefWidth="141.0" text="Ajouter une donnée" />
+                                 <Button fx:id="classifyData" disable="true" mnemonicParsing="false" onAction="#classifyDatas" prefHeight="26.0" prefWidth="157.0" text="Classifier les données" />
+                              </children>
+                           </HBox>
+                           <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openDataView" text="Ouvrir une autre vue" />
                         </children>
-                     </HBox>
+                     </VBox>
                   </children>
                </VBox>
             </children></AnchorPane>
