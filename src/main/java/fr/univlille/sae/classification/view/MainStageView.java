@@ -13,8 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -53,6 +52,19 @@ public class MainStageView extends DataVisualizationView implements Observer {
         root.setResizable(false);
         root.setTitle("SAE3.3 - Logiciel de classification");
         root.show();
+        root.setOnCloseRequest(event -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Voulez vous quitter l'application ?");
+            alert.setContentText("Aucunes modifications ne sera sauvegardé ! Les points qui ont été ajoutés ne seront pas sauvegardés");
+            Optional<ButtonType> optionalButtonType = alert.showAndWait();
+            if(optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.OK) {
+                System.exit(0);
+            }else {
+                event.consume();
+            }
+
+        });
         loader.getController();
         controller = loader.getController();
         controller.setMainStageView(this);
