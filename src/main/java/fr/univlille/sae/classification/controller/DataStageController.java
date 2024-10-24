@@ -29,9 +29,6 @@ public class DataStageController {
     Button loadData;
 
     @FXML
-    Button addData;
-
-    @FXML
     Button classifyData;
 
     @FXML
@@ -60,17 +57,6 @@ public class DataStageController {
     public void setDataStageView (DataStageView dataStageView) {
         this.dataStageView = dataStageView;
     }
-
-    /**
-     * Ouvre l'interface d'ajout de donnée.
-     * @throws IOException
-     */
-    public void openAddData() throws IOException {
-        AddDataView addDataView = new AddDataView(ClassificationModel.getClassificationModel(), stage, dataStageView);
-        addDataView.show();
-    }
-
-
 
     public void classifyDatas() {
         ClassificationModel.getClassificationModel().classifierDonnees();

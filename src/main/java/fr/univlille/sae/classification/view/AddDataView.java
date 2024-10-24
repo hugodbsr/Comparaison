@@ -17,18 +17,11 @@ public class AddDataView {
     private ClassificationModel model;
     private Stage owner;
     private MainStageView mainStageView;
-    private DataStageView dataStageView;
 
     public AddDataView(ClassificationModel model, Stage owner, MainStageView mainStageView) {
         this.model = model;
         this.owner = owner;
         this.mainStageView = mainStageView;
-    }
-
-    public AddDataView(ClassificationModel model, Stage owner, DataStageView dataStageView) {
-        this.model = model;
-        this.owner = owner;
-        this.dataStageView = dataStageView;
     }
 
     public void show() throws IOException {
