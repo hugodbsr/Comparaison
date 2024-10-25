@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Controlleur pour le FXML add-data-stage, pour ajouter une nouvelle donnée
+ */
 public class AddDataController {
 
     @FXML
@@ -26,8 +29,14 @@ public class AddDataController {
     @FXML
     private Spinner<Double> petalWidthSpinner;
 
+    /**
+     * MainStageView associé au controlleur
+     */
     MainStageView mainStageView;
 
+    /**
+     * Méthode d'intitialisation du controlleur
+     */
     @FXML
     public void initialize() {
 
@@ -44,10 +53,16 @@ public class AddDataController {
 
     }
 
+    /**
+     * Méthode permettante d'attribuer la mainStageView associer à la classe
+     * @param mainStageView mainStageView à attribuer
+     */
     public void setMainStageView(MainStageView mainStageView) {
         this.mainStageView = mainStageView;
     }
-
+    /**
+     * Validation des données à ajouter
+     */
     public void validate() {
         System.out.println("validé");
         mainStageView.getController().getClassifyData().setDisable(false);

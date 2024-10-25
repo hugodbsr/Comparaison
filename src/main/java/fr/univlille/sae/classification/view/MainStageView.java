@@ -7,6 +7,10 @@ import fr.univlille.sae.classification.model.Iris;
 import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.utils.Observable;
 import fr.univlille.sae.classification.utils.Observer;
+import fr.univlille.sae.classification.utils.ViewUtil;
+import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
@@ -32,18 +36,28 @@ public class MainStageView extends DataVisualizationView implements Observer {
 
     private Stage root;
 
+    private XYChart.Series series1 ;
+    private XYChart.Series series2 ;
+    private XYChart.Series series3;
+    private XYChart.Series series4 ;
 
     public MainStageView(ClassificationModel model) {
         super();
+        this.series1 = new XYChart.Series();
+        this.series2 = new XYChart.Series();
+        this.series3 = new XYChart.Series();
+        this.series4 = new XYChart.Series();
+
         this.model = model;
         model.attach(this);
     }
 
 
-    public void show() throws IOException {
+    public void show() {
         FXMLLoader loader = new FXMLLoader();
 
-        URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "main-stage.fxml").toURI().toURL();
+        try {
+            URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "main-stage.fxml").toURI().toURL();
 
         if (fxmlFileUrl == null) {
             System.out.println("Impossible de charger le fichier fxml");
@@ -72,23 +86,28 @@ public class MainStageView extends DataVisualizationView implements Observer {
         controller.setMainStageView(this);
 
         scatterChart = controller.getScatterChart();
+        scatterChart.getData().addAll(series1, series2, series3);
 
-        System.out.println("DataStageView scatter chart: " +scatterChart );
+            System.out.println("DataStageView scatter chart: " +scatterChart );
         controller.setAxesSelected("Aucun fichier sélectionné");
+
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement du fichier FXML : " + e.getMessage());
+        }
 
     }
 
 
     @Override
     public void update(Observable observable) {
-        if(scatterChart == null) throw new IllegalStateException();
-        if(!(observable instanceof ClassificationModel)) throw new IllegalStateException();
-        scatterChart.getData().clear();
+        try {
+            if (scatterChart == null || !(observable instanceof ClassificationModel)) {
+                System.err.println("Erreur de mise à jour.");
+                return;
+            }
 
-        XYChart.Series series1 = new XYChart.Series();
-        XYChart.Series series2 = new XYChart.Series();
-        XYChart.Series series3 = new XYChart.Series();
-        XYChart.Series series4 = new XYChart.Series();
+            ObservableList<XYChart.Series> series = scatterChart.getData();
+            for(XYChart.Series serie : series) {serie.getData().clear();}
 
 
 
@@ -102,15 +121,15 @@ public class MainStageView extends DataVisualizationView implements Observer {
             else{
                 controller.setAxesSelected("");
 
-                List<LoadableData> points = new ArrayList<>(model.getDatas());
-                points.addAll(model.getDataToClass());
-                for(LoadableData i : points) {
+                    List<LoadableData> points = new ArrayList<>(model.getDatas());
+                    points.addAll(model.getDataToClass());
+                    for (LoadableData i : points) {
 
-                    Iris iris = (Iris)i;
-                    XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX),
-                            iris.getDataType(actualY));
+                        Iris iris = (Iris) i;
+                        XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX),
+                                iris.getDataType(actualY));
 
-                    dataPoint.setNode(getForm(iris, new Circle(5)));
+                        dataPoint.setNode(ViewUtil.getForm(iris, new Circle(5), root));
 
                     switch (iris.getClassification()) {
                         case "Setosa":
@@ -134,46 +153,41 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 series3.setName("Virginica");
                 series4.setName("undefinied");
 
-                scatterChart.getData().addAll(series1, series2, series3, series4);
-            }
+                  }
         }
-    }
-
-    private Shape getForm(Iris iris, Shape form) {
-        form.setFill(iris.getColor());
-        form.setOnMouseClicked(e -> {
-            ContextMenu contextMenu = new ContextMenu();
-            for(String attributes : iris.getAttributesName()) {
-                contextMenu.getItems().add(new MenuItem(attributes + " : " + iris.getDataType(attributes)));
-            }
-            contextMenu.show(root, e.getScreenX(), e.getScreenY());
-        });
-
-        return form;
+        }catch (Exception e) {
+            System.err.println("Erreur de mise à jour : " + e.getMessage());
+        }
     }
 
 
 
     @Override
     public void update(Observable observable, Object data) {
-        if(scatterChart == null) throw new IllegalStateException();
-        if(!(observable instanceof ClassificationModel)) throw new IllegalStateException();
-        if(data instanceof Iris) {
-            Iris iris = (Iris) data;
-            if(actualX == null || actualY == null) {
-                controller.setAxesSelected("Aucuns axes sélectionnés");
+        try {
+            if (scatterChart == null || !(observable instanceof ClassificationModel)) {
+                System.err.println("Erreur de mise à jour.");
                 return;
             }
-            XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
-                    iris.getDataType(actualX),
-                    iris.getDataType(actualY)
-            );
+            if(data instanceof Iris) {
+                Iris iris = (Iris) data;
+                if(actualX == null || actualY == null) {
+                    controller.setAxesSelected("Aucuns axes sélectionnés");
+                    return;
+                }
+                XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
+                        iris.getDataType(actualX),
+                        iris.getDataType(actualY)
+                );
 
-            dataPoint.setNode(getForm(iris, new Rectangle(10, 10)));
-            if (!scatterChart.getData().isEmpty()) {
-                XYChart.Series series = (XYChart.Series) scatterChart.getData().get(0);
-                series.getData().add(dataPoint);
+                dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
+                if (!scatterChart.getData().isEmpty()) {
+                    XYChart.Series series = (XYChart.Series) scatterChart.getData().get(0);
+                    series.getData().add(dataPoint);
+                }
             }
+        } catch (Exception e) {
+            System.err.println("Erreur de mise à jour : " + e.getMessage());
         }
     }
 

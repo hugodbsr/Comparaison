@@ -21,11 +21,14 @@ public class LoadDataController {
     @FXML
     TextField filePath;
 
+    /**
+     * Fichier sélectionné
+     */
     File file;
 
-
-
-
+    /**
+     * Ouvre un explorateur de fichiers pour sélectionner le fichier à étudier
+     */
     public void openFileChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisissez le fichier à importer");
@@ -37,6 +40,9 @@ public class LoadDataController {
 
     }
 
+    /**
+     * Valide le fichier sélectionné au préalable
+     */
     public void validate() throws IOException {
 
         if (file == null || file.isDirectory() || !file.exists()) {
@@ -53,7 +59,4 @@ public class LoadDataController {
         ClassificationModel.getClassificationModel().loadData(file);
         stage.close();
     }
-
-
-
 }

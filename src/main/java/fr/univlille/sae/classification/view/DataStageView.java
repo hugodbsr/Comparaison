@@ -8,13 +8,13 @@ import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.utils.Observable;
 import fr.univlille.sae.classification.utils.Observer;
 import javafx.collections.ObservableList;
+import fr.univlille.sae.classification.utils.ViewUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -46,10 +46,11 @@ public class DataStageView extends DataVisualizationView implements Observer {
         model.attach(this);
     }
 
-    public void show() throws IOException {
+    public void show() {
         FXMLLoader loader = new FXMLLoader();
 
-        URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "data-view-stage.fxml").toURI().toURL();
+        try {
+            URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "data-view-stage.fxml").toURI().toURL();
 
         if (fxmlFileUrl == null) {
             System.out.println("Impossible de charger le fichier fxml");
@@ -72,18 +73,23 @@ public class DataStageView extends DataVisualizationView implements Observer {
         System.out.println("DataStageView scatter chart: " +scatterChart);
         controller.setAxesSelected("Aucun fichier sélectionné");
 
-        if (!model.getDatas().isEmpty()) {
-            update(model);
+            if (!model.getDatas().isEmpty()) {
+                update(model);
+            }
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement du fichier FXML : " + e.getMessage());
         }
     }
 
     @Override
     public void update(Observable observable) {
-        if(scatterChart == null) throw new IllegalStateException();
-        if(!(observable instanceof ClassificationModel)) throw new IllegalStateException();
-        //on vide le nuage pour s'assurer que celui-ci est bien vide
-        ObservableList<XYChart.Series> series = scatterChart.getData();
-        for(XYChart.Series serie: series) {serie.getData().clear();}
+        try {
+            if (scatterChart == null || !(observable instanceof ClassificationModel)) {
+                System.err.println("Erreur de mise à jour.");
+                return;
+            }
+            // On vide le nuage pour s'assurer qu'il est bien vide
+            scatterChart.getData().clear();
 
 
 
@@ -105,7 +111,7 @@ public class DataStageView extends DataVisualizationView implements Observer {
                     XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX),
                             iris.getDataType(actualY));
 
-                    dataPoint.setNode(getForm(iris, new Circle(5)));
+                        dataPoint.setNode(ViewUtil.getForm(iris, new Circle(5), root));
 
                     switch (iris.getClassification()) {
                         case "Setosa":
@@ -129,46 +135,44 @@ public class DataStageView extends DataVisualizationView implements Observer {
                     series3.setName("Virginica");
                     series4.setName("undefinied");
 
+                    scatterChart.getData().addAll(series1, series2, series3);
                 }
             }
+
+    }
+        } catch (Exception e) {
+            System.err.println("Erreur de mise à jour : " + e.getMessage());
         }
+
+
+
     }
-
-
-    private Shape getForm(Iris iris, Shape form) {
-        form.setFill(iris.getColor());
-        form.setOnMouseClicked(e -> {
-            ContextMenu contextMenu = new ContextMenu();
-            for(String attributes : iris.getAttributesName()) {
-                contextMenu.getItems().add(new MenuItem(attributes + " : " + iris.getDataType(attributes)));
-            }
-            contextMenu.show(root, e.getScreenX(), e.getScreenY());
-        });
-
-        return form;
-    }
-
-
 
     @Override
     public void update(Observable observable, Object data) {
-        if(scatterChart == null) throw new IllegalStateException();
-        if(!(observable instanceof ClassificationModel)) throw new IllegalStateException();
-        if(data instanceof Iris) {
-            Iris iris = (Iris) data;
-            if(actualX == null || actualY == null) {
-                controller.setAxesSelected("Aucuns axes sélectionnés");
+        try {
+            if (scatterChart == null || !(observable instanceof ClassificationModel)) {
+                System.err.println("Erreur de mise à jour.");
                 return;
             }
-            XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
-                    iris.getDataType(actualX),
-                    iris.getDataType(actualY)
-            );
+            if (data instanceof Iris) {
+                Iris iris = (Iris) data;
+                if (actualX == null || actualY == null) {
+                    controller.setAxesSelected("Aucuns axes sélectionnés");
+                    return;
+                }
+                XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
+                        iris.getDataType(actualX),
+                        iris.getDataType(actualY)
+                );
 
-            dataPoint.setNode(getForm(iris, new Rectangle(10, 10)));
+            dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10)));
             if (!scatterChart.getData().isEmpty()) {
                 series4.getData().add(dataPoint);
             }
+        }
+        } catch (Exception e) {
+            System.err.println("Erreur de mise à jour : " + e.getMessage());
         }
     }
 
