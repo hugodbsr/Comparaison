@@ -3,13 +3,10 @@ package fr.univlille.sae.classification.model;
 import com.opencsv.bean.CsvToBeanBuilder;
 import fr.univlille.sae.classification.utils.Observable;
 
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
@@ -88,7 +85,7 @@ public class ClassificationModel extends Observable {
      */
     private void classifierDonnee(LoadableData data) {
 
-        List<String> classes = new ArrayList<>(data.getClassificationTypes());
+        List<String> classes = new ArrayList<>(LoadableData.getClassificationTypes());
         Random rdm = new Random();
         data.setClassification(classes.get(rdm.nextInt(classes.size())));
         notifyObservers(data);

@@ -1,24 +1,18 @@
 package fr.univlille.sae.classification.controller;
 
 import fr.univlille.sae.classification.model.ClassificationModel;
-import fr.univlille.sae.classification.model.Iris;
-import fr.univlille.sae.classification.view.DataVisualizationView;
 import fr.univlille.sae.classification.view.MainStageView;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.function.UnaryOperator;
 
 public class AddDataController {
 
     @FXML
     private Stage stage;
-
-    @FXML
-    private Button confirmAdd;
 
     @FXML
     private Spinner<Double> sepalLengthSpinner;
@@ -36,6 +30,7 @@ public class AddDataController {
 
     @FXML
     public void initialize() {
+
         sepalLengthSpinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 200.0, 3.0,0.1));
         sepalWidthSpinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 200.0, 3.0, 0.1));
         petalLengthSpinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 200.0, 3.0, 0.1));
@@ -53,7 +48,7 @@ public class AddDataController {
         this.mainStageView = mainStageView;
     }
 
-    public void validate() throws IOException {
+    public void validate() {
         System.out.println("validé");
         mainStageView.getController().getClassifyData().setDisable(false);
 

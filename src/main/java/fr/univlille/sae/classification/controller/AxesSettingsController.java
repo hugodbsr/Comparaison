@@ -1,6 +1,5 @@
 package fr.univlille.sae.classification.controller;
 
-import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.view.DataVisualizationView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,8 +17,6 @@ public class AxesSettingsController{
     @FXML
     ChoiceBox selectAbs;
 
-    @FXML
-    Button confirmAxes;
 
     DataVisualizationView dataVisualizationView;
 

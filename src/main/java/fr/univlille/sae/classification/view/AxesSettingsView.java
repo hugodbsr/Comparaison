@@ -1,8 +1,6 @@
 package fr.univlille.sae.classification.view;
 
 import fr.univlille.sae.classification.controller.AxesSettingsController;
-import fr.univlille.sae.classification.controller.DataStageController;
-import fr.univlille.sae.classification.controller.MainStageController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.LoadableData;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +8,6 @@ import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;

@@ -1,6 +1,5 @@
 package fr.univlille.sae.classification.view;
 
-import fr.univlille.sae.classification.controller.LoadDataController;
 import fr.univlille.sae.classification.controller.MainStageController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.DataType;
@@ -8,13 +7,12 @@ import fr.univlille.sae.classification.model.Iris;
 import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.utils.Observable;
 import fr.univlille.sae.classification.utils.Observer;
-import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.*;
-import javafx.scene.paint.Color;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -23,7 +21,9 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class MainStageView extends DataVisualizationView implements Observer {
 
@@ -32,7 +32,9 @@ public class MainStageView extends DataVisualizationView implements Observer {
 
     private Stage root;
 
+
     public MainStageView(ClassificationModel model) {
+        super();
         this.model = model;
         model.attach(this);
     }
@@ -68,7 +70,10 @@ public class MainStageView extends DataVisualizationView implements Observer {
         loader.getController();
         controller = loader.getController();
         controller.setMainStageView(this);
+
         scatterChart = controller.getScatterChart();
+
+        System.out.println("DataStageView scatter chart: " +scatterChart );
         controller.setAxesSelected("Aucun fichier sélectionné");
 
     }
@@ -83,6 +88,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
         XYChart.Series series1 = new XYChart.Series();
         XYChart.Series series2 = new XYChart.Series();
         XYChart.Series series3 = new XYChart.Series();
+        XYChart.Series series4 = new XYChart.Series();
 
 
 
@@ -106,12 +112,19 @@ public class MainStageView extends DataVisualizationView implements Observer {
 
                     dataPoint.setNode(getForm(iris, new Circle(5)));
 
-                    if(iris.getClassification().equals("Setosa")){
-                        series1.getData().add(dataPoint);
-                    }else if(iris.getClassification().equals("Versicolor")){
-                        series2.getData().add(dataPoint);
-                    }else if(iris.getClassification().equals("Virginica")){
-                        series3.getData().add(dataPoint);
+                    switch (iris.getClassification()) {
+                        case "Setosa":
+                            series1.getData().add(dataPoint);
+                            break;
+                        case "Versicolor":
+                            series2.getData().add(dataPoint);
+                            break;
+                        case "Virginica":
+                            series3.getData().add(dataPoint);
+                            break;
+                        default:
+                            series4.getData().add(dataPoint);
+                            break;
                     }
 
                 }
@@ -119,8 +132,9 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 series1.setName("Setosa");
                 series2.setName("Versicolor");
                 series3.setName("Virginica");
+                series4.setName("undefinied");
 
-                scatterChart.getData().addAll(series1, series2, series3);
+                scatterChart.getData().addAll(series1, series2, series3, series4);
             }
         }
     }
