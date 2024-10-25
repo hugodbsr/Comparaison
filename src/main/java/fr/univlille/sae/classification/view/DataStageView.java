@@ -26,8 +26,6 @@ public class DataStageView extends DataVisualizationView implements Observer {
     private ClassificationModel model;
     private DataStageController controller;
     private Stage root;
-    private ScatterChart<Double, Double> scatterChart;
-    private String actualX, actualY;
 
     public DataStageView(ClassificationModel model) {
         this.model = model;
