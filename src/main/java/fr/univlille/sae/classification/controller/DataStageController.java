@@ -30,9 +30,8 @@ public class DataStageController {
 
     /**
      * Ouvrir les paramètres des axes de la vue
-     * @throws IOException
      */
-    public void openAxesSetting()throws IOException {
+    public void openAxesSetting(){
         AxesSettingsView axesSettingsView = new AxesSettingsView(ClassificationModel.getClassificationModel(), stage, dataStageView);
         axesSettingsView.show();
     }

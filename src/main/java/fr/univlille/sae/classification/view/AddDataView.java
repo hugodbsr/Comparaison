@@ -11,18 +11,30 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Classe responsable de la création et de l'affichage de la vue d'ajout de données.
+ */
 public class AddDataView {
 
     private ClassificationModel model;
     private Stage owner;
     private MainStageView mainStageView;
 
+    /**
+     * Constructeur pour initialiser la vue d'ajout de données.
+     * @param model le modèle de classification utilisé pour gérer les données.
+     * @param owner la fenêtre parente de cette vue.
+     * @param mainStageView la vue principale associée.
+     */
     public AddDataView(ClassificationModel model, Stage owner, MainStageView mainStageView) {
         this.model = model;
         this.owner = owner;
         this.mainStageView = mainStageView;
     }
 
+    /**
+     * Charge le fichier FXML et initialise la scène.
+     */
     public void show() {
         FXMLLoader loader = new FXMLLoader();
         URL fxmlFileUrl = null;
