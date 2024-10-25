@@ -1,19 +1,18 @@
 package fr.univlille.sae.classification.view;
 
 import fr.univlille.sae.classification.controller.DataStageController;
-import fr.univlille.sae.classification.controller.MainStageController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.DataType;
 import fr.univlille.sae.classification.model.Iris;
 import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.utils.Observable;
 import fr.univlille.sae.classification.utils.Observer;
+import fr.univlille.sae.classification.utils.ViewUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -26,7 +25,6 @@ public class DataStageView extends DataVisualizationView implements Observer {
 
     private ClassificationModel model;
     private DataStageController controller;
-
     private Stage root;
 
     public DataStageView(ClassificationModel model) {
@@ -34,107 +32,117 @@ public class DataStageView extends DataVisualizationView implements Observer {
         model.attach(this);
     }
 
-    public void show() throws IOException {
+    public void show() {
         FXMLLoader loader = new FXMLLoader();
 
-        URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "data-view-stage.fxml").toURI().toURL();
+        try {
+            URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "data-view-stage.fxml").toURI().toURL();
 
-        if (fxmlFileUrl == null) {
-            System.out.println("Impossible de charger le fichier fxml");
-            System.exit(-1);
-        }
-        loader.setLocation(fxmlFileUrl);
-        root = loader.load();
-        root.setResizable(false);
-        root.setTitle("SAE3.3 - Logiciel de classification");
-        root.show();
-        loader.getController();
-        controller = loader.getController();
-        controller.setDataStageView(this);
-        scatterChart = controller.getScatterChart();
-        controller.setAxesSelected("Aucun fichier sélectionné");
+            if (fxmlFileUrl == null) {
+                System.out.println("Impossible de charger le fichier fxml");
+                System.exit(-1);
+            }
+            loader.setLocation(fxmlFileUrl);
+            root = loader.load();
+            root.setResizable(false);
+            root.setTitle("SAE3.3 - Logiciel de classification");
+            root.show();
+            controller = loader.getController();
+            controller.setDataStageView(this);
+            scatterChart = controller.getScatterChart();
+            controller.setAxesSelected("Aucun fichier sélectionné");
 
-        if (!model.getDatas().isEmpty()) {
-            update(model);
+            if (!model.getDatas().isEmpty()) {
+                update(model);
+            }
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement du fichier FXML : " + e.getMessage());
         }
     }
 
     @Override
     public void update(Observable observable) {
-        if(scatterChart == null) throw new IllegalStateException();
-        if(!(observable instanceof ClassificationModel)) throw new IllegalStateException();
-        //on vide le nuage pour s'assurer que celui-ci est bien vide
-        scatterChart.getData().clear();
-
-        XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Iris");
-
-        //Jalon 1: on verifie que le type de donnée est bien IRIS
-        if(model.getType() == DataType.IRIS) {
-            if(actualX==null && actualY==null){
-                controller.setAxesSelected("Aucuns axes sélectionnés");
+        try {
+            if (scatterChart == null || !(observable instanceof ClassificationModel)) {
+                System.err.println("Erreur de mise à jour.");
+                return;
             }
-            else{
-                controller.setAxesSelected("");
-                // On ajoute la serie au nuage
-                scatterChart.getData().add(series1);
+            // On vide le nuage pour s'assurer qu'il est bien vide
+            scatterChart.getData().clear();
 
-                //On recupere les données du model
-                List<LoadableData> points = new ArrayList<>(model.getDatas());
-                points.addAll(model.getDataToClass());
-                // on ajoute chaque point a la serie
-                for(LoadableData i : points) {
+            // Jalon 1: on vérifie que le type de donnée est bien IRIS
+            if (model.getType() == DataType.IRIS) {
+                XYChart.Series<Double, Double> series1 = new XYChart.Series<>();
+                XYChart.Series<Double, Double> series2 = new XYChart.Series<>();
+                XYChart.Series<Double, Double> series3 = new XYChart.Series<>();
+                if (actualX == null && actualY == null) {
+                    controller.setAxesSelected("Aucuns axes sélectionnés");
+                } else {
+                    controller.setAxesSelected("");
+                    // On récupère les données du modèle
+                    List<LoadableData> points = new ArrayList<>(model.getDatas());
+                    points.addAll(model.getDataToClass());
+                    // On ajoute chaque point à la série
+                    for (LoadableData i : points) {
+                        Iris iris = (Iris) i;
+                        XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
+                                iris.getDataType(actualX),
+                                iris.getDataType(actualY)
+                        );
 
-                    Iris iris = (Iris)i;
-                    XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX),
-                            iris.getDataType(actualY));
+                        dataPoint.setNode(ViewUtil.getForm(iris, new Circle(5), root));
 
-                    dataPoint.setNode(getCircle(iris));
+                        switch (iris.getClassification()) {
+                            case "Setosa":
+                                series1.getData().add(dataPoint);
+                                break;
+                            case "Versicolor":
+                                series2.getData().add(dataPoint);
+                                break;
+                            case "Virginica":
+                                series3.getData().add(dataPoint);
+                                break;
+                        }
+                    }
 
-                    series1.getData().add(dataPoint);
+                    series1.setName("Setosa");
+                    series2.setName("Versicolor");
+                    series3.setName("Virginica");
 
+                    scatterChart.getData().addAll(series1, series2, series3);
                 }
             }
+        } catch (Exception e) {
+            System.err.println("Erreur de mise à jour : " + e.getMessage());
         }
     }
 
-
-    private Circle getCircle(Iris iris) {
-        Circle circle = new Circle(5);
-        circle.setFill(iris.getColor());
-        circle.setOnMouseClicked(e -> {
-            ContextMenu contextMenu = new ContextMenu();
-            for(String attributes : iris.getAttributesName()) {
-                contextMenu.getItems().add(new MenuItem(attributes + " : " + iris.getDataType(attributes)));
-            }
-            contextMenu.show(root, e.getScreenX(), e.getScreenY());
-        });
-
-        return  circle;
-    }
-
-
-
     @Override
     public void update(Observable observable, Object data) {
-        if(scatterChart == null) throw new IllegalStateException();
-        if(!(observable instanceof ClassificationModel)) throw new IllegalStateException();
-        if(data instanceof Iris) {
-            Iris iris = (Iris) data;
-            if(actualX == null || actualY == null) {
-                controller.setAxesSelected("Aucuns axes sélectionnés");
+        try {
+            if (scatterChart == null || !(observable instanceof ClassificationModel)) {
+                System.err.println("Erreur de mise à jour.");
                 return;
             }
-            XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
-                    iris.getDataType(actualX),
-                    iris.getDataType(actualY)
-            );
+            if (data instanceof Iris) {
+                Iris iris = (Iris) data;
+                if (actualX == null || actualY == null) {
+                    controller.setAxesSelected("Aucuns axes sélectionnés");
+                    return;
+                }
+                XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
+                        iris.getDataType(actualX),
+                        iris.getDataType(actualY)
+                );
 
-            dataPoint.setNode(getCircle(iris));
-            if (!scatterChart.getData().isEmpty()) {
-                XYChart.Series series = (XYChart.Series) scatterChart.getData().get(0);
-                series.getData().add(dataPoint);
+                dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
+                if (!scatterChart.getData().isEmpty()) {
+                    XYChart.Series<Double, Double> series = (XYChart.Series<Double, Double>) scatterChart.getData().get(0);
+                    series.getData().add(dataPoint);
+                }
             }
+        } catch (Exception e) {
+            System.err.println("Erreur de mise à jour : " + e.getMessage());
         }
     }
 

@@ -1,17 +1,16 @@
 package fr.univlille.sae.classification.controller;
 
 import fr.univlille.sae.classification.model.ClassificationModel;
-import fr.univlille.sae.classification.model.Iris;
-import fr.univlille.sae.classification.view.DataVisualizationView;
 import fr.univlille.sae.classification.view.MainStageView;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.function.UnaryOperator;
 
+/**
+ * Controlleur pour le FXML add-data-stage, pour ajouter une nouvelle donnée
+ */
 public class AddDataController {
 
     @FXML
@@ -32,8 +31,14 @@ public class AddDataController {
     @FXML
     private Spinner<Double> petalWidthSpinner;
 
+    /**
+     * MainStageView associé au controlleur
+     */
     MainStageView mainStageView;
 
+    /**
+     * Méthode d'intitialisation du controlleur
+     */
     @FXML
     public void initialize() {
         sepalLengthSpinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 200.0, 3.0,0.1));
@@ -49,10 +54,17 @@ public class AddDataController {
 
     }
 
+    /**
+     * Méthode permettante d'attribuer la mainStageView associer à la classe
+     * @param mainStageView mainStageView à attribuer
+     */
     public void setMainStageView(MainStageView mainStageView) {
         this.mainStageView = mainStageView;
     }
 
+    /**
+     * Validation des données à ajouter
+     */
     public void validate() throws IOException {
         System.out.println("validé");
         mainStageView.getController().getClassifyData().setDisable(false);
