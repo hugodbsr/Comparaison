@@ -54,7 +54,7 @@ public class AddDataView {
         root.setResizable(false);
         root.initOwner(owner);
         root.initModality(Modality.APPLICATION_MODAL);
-        root.setTitle("Ajout de donée");
+        root.setTitle("Ajout de donnée");
 
         root.showAndWait();
 
