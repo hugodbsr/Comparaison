@@ -3,6 +3,7 @@ package fr.univlille.sae.classification.controller;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.view.MainStageView;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
@@ -67,8 +68,15 @@ public class AddDataController {
         System.out.println("validé");
         mainStageView.getController().getClassifyData().setDisable(false);
 
-
-        ClassificationModel.getClassificationModel().ajouterDonnee(sepalLengthSpinner.getValue(), sepalWidthSpinner.getValue(), petalLengthSpinner.getValue(), petalWidthSpinner.getValue());
+        try{
+            ClassificationModel.getClassificationModel().ajouterDonnee(sepalLengthSpinner.getValue(), sepalWidthSpinner.getValue(), petalLengthSpinner.getValue(), petalWidthSpinner.getValue());
+        }catch (IllegalArgumentException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
         stage.close();
     }
 

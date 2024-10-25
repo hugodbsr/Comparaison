@@ -58,7 +58,7 @@ public class DataStageView extends DataVisualizationView implements Observer {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "data-view-stage.fxml").toURI().toURL();
+            URL fxmlFileUrl = getClass().getClassLoader().getResource("stages"+File.separator+"data-view-stage.fxml");
 
             if (fxmlFileUrl == null) {
                 System.out.println("Impossible de charger le fichier fxml");

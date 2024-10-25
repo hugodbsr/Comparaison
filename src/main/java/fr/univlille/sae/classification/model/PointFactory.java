@@ -12,11 +12,10 @@ public class PointFactory {
      * @return instance de LoadableData correspondant aux coordonnées, ou null en cas d'erreur.
      * @throws IllegalArgumentException si le nombre de coordonnées ne correspond pas au type spécifié.
      */
-    public static LoadableData createPoint(DataType type, double[] coords) {
+    public static LoadableData createPoint(DataType type, double[] coords) throws IllegalArgumentException {
         int size = coords.length;
         LoadableData data;
 
-        try {
             switch (type) {
                 case IRIS:
                     if (size != 4) {
@@ -27,10 +26,7 @@ public class PointFactory {
                 default:
                     throw new IllegalArgumentException("Type de données non supporté : " + type);
             }
-        } catch (IllegalArgumentException e) {
-            System.err.println("Erreur lors de la création du point : " + e.getMessage());
-            return null;
-        }
+
 
         return data;
     }

@@ -58,13 +58,15 @@ public class MainStageView extends DataVisualizationView implements Observer {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "main-stage.fxml").toURI().toURL();
+            URL fxmlFileUrl = getClass().getClassLoader().getResource("stages"+File.separator+"main-stage.fxml");
 
             if (fxmlFileUrl == null) {
                 System.out.println("Impossible de charger le fichier fxml");
                 System.exit(-1);
             }
+
             loader.setLocation(fxmlFileUrl);
+
             root = loader.load();
             root.setResizable(false);
             root.setTitle("SAE3.3 - Logiciel de classification");

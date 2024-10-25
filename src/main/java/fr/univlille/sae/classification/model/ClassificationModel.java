@@ -52,8 +52,9 @@ public class ClassificationModel extends Observable {
     /**
      * Ajoute un point au nuage de points avec toutes les données de ce point.
      * @param coords toutes les données du point.
+     * @throws IllegalArgumentException si le nombre de coordonnées ne correspond pas au type spécifié.
      */
-    public void ajouterDonnee(double... coords) {
+    public void ajouterDonnee(double... coords) throws IllegalArgumentException {
         LoadableData newData = PointFactory.createPoint(type, coords);
         this.dataToClass.add(newData);
         notifyObservers(newData);

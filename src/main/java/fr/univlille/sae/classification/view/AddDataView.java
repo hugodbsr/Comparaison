@@ -37,14 +37,9 @@ public class AddDataView {
      */
     public void show() {
         FXMLLoader loader = new FXMLLoader();
-        URL fxmlFileUrl = null;
+        URL fxmlFileUrl = getClass().getClassLoader().getResource("stages"+File.separator+"add-data-stage.fxml");
 
-        try {
-            fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "add-data-stage.fxml").toURI().toURL();
-        } catch (IOException e) {
-            System.out.println("Erreur lors de la création de l'URL du fichier FXML : " + e.getMessage());
-            return;
-        }
+
 
         if (fxmlFileUrl == null) {
             System.out.println("Impossible de charger le fichier fxml");

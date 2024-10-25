@@ -28,8 +28,8 @@ class ClassificationModelTest {
 
     @Test
     void testAjouterDonnee() {
-        double[] coords = {5.1, 3.5, 1.4, 0.2};
-        model.ajouterDonnee(coords);
+
+        model.ajouterDonnee(5.1, 3.5, 1.4, 0.2);
         
         List<LoadableData> dataToClass = model.getDataToClass();
         assertEquals(1, dataToClass.size());
@@ -41,21 +41,35 @@ class ClassificationModelTest {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             model.ajouterDonnee(5.1);
         });
-        assertEquals(null, exception.getMessage());
+
     }
 
     @Test
     void testLoadData() throws IOException {
         File csvTemp = File.createTempFile("test", ".csv");
-        String csvTest = "sepal_length,sepal_width,petal_length,petal_width,class\n" +
-                         "5.1,3.5,1.4,0.2,Iris-setosa\n" +
-                         "4.9,3.0,1.4,0.2,Iris-setosa\n";
+        String csvTest = "\"sepal.length\",\"sepal.width\",\"petal.length\",\"petal.width\",\"variety\"\n" +
+                         "5.1,3.5,1.4,0.2,\"Setosa\"\n" +
+                         "4.9,3.0,1.4,0.2,\"Setosa\"\n";
         Files.write(Paths.get(csvTemp.getAbsolutePath()), csvTest.getBytes());
 
         model.loadData(csvTemp);
 
         List<LoadableData> datas = model.getDatas();
         assertEquals(2, datas.size());
+
+        Iris i1 = (Iris) datas.get(0);
+        assertEquals(5.1, i1.getSepalLength());
+        assertEquals(3.5, i1.getSepalWidth());
+        assertEquals(1.4, i1.getPetalLength());
+        assertEquals(0.2, i1.getPetalWidth());
+        assertEquals("Setosa", i1.getClassification());
+
+        Iris i2 = (Iris) datas.get(1);
+        assertEquals(4.9, i2.getSepalLength());
+        assertEquals(3.0, i2.getSepalWidth());
+        assertEquals(1.4, i2.getPetalLength());
+        assertEquals(0.2, i2.getPetalWidth());
+        assertEquals("Setosa", i1.getClassification());
         
         csvTemp.delete();
     }
