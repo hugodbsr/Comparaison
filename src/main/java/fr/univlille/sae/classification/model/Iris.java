@@ -1,9 +1,7 @@
 package fr.univlille.sae.classification.model;
 
-import com.opencsv.bean.*;
+import com.opencsv.bean.CsvBindByName;
 import javafx.scene.paint.Color;
-
-import java.util.Random;
 
 public class Iris extends LoadableData{
 
@@ -91,13 +89,12 @@ public class Iris extends LoadableData{
     }
 
     public String[] getAttributesName() {
-        String[] names = new String[]{
+        return new String[]{
                 "sepalLength",
                 "sepalWidth",
                 "petalLength",
                 "petalWidth"
         };
-        return names;
     }
 
     @Override

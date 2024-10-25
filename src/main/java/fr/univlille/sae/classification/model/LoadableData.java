@@ -12,10 +12,6 @@ public abstract class LoadableData {
 
     }
 
-    public void addClassification(String classificationType) {
-        this.classificationTypes.add(classificationType);
-    }
-
     public abstract String getClassification() ;
 
     public static Set<String> getClassificationTypes() {

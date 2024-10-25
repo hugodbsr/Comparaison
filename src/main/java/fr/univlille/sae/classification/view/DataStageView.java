@@ -7,11 +7,13 @@ import fr.univlille.sae.classification.model.Iris;
 import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.utils.Observable;
 import fr.univlille.sae.classification.utils.Observer;
+import javafx.collections.ObservableList;
 import fr.univlille.sae.classification.utils.ViewUtil;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -25,10 +27,22 @@ public class DataStageView extends DataVisualizationView implements Observer {
 
     private ClassificationModel model;
     private DataStageController controller;
+
+
+    private XYChart.Series series1 ;
+    private XYChart.Series series2 ;
+    private XYChart.Series series3 ;
+    private XYChart.Series series4 ;
+
     private Stage root;
 
     public DataStageView(ClassificationModel model) {
+        super();
         this.model = model;
+        this.series1 = new XYChart.Series();
+        this.series2 = new XYChart.Series();
+        this.series3 = new XYChart.Series();
+        this.series4 = new XYChart.Series();
         model.attach(this);
     }
 
@@ -38,19 +52,26 @@ public class DataStageView extends DataVisualizationView implements Observer {
         try {
             URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "data-view-stage.fxml").toURI().toURL();
 
-            if (fxmlFileUrl == null) {
-                System.out.println("Impossible de charger le fichier fxml");
-                System.exit(-1);
-            }
-            loader.setLocation(fxmlFileUrl);
-            root = loader.load();
-            root.setResizable(false);
-            root.setTitle("SAE3.3 - Logiciel de classification");
-            root.show();
-            controller = loader.getController();
-            controller.setDataStageView(this);
-            scatterChart = controller.getScatterChart();
-            controller.setAxesSelected("Aucun fichier sélectionné");
+        if (fxmlFileUrl == null) {
+            System.out.println("Impossible de charger le fichier fxml");
+            System.exit(-1);
+        }
+        loader.setLocation(fxmlFileUrl);
+        root = loader.load();
+        root.setResizable(false);
+        root.setTitle("SAE3.3 - Logiciel de classification");
+        root.show();
+        loader.getController();
+        controller = loader.getController();
+        controller.setDataStageView(this);
+        scatterChart = controller.getScatterChart();
+
+        scatterChart.getData().addAll(series4, series1, series2, series3 );
+
+
+
+        System.out.println("DataStageView scatter chart: " +scatterChart);
+        controller.setAxesSelected("Aucun fichier sélectionné");
 
             if (!model.getDatas().isEmpty()) {
                 update(model);
@@ -70,51 +91,61 @@ public class DataStageView extends DataVisualizationView implements Observer {
             // On vide le nuage pour s'assurer qu'il est bien vide
             scatterChart.getData().clear();
 
-            // Jalon 1: on vérifie que le type de donnée est bien IRIS
-            if (model.getType() == DataType.IRIS) {
-                XYChart.Series<Double, Double> series1 = new XYChart.Series<>();
-                XYChart.Series<Double, Double> series2 = new XYChart.Series<>();
-                XYChart.Series<Double, Double> series3 = new XYChart.Series<>();
-                if (actualX == null && actualY == null) {
-                    controller.setAxesSelected("Aucuns axes sélectionnés");
-                } else {
-                    controller.setAxesSelected("");
-                    // On récupère les données du modèle
-                    List<LoadableData> points = new ArrayList<>(model.getDatas());
-                    points.addAll(model.getDataToClass());
-                    // On ajoute chaque point à la série
-                    for (LoadableData i : points) {
-                        Iris iris = (Iris) i;
-                        XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
-                                iris.getDataType(actualX),
-                                iris.getDataType(actualY)
-                        );
+
+
+        //Jalon 1: on verifie que le type de donnée est bien IRIS
+        if(model.getType() == DataType.IRIS) {
+            if(actualX==null && actualY==null){
+                controller.setAxesSelected("Aucuns axes sélectionnés");
+            }
+            else{
+                controller.setAxesSelected("");
+
+                //On recupere les données du model
+                List<LoadableData> points = new ArrayList<>(model.getDatas());
+                points.addAll(model.getDataToClass());
+                // on ajoute chaque point a la serie
+                for(LoadableData i : points) {
+
+                    Iris iris = (Iris)i;
+                    XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX),
+                            iris.getDataType(actualY));
 
                         dataPoint.setNode(ViewUtil.getForm(iris, new Circle(5), root));
 
-                        switch (iris.getClassification()) {
-                            case "Setosa":
-                                series1.getData().add(dataPoint);
-                                break;
-                            case "Versicolor":
-                                series2.getData().add(dataPoint);
-                                break;
-                            case "Virginica":
-                                series3.getData().add(dataPoint);
-                                break;
-                        }
+                    switch (iris.getClassification()) {
+                        case "Setosa":
+                            series1.getData().add(dataPoint);
+                            break;
+                        case "Versicolor":
+                            series2.getData().add(dataPoint);
+                            break;
+                        case "Virginica":
+                            series3.getData().add(dataPoint);
+                            break;
+                        default:
+                            dataPoint.setNode(getForm(iris, new Rectangle(10, 10)));
+                            series4.getData().add(dataPoint);
+                            break;
                     }
+
 
                     series1.setName("Setosa");
                     series2.setName("Versicolor");
                     series3.setName("Virginica");
+                    series4.setName("undefinied");
 
                     scatterChart.getData().addAll(series1, series2, series3);
                 }
             }
+
+    }
         } catch (Exception e) {
             System.err.println("Erreur de mise à jour : " + e.getMessage());
         }
+
+
+
     }
 
     @Override
@@ -135,12 +166,11 @@ public class DataStageView extends DataVisualizationView implements Observer {
                         iris.getDataType(actualY)
                 );
 
-                dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
-                if (!scatterChart.getData().isEmpty()) {
-                    XYChart.Series<Double, Double> series = (XYChart.Series<Double, Double>) scatterChart.getData().get(0);
-                    series.getData().add(dataPoint);
-                }
+            dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10)));
+            if (!scatterChart.getData().isEmpty()) {
+                series4.getData().add(dataPoint);
             }
+        }
         } catch (Exception e) {
             System.err.println("Erreur de mise à jour : " + e.getMessage());
         }

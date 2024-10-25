@@ -3,12 +3,10 @@ package fr.univlille.sae.classification.controller;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.view.*;
 import javafx.fxml.FXML;
-
-import javafx.scene.chart.*;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.*;
-
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -19,20 +17,7 @@ public class MainStageController {
     @FXML
     Stage stage;
 
-    @FXML
-    NumberAxis absAxe;
 
-    @FXML
-    NumberAxis ordAxe;
-
-    @FXML
-    Button settings;
-
-    @FXML
-    Button loadData;
-
-    @FXML
-    Button addData;
 
     @FXML
     Button classifyData;
@@ -44,7 +29,6 @@ public class MainStageController {
     Label AxesSelected;
 
 
-    Stage loadStage;
     private MainStageView mainStageView;
 
     /**
