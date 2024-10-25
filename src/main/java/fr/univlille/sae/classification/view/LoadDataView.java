@@ -19,27 +19,35 @@ public class LoadDataView {
         this.owner = owner;
     }
 
-
-
-    public void show() throws IOException {
-
+    public void show() {
         FXMLLoader loader = new FXMLLoader();
-        URL fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "load-data-stage.fxml").toURI().toURL();
+        URL fxmlFileUrl = null;
+
+        try {
+            fxmlFileUrl = new File(System.getProperty("user.dir") + File.separator + "res" + File.separator + "stages" + File.separator + "load-data-stage.fxml").toURI().toURL();
+        } catch (IOException e) {
+            System.out.println("Erreur lors de la création de l'URL du fichier FXML : " + e.getMessage());
+            return;
+        }
 
         if (fxmlFileUrl == null) {
             System.out.println("Impossible de charger le fichier fxml");
             System.exit(-1);
         }
+
         loader.setLocation(fxmlFileUrl);
-        Stage root = loader.load();
 
-        root.setResizable(false);
-        root.initOwner(owner);
-        root.initModality(Modality.APPLICATION_MODAL);
-        root.setTitle("Chargement des donées");
+        try {
+            Stage root = loader.load();
 
-        root.showAndWait();
+            root.setResizable(false);
+            root.initOwner(owner);
+            root.initModality(Modality.APPLICATION_MODAL);
+            root.setTitle("Chargement des données");
 
+            root.showAndWait();
+        } catch (IOException e) {
+            System.out.println("Erreur lors du chargement de la scène : " + e.getMessage());
+        }
     }
-
 }

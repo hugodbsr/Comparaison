@@ -11,22 +11,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
+/**
+ * Controlleur pour le FXML data-view-stage, pour gérer la vue supplémentaire
+ */
 public class DataStageController {
     @FXML
     Stage stage;
-
-    @FXML
-    NumberAxis absAxe;
-
-    @FXML
-    NumberAxis ordAxe;
-
-    @FXML
-    Button settings;
-
-    @FXML
-    Button loadData;
 
     @FXML
     Button classifyData;
@@ -37,42 +27,47 @@ public class DataStageController {
     @FXML
     Label AxesSelected;
 
-    Stage loadStage;
+    /**
+     * DataStageView associé au controlleur
+     */
     private DataStageView dataStageView;
 
     /**
-     * Ouvre l'interface de chargement des données.
-     * @throws IOException
+     * Ouvrir les paramètres des axes de la vue
      */
-    public void openLoadData() throws IOException {
-        LoadDataView loadDataView = new LoadDataView(ClassificationModel.getClassificationModel(), stage);
-        loadDataView.show();
-    }
-
     public void openAxesSetting()throws IOException {
         AxesSettingsView axesSettingsView = new AxesSettingsView(ClassificationModel.getClassificationModel(), stage, dataStageView);
         axesSettingsView.show();
     }
 
+    /**
+     * Associe la dataStageView associer à la classe
+     * @param dataStageView
+     */
     public void setDataStageView (DataStageView dataStageView) {
         this.dataStageView = dataStageView;
     }
+
 
     public void classifyDatas() {
         ClassificationModel.getClassificationModel().classifierDonnees();
         classifyData.setDisable(true);
     }
 
-
+    /**
+     * Renvoie la grille associé à la classe
+     * @return grille de la classe
+     */
     public ScatterChart getScatterChart() {
         return this.scatterChart;
     }
 
+    /**
+     * Attribut une valeur à l'axe de la grille
+     * @param texte Valeur de l'axe
+     */
     public void setAxesSelected(String texte) {
         this.AxesSelected.setText(texte);
     }
 
-    public Button getClassifyData() {
-        return this.classifyData;
-    }
 }
