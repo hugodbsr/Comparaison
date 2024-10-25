@@ -100,14 +100,6 @@ public class Iris extends LoadableData{
         return names;
     }
 
-    public String[] getTypesName() {
-          return new String[]{
-                "Setosa",
-                "Versicolor",
-                "Virginica"
-          };
-    }
-
     @Override
     public String toString() {
         return "Iris{" +
