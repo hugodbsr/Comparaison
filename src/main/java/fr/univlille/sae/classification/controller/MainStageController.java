@@ -10,14 +10,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
 public class MainStageController {
-
 
     @FXML
     Stage stage;
-
-
 
     @FXML
     Button classifyData;
@@ -28,36 +24,38 @@ public class MainStageController {
     @FXML
     Label AxesSelected;
 
-
     private MainStageView mainStageView;
 
     /**
      * Ouvre l'interface de chargement des données.
+     * Permet à l'utilisateur de sélectionner des données à charger pour la classification.
      */
-    public void openLoadData() throws IOException {
+    public void openLoadData() {
         LoadDataView loadDataView = new LoadDataView(ClassificationModel.getClassificationModel(), stage);
         loadDataView.show();
     }
 
     /**
      * Ouvre l'interface d'une nouvelle vue.
+     * Affiche une nouvelle fenêtre pour visualiser les données après classification.
      */
-    public void openDataView() throws IOException {
+    public void openDataView() {
         DataStageView dataStageView = new DataStageView(ClassificationModel.getClassificationModel());
         dataStageView.show();
     }
 
     /**
      * Ouvre l'interface de la configuration des axes.
+     * Permet à l'utilisateur de définir les axes du graphique.
      */
-    public void openAxesSetting()throws IOException {
+    public void openAxesSetting() {
         AxesSettingsView axesSettingsView = new AxesSettingsView(ClassificationModel.getClassificationModel(), stage, mainStageView);
         axesSettingsView.show();
     }
 
     /**
-     * Associe la mainStageView associer à la classe
-     * @param mainStageView
+     * Associe la mainStageView à la classe.
+     * @param mainStageView Instance de MainStageView à associer.
      */
     public void setMainStageView(MainStageView mainStageView) {
         this.mainStageView = mainStageView;
@@ -65,14 +63,16 @@ public class MainStageController {
 
     /**
      * Ouvre l'interface d'ajout de donnée.
+     * Permet à l'utilisateur d'ajouter de nouvelles données à classifier.
      */
-    public void openAddData() throws IOException {
+    public void openAddData() {
         AddDataView addDataView = new AddDataView(ClassificationModel.getClassificationModel(), stage, mainStageView);
         addDataView.show();
     }
 
     /**
-     * Appelle de la méthode de la classe ClassificationModel afin de classifier les nouvelles données
+     * Appelle la méthode de la classe ClassificationModel afin de classifier les nouvelles données.
+     * Désactive le bouton de classification après l'appel de la méthode.
      */
     public void classifyDatas() {
         ClassificationModel.getClassificationModel().classifierDonnees();
@@ -80,24 +80,24 @@ public class MainStageController {
     }
 
     /**
-     * Renvoie la grille associé à la classe
-     * @return grille de la classe
+     * Renvoie la grille associée à la classe.
+     * @return grille de type ScatterChart utilisée pour la visualisation des données.
      */
     public ScatterChart getScatterChart() {
         return this.scatterChart;
     }
 
     /**
-     * Attribut une valeur à l'axe de la grille
-     * @param texte Valeur de l'axe
+     * Attribue une valeur à l'axe de la grille.
+     * @param texte Valeur de l'axe à afficher sur l'interface.
      */
     public void setAxesSelected(String texte) {
         this.AxesSelected.setText(texte);
     }
 
     /**
-     * Renvoie le bouton de classification de données
-     * @return Bouton de classification
+     * Renvoie le bouton de classification de données.
+     * @return Bouton utilisé pour déclencher la classification des données.
      */
     public Button getClassifyData() {
         return this.classifyData;

@@ -12,18 +12,30 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Classe responsable de la création et de l'affichage de la vue de configuration des axes.
+ */
 public class AxesSettingsView {
 
     private ClassificationModel model;
     private Stage owner;
     private DataVisualizationView dataVisualizationView;
 
+    /**
+     * Constructeur pour initialiser la vue de configuration des axes.
+     * @param model modèle de classification utilisé pour gérer les données.
+     * @param owner fenêtre parente de cette vue.
+     * @param dataVisualizationView vue de visualisation des données associée.
+     */
     public AxesSettingsView(ClassificationModel model, Stage owner, DataVisualizationView dataVisualizationView) {
         this.model = model;
         this.owner = owner;
         this.dataVisualizationView = dataVisualizationView;
     }
 
+    /**
+     * Affiche la vue de configuration des axes.
+     */
     public void show() {
         FXMLLoader loader = new FXMLLoader();
         URL fxmlFileUrl = null;

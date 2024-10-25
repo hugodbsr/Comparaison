@@ -43,7 +43,7 @@ public class LoadDataController {
     /**
      * Valide le fichier sélectionné au préalable
      */
-    public void validate() throws IOException {
+    public void validate(){
 
         if (file == null || file.isDirectory() || !file.exists()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
