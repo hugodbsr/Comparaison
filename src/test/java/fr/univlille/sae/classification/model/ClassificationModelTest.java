@@ -8,16 +8,26 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClassificationModelTest {
 
     private ClassificationModel model;
+    private File csvTemp;
+    private String csvTest;
+
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         model = ClassificationModel.getClassificationModel();
+        csvTemp = File.createTempFile("test", ".csv");
+        csvTest = "\"sepal.length\",\"sepal.width\",\"petal.length\",\"petal.width\",\"variety\"\n" +
+                "5.1,3.5,1.4,0.2,\"Setosa\"\n" +
+                "4.9,3.0,1.4,0.2,\"Setosa\"\n";
+        Files.write(Paths.get(csvTemp.getAbsolutePath()), csvTest.getBytes());
+
     }
 
     @Test
@@ -29,11 +39,11 @@ class ClassificationModelTest {
     @Test
     void testAjouterDonnee() {
 
+        Map<LoadableData, Boolean> dataToClass = model.getDataToClass();
+        dataToClass.clear();
         model.ajouterDonnee(5.1, 3.5, 1.4, 0.2);
-        
-        List<LoadableData> dataToClass = model.getDataToClass();
+
         assertEquals(1, dataToClass.size());
-        assertNotNull(dataToClass.get(0).getClassification());
     }
 
     @Test
@@ -46,11 +56,6 @@ class ClassificationModelTest {
 
     @Test
     void testLoadData() throws IOException {
-        File csvTemp = File.createTempFile("test", ".csv");
-        String csvTest = "\"sepal.length\",\"sepal.width\",\"petal.length\",\"petal.width\",\"variety\"\n" +
-                         "5.1,3.5,1.4,0.2,\"Setosa\"\n" +
-                         "4.9,3.0,1.4,0.2,\"Setosa\"\n";
-        Files.write(Paths.get(csvTemp.getAbsolutePath()), csvTest.getBytes());
 
         model.loadData(csvTemp);
 
@@ -76,14 +81,15 @@ class ClassificationModelTest {
 
     @Test
     void testClassifierDonnees() {
-        double[] coords1 = {5.1, 3.5, 1.4, 0.2};
-        double[] coords2 = {4.9, 3.0, 1.4, 0.2};
-        model.ajouterDonnee(coords1);
-        model.ajouterDonnee(coords2);
+        model.loadData(csvTemp);
+
+        model.ajouterDonnee(5.1, 3.5, 1.4, 0.2);
         
         model.classifierDonnees();
 
-        assertEquals(0, model.getDataToClass().size());
+        model.ajouterDonnee(4.9, 3.0, 1.4, 0.2);
+        assertEquals(false, model.getDataToClass().get(model.getDataToClass().keySet().toArray()[0]));
+        assertEquals(true, model.getDataToClass().get(model.getDataToClass().keySet().toArray()[1]));
     }
 
     @Test

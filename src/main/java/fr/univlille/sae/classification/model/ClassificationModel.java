@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -16,7 +17,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ClassificationModel extends Observable {
 
     private List<LoadableData> datas;
-    private List<LoadableData> dataToClass;
+    private Map<LoadableData, Boolean> dataToClass;
 
     private DataType type;
 
@@ -45,7 +46,7 @@ public class ClassificationModel extends Observable {
      */
     private ClassificationModel(DataType type) {
         this.datas = new ArrayList<>();
-        this.dataToClass = new CopyOnWriteArrayList<>();
+        this.dataToClass = new ConcurrentHashMap<>();
         this.type = type;
     }
 
@@ -56,7 +57,7 @@ public class ClassificationModel extends Observable {
      */
     public void ajouterDonnee(double... coords) throws IllegalArgumentException {
         LoadableData newData = PointFactory.createPoint(type, coords);
-        this.dataToClass.add(newData);
+        this.dataToClass.put(newData, false);
         notifyObservers(newData);
     }
 
@@ -88,7 +89,7 @@ public class ClassificationModel extends Observable {
      * Parcourt la liste des données à classifier et appelle la méthode pour chaque donnée.
      */
     public void classifierDonnees() {
-        dataToClass.forEach(this::classifierDonnee);
+        dataToClass.keySet().forEach(this::classifierDonnee);
     }
 
     /**
@@ -97,11 +98,12 @@ public class ClassificationModel extends Observable {
      * @param data donnée à classifier.
      */
     private void classifierDonnee(LoadableData data) {
+        if(dataToClass.get(data)) return;
         List<String> classes = new ArrayList<>(LoadableData.getClassificationTypes());
         Random rdm = new Random();
         data.setClassification(classes.get(rdm.nextInt(classes.size())));
         notifyObservers(data);
-        dataToClass.remove(data);
+        dataToClass.put(data, true);
     }
 
     /**
@@ -124,7 +126,7 @@ public class ClassificationModel extends Observable {
      * Renvoie la liste des données à classifier.
      * @return liste des données à classifier.
      */
-    public List<LoadableData> getDataToClass() {
+    public Map<LoadableData, Boolean> getDataToClass() {
         return dataToClass;
     }
 

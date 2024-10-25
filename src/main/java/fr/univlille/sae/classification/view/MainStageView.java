@@ -116,11 +116,16 @@ public class MainStageView extends DataVisualizationView implements Observer {
                     controller.setAxesSelected("");
 
                     List<LoadableData> points = new ArrayList<>(model.getDatas());
-                    points.addAll(model.getDataToClass());
+                    points.addAll(model.getDataToClass().keySet());
                     for (LoadableData i : points) {
                         Iris iris = (Iris) i;
                         XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX), iris.getDataType(actualY));
-                        dataPoint.setNode(ViewUtil.getForm(iris, new Circle(5), root));
+
+                        if(model.getDataToClass().containsKey(iris)) {
+                            dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
+                        }else {
+                            dataPoint.setNode(ViewUtil.getForm(iris, new Circle(5), root));
+                        }
 
                         switch (iris.getClassification()) {
                             case "Setosa":
@@ -133,7 +138,6 @@ public class MainStageView extends DataVisualizationView implements Observer {
                                 series3.getData().add(dataPoint);
                                 break;
                             default:
-                                dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
                                 series4.getData().add(dataPoint);
                                 break;
                         }

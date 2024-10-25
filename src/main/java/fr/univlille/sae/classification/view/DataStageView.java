@@ -110,13 +110,18 @@ public class DataStageView extends DataVisualizationView implements Observer {
 
                     //On recupere les données du model
                     List<LoadableData> points = new ArrayList<>(model.getDatas());
-                    points.addAll(model.getDataToClass());
+                    points.addAll(model.getDataToClass().keySet());
                     // on ajoute chaque point a la serie
                     for (LoadableData i : points) {
                         Iris iris = (Iris) i;
                         XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX),
                                 iris.getDataType(actualY));
-                        dataPoint.setNode(ViewUtil.getForm(iris, new Circle(5), root));
+                        if(model.getDataToClass().containsKey(iris) && !model.getDataToClass().get(iris)) {
+                            dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
+                        }else {
+                            dataPoint.setNode(ViewUtil.getForm(iris, new Circle(5), root));
+                        }
+
 
                         switch (iris.getClassification()) {
                             case "Setosa":
@@ -129,7 +134,6 @@ public class DataStageView extends DataVisualizationView implements Observer {
                                 series3.getData().add(dataPoint);
                                 break;
                             default:
-                                dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
                                 series4.getData().add(dataPoint);
                                 break;
                         }
