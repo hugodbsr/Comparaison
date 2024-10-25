@@ -70,7 +70,6 @@ public class DataStageView extends DataVisualizationView implements Observer {
 
 
 
-        System.out.println("DataStageView scatter chart: " +scatterChart);
         controller.setAxesSelected("Aucun fichier sélectionné");
 
             if (!model.getDatas().isEmpty()) {
@@ -89,11 +88,13 @@ public class DataStageView extends DataVisualizationView implements Observer {
                 return;
             }
             // On vide le nuage pour s'assurer qu'il est bien vide
-            scatterChart.getData().clear();
+            ObservableList<XYChart.Series> series = scatterChart.getData();
+            for(XYChart.Series serie : series) {serie.getData().clear();}
 
 
 
-        //Jalon 1: on verifie que le type de donnée est bien IRIS
+
+            //Jalon 1: on verifie que le type de donnée est bien IRIS
         if(model.getType() == DataType.IRIS) {
             if(actualX==null && actualY==null){
                 controller.setAxesSelected("Aucuns axes sélectionnés");
@@ -124,7 +125,7 @@ public class DataStageView extends DataVisualizationView implements Observer {
                             series3.getData().add(dataPoint);
                             break;
                         default:
-                            dataPoint.setNode(getForm(iris, new Rectangle(10, 10)));
+                            dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
                             series4.getData().add(dataPoint);
                             break;
                     }
@@ -135,7 +136,6 @@ public class DataStageView extends DataVisualizationView implements Observer {
                     series3.setName("Virginica");
                     series4.setName("undefinied");
 
-                    scatterChart.getData().addAll(series1, series2, series3);
                 }
             }
 
@@ -166,7 +166,7 @@ public class DataStageView extends DataVisualizationView implements Observer {
                         iris.getDataType(actualY)
                 );
 
-            dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10)));
+            dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
             if (!scatterChart.getData().isEmpty()) {
                 series4.getData().add(dataPoint);
             }

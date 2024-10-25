@@ -86,7 +86,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
         controller.setMainStageView(this);
 
         scatterChart = controller.getScatterChart();
-        scatterChart.getData().addAll(series1, series2, series3);
+        scatterChart.getData().addAll(series1, series2, series3, series4);
 
             System.out.println("DataStageView scatter chart: " +scatterChart );
         controller.setAxesSelected("Aucun fichier sélectionné");
@@ -142,6 +142,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
                             series3.getData().add(dataPoint);
                             break;
                         default:
+                            dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
                             series4.getData().add(dataPoint);
                             break;
                     }
@@ -182,8 +183,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
 
                 dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
                 if (!scatterChart.getData().isEmpty()) {
-                    XYChart.Series series = (XYChart.Series) scatterChart.getData().get(0);
-                    series.getData().add(dataPoint);
+                    series4.getData().add(dataPoint);
                 }
             }
         } catch (Exception e) {
