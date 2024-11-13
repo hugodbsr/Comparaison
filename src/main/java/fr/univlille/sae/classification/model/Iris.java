@@ -125,6 +125,7 @@ public class Iris extends LoadableData {
         }
     }
 
+
     /**
      * Renvoie la couleur associée à la variété de l'Iris.
      * @return couleur correspondant à la variété.
