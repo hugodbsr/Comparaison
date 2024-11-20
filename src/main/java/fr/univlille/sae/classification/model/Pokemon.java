@@ -110,4 +110,14 @@ public class Pokemon extends LoadableData{
         // todo
         return 0;
     }
+
+    @Override
+    public double[] getAttributes() {
+        return new double[0];
+    }
+
+    @Override
+    public String[] getStringAttributes() {
+        return new String[0];
+    }
 }

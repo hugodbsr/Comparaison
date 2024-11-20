@@ -64,4 +64,9 @@ public abstract class LoadableData {
      */
     public abstract double getDataType(String axes);
 
+
+    public abstract double[] getAttributes();
+
+    public abstract String[] getStringAttributes();
+
 }

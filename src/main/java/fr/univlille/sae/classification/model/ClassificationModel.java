@@ -3,6 +3,7 @@ package fr.univlille.sae.classification.model;
 import com.opencsv.bean.CsvToBeanBuilder;
 import fr.univlille.sae.classification.utils.Observable;
 
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -49,7 +50,6 @@ public class ClassificationModel extends Observable {
         this.dataToClass = new ConcurrentHashMap<>();
         this.type = type;
     }
-
     /**
      * Ajoute un point au nuage de points avec toutes les données de ce point.
      * @param coords toutes les données du point.
