@@ -6,6 +6,7 @@ import fr.univlille.sae.classification.view.DataStageView;
 import javafx.fxml.FXML;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,6 +23,9 @@ public class DataStageController {
 
     @FXML
     Label AxesSelected;
+
+    @FXML
+    ListView PointInfo;
 
     /**
      * DataStageView associé au controlleur
@@ -60,5 +64,9 @@ public class DataStageController {
     public void setAxesSelected(String texte) {
         this.AxesSelected.setText(texte);
     }
+
+    public ListView getPointInfo(){
+        return this.PointInfo;
+    };
 
 }

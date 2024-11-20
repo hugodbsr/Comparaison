@@ -117,9 +117,9 @@ public class DataStageView extends DataVisualizationView implements Observer {
                         XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX),
                                 iris.getDataType(actualY));
                         if(model.getDataToClass().containsKey(iris) && !model.getDataToClass().get(iris)) {
-                            dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
+                            dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), controller));
                         }else {
-                            dataPoint.setNode(ViewUtil.getForm(iris, new Circle(5), root));
+                            dataPoint.setNode(ViewUtil.getForm(iris, new Circle(5), controller));
                         }
 
 
@@ -173,7 +173,7 @@ public class DataStageView extends DataVisualizationView implements Observer {
                         iris.getDataType(actualY)
                 );
 
-                dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
+                dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), controller));
                 if (!scatterChart.getData().isEmpty()) {
                     series4.getData().add(dataPoint);
                 }

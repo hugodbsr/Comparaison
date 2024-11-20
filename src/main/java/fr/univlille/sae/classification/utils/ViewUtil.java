@@ -1,5 +1,7 @@
 package fr.univlille.sae.classification.utils;
 
+import fr.univlille.sae.classification.controller.DataStageController;
+import fr.univlille.sae.classification.controller.MainStageController;
 import fr.univlille.sae.classification.model.LoadableData;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -13,24 +15,35 @@ public class ViewUtil {
 
     /**
      * Définit la couleur de la forme
-     * @param iris objet de données à afficher.
-     * @param form forme à configurer.
-     * @param root scène principale pour le menu contextuel.
+     * @param iris       objet de données à afficher.
+     * @param form       forme à configurer.
+     * @param controller contrôleur principale pour le menu contextuel.
      * @return forme configurée.
      */
-    public static Shape getForm(LoadableData iris, Shape form, Stage root) {
+    public static Shape getForm(LoadableData iris, Shape form, Object controller) {
         try {
             form.setFill(iris.getColor());
             form.setOnMouseClicked(e -> {
-                ContextMenu contextMenu = new ContextMenu();
-                for (String attributes : iris.getAttributesName()) {
-                    contextMenu.getItems().add(new MenuItem(attributes + " : " + iris.getDataType(attributes)));
+                if (controller instanceof DataStageController) {
+                    DataStageController dataController = (DataStageController) controller;
+                    dataController.getPointInfo().getItems().clear();
+                    for (String attributes : iris.getAttributesName()) {
+                        dataController.getPointInfo().getItems().add(attributes + " : " + iris.getDataType(attributes));
+                    }
+                } else if (controller instanceof MainStageController) {
+                    MainStageController mainController = (MainStageController) controller;
+                    mainController.getPointInfo().getItems().clear();
+                    for (String attributes : iris.getAttributesName()) {
+                        mainController.getPointInfo().getItems().add(attributes + " : " + iris.getDataType(attributes));
+                    }
+                } else {
+                    System.err.println("Contrôleur inconnu");
                 }
-                contextMenu.show(root, e.getScreenX(), e.getScreenY());
             });
         } catch (Exception e) {
             System.err.println("Erreur lors de la création de la forme : " + e.getMessage());
         }
         return form;
     }
+
 }
