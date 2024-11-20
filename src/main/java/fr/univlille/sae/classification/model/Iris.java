@@ -110,6 +110,7 @@ public class Iris extends LoadableData {
      * @param axes nom de l'axe pour lequel la valeur est requise.
      * @return valeur correspondante.
      */
+    @Override
     public double getDataType(String axes) {
         switch (axes) {
             case "sepalWidth":
@@ -125,10 +126,22 @@ public class Iris extends LoadableData {
         }
     }
 
+    @Override
+    public double[] getAttributes() {
+        return new double[0];
+    }
+
+    @Override
+    public String[] getStringAttributes() {
+        return new String[0];
+    }
+
+
     /**
      * Renvoie la couleur associée à la variété de l'Iris.
      * @return couleur correspondant à la variété.
      */
+    @Override
     public Color getColor() {
         switch (this.variety) {
             case "Setosa":
@@ -146,6 +159,7 @@ public class Iris extends LoadableData {
      * Renvoie les noms des attributs de l'Iris.
      * @return tableau de chaînes contenant les noms des attributs.
      */
+    @Override
     public String[] getAttributesName() {
         return new String[]{
                 "sepalLength",

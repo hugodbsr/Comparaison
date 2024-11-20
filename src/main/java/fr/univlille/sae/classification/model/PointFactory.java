@@ -18,10 +18,17 @@ public class PointFactory {
 
             switch (type) {
                 case IRIS:
-                    if (size != 4) {
+                    if (size != DataType.IRIS.getArgumentSize()) {
                         throw new IllegalArgumentException("Le nombre de coordonnées doit être de 4 pour le type IRIS.");
                     }
                     data = new Iris(coords[0], coords[1], coords[2], coords[3]);
+                    break;
+                case POKEMON:
+                    if(size != DataType.POKEMON.getArgumentSize()) {
+                        throw new IllegalArgumentException("Le nombre de coordonnées doit être de 4 pour le type IRIS.");
+                    }
+                   data = null;
+                    // data = new Pokemon(coords[0], coords[1], coords[2], coords[3]);
                     break;
                 default:
                     throw new IllegalArgumentException("Type de données non supporté : " + type);
