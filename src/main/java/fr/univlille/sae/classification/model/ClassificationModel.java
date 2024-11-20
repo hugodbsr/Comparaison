@@ -1,6 +1,8 @@
 package fr.univlille.sae.classification.model;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+import fr.univlille.sae.classification.knn.MethodKNN;
+import fr.univlille.sae.classification.knn.distance.Distance;
 import fr.univlille.sae.classification.utils.Observable;
 
 import javax.xml.crypto.Data;
@@ -23,6 +25,9 @@ public class ClassificationModel extends Observable {
     private DataType type;
 
     private static ClassificationModel model;
+
+    private Distance distance;
+    private int kOptimal;
 
     /**
      * Renvoie une instance unique du modèle. Par défaut, le type de ce modèle est Iris.
@@ -61,6 +66,11 @@ public class ClassificationModel extends Observable {
         notifyObservers(newData);
     }
 
+
+    public void ajouterDonnee(LoadableData loadableData)  {
+        this.dataToClass.put(loadableData, false);
+    }
+
     /**
      * Charge les données à partir d'un fichier CSV.
      * @param file fichier contenant les données à charger.
@@ -97,11 +107,13 @@ public class ClassificationModel extends Observable {
      * Attribue une classification aléatoire à la donnée fournie et notifie les observateurs.
      * @param data donnée à classifier.
      */
-    private void classifierDonnee(LoadableData data) {
-        if(dataToClass.get(data)) return;
+    public void classifierDonnee(LoadableData data) {
+        if(dataToClass.get(data) != null && dataToClass.get(data)) return;
         List<String> classes = new ArrayList<>(LoadableData.getClassificationTypes());
-        Random rdm = new Random();
-        data.setClassification(classes.get(rdm.nextInt(classes.size())));
+
+
+
+        data.setClassification(MethodKNN.estimateClass(datas, data, 1, distance));
         notifyObservers(data);
         dataToClass.put(data, true);
     }
@@ -112,6 +124,23 @@ public class ClassificationModel extends Observable {
      */
     public void setType(DataType type) {
         this.type = type;
+    }
+
+
+    public void setDatas(List<LoadableData> datas) {
+        this.datas = datas;
+    }
+
+    public void setDistance(Distance distance) {
+        this.distance = distance;
+    }
+
+    public Distance getDistance() {
+        return distance;
+    }
+
+    public int getkOptimal() {
+        return kOptimal;
     }
 
     /**
