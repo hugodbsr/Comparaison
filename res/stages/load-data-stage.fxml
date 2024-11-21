@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -19,6 +21,15 @@
                         <children>
                            <Button fx:id="browseFile" mnemonicParsing="false" onAction="#openFileChooser" text="Parcourir" />
                            <TextField fx:id="filePath" prefHeight="26.0" prefWidth="207.0" />
+                        </children>
+                     </HBox>
+                     <HBox prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                           <ComboBox prefWidth="150.0">
+                              <HBox.margin>
+                                 <Insets left="110.0" top="15.0" />
+                              </HBox.margin>
+                           </ComboBox>
                         </children>
                      </HBox>
                      <HBox alignment="CENTER" prefHeight="76.0" prefWidth="310.0">
