@@ -20,21 +20,21 @@ public class ViewUtil {
      * @param controller contrôleur principale pour le menu contextuel.
      * @return forme configurée.
      */
-    public static Shape getForm(LoadableData iris, Shape form, Object controller) {
+    public static Shape getForm(LoadableData dataLoaded, Shape form, Object controller) {
         try {
-            form.setFill(iris.getColor());
+            form.setFill(dataLoaded.getColor());
             form.setOnMouseClicked(e -> {
                 if (controller instanceof DataStageController) {
                     DataStageController dataController = (DataStageController) controller;
                     dataController.getPointInfo().getItems().clear();
-                    for (String attributes : iris.getAttributesName()) {
-                        dataController.getPointInfo().getItems().add(attributes + " : " + iris.getDataType(attributes));
+                    for (String attributes : dataLoaded.getAttributesName()) {
+                        dataController.getPointInfo().getItems().add(attributes + " : " + dataLoaded.getDataType(attributes));
                     }
                 } else if (controller instanceof MainStageController) {
                     MainStageController mainController = (MainStageController) controller;
                     mainController.getPointInfo().getItems().clear();
-                    for (String attributes : iris.getAttributesName()) {
-                        mainController.getPointInfo().getItems().add(attributes + " : " + iris.getDataType(attributes));
+                    for (String attributes : dataLoaded.getAttributesName()) {
+                        mainController.getPointInfo().getItems().add(attributes + " : " + dataLoaded.getDataType(attributes));
                     }
                 } else {
                     System.err.println("Contrôleur inconnu");

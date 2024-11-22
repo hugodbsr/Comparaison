@@ -60,7 +60,7 @@ public class ClassificationModel extends Observable {
      * @param coords toutes les données du point.
      * @throws IllegalArgumentException si le nombre de coordonnées ne correspond pas au type spécifié.
      */
-    public void ajouterDonnee(double... coords) throws IllegalArgumentException {
+    public void ajouterDonnee(Object... coords) throws IllegalArgumentException {
         LoadableData newData = PointFactory.createPoint(type, coords);
         this.dataToClass.put(newData, false);
         notifyObservers(newData);
@@ -79,7 +79,7 @@ public class ClassificationModel extends Observable {
         try {
             this.datas = new CsvToBeanBuilder<LoadableData>(Files.newBufferedReader(file.toPath()))
                     .withSeparator(',')
-                    .withType(Iris.class)
+                    .withType(Pokemon.class)
                     .build().parse();
 
             Set<String> types = new HashSet<>();

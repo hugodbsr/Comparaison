@@ -5,8 +5,6 @@ import javafx.scene.paint.Color;
 
 public class Pokemon extends LoadableData{
 
-
-
     // name,attack,base_egg_steps,capture_rate,defense,experience_growth,hp,sp_attack,sp_defense,type1,type2,speed,is_legendary
     // Swablu,40,5120,255.0,60,600000,45,75,50,normal,flying,1.2,False
 
@@ -54,8 +52,8 @@ public class Pokemon extends LoadableData{
         this.isLegendary = isLegendary;
     }
 
-    public Pokemon() {
-
+    public Pokemon(Object[] list) {
+        this((String) list[0], (Integer) list[1], (Integer) list[2], (Double) list[3], (Integer) list[4], (Integer) list[5], (Integer) list[6], (Integer) list[7], (Integer) list[8], (String) list[9], (String) list[10], (Double) list[11], (Boolean) list[12]);
     }
 
     /**
@@ -85,8 +83,21 @@ public class Pokemon extends LoadableData{
      */
     @Override
     public String[] getAttributesName() {
-        //TODO
-        return new String[0];
+        return new String[]{
+            "name",
+            "attack",
+            "base_egg_steps",
+            "capture_rate",
+            "defense",
+            "experience_growth",
+            "hp",
+            "sp_attack",
+            "sp_defense",
+            "type1",
+            "type2",
+            "speed",
+            "is_legendary"
+        };
     }
 
     /**
@@ -96,7 +107,46 @@ public class Pokemon extends LoadableData{
      */
     @Override
     public Color getColor() {
-        return null;
+        switch (this.type1) {
+            case "normal":
+                return Color.LIGHTGREY;
+            case "grass":
+                return Color.GREEN;
+            case "electric":
+                return Color.YELLOW;
+            case "bug":
+                return Color.GREENYELLOW;
+            case "psychic":
+                return Color.PLUM;
+            case "poison":
+                return Color.PURPLE;
+            case "steel":
+                return Color.SILVER;
+            case "dragon":
+                return Color.WHITE;
+            case "flying":
+                return Color.SKYBLUE;
+            case "water":
+                return Color.BLUE;
+            case "rock":
+                return Color.SIENNA;
+            case "fire":
+                return Color.RED;
+            case "fairy":
+                return Color.PINK;
+            case "fighting":
+                return Color.FIREBRICK;
+            case "ice":
+                return Color.DARKTURQUOISE;
+            case "ghost":
+                return Color.DARKMAGENTA;
+            case "dark":
+                return Color.GREY;
+            case "ground":
+                return Color.KHAKI;
+            default:
+                return Color.BLACK; // Couleur par défaut si la variété est inconnue
+        }
     }
 
     /**

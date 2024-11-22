@@ -12,7 +12,7 @@ public class PointFactory {
      * @return instance de LoadableData correspondant aux coordonnées, ou null en cas d'erreur.
      * @throws IllegalArgumentException si le nombre de coordonnées ne correspond pas au type spécifié.
      */
-    public static LoadableData createPoint(DataType type, double[] coords) throws IllegalArgumentException {
+    public static LoadableData createPoint(DataType type, Object[] coords) throws IllegalArgumentException {
         int size = coords.length;
         LoadableData data;
 
@@ -21,14 +21,13 @@ public class PointFactory {
                     if (size != DataType.IRIS.getArgumentSize()) {
                         throw new IllegalArgumentException("Le nombre de coordonnées doit être de 4 pour le type IRIS.");
                     }
-                    data = new Iris(coords[0], coords[1], coords[2], coords[3]);
+                    data = new Iris((Double)coords[0], (Double)coords[1], (Double)coords[2], (Double)coords[3]);
                     break;
                 case POKEMON:
                     if(size != DataType.POKEMON.getArgumentSize()) {
-                        throw new IllegalArgumentException("Le nombre de coordonnées doit être de 4 pour le type IRIS.");
+                        throw new IllegalArgumentException("Le nombre de coordonnées doit être de 12 pour le type IRIS.");
                     }
-                   data = null;
-                    // data = new Pokemon(coords[0], coords[1], coords[2], coords[3]);
+                    data = new Pokemon(coords);
                     break;
                 default:
                     throw new IllegalArgumentException("Type de données non supporté : " + type);
