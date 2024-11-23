@@ -199,4 +199,23 @@ public class Pokemon extends LoadableData{
     public String[] getStringAttributes() {
         return new String[0];
     }
+
+    @Override
+    public String toString(){
+        return(
+                "Name: " + this.name + "\n" +
+                "Attack: " + this.attack + "\n" +
+                "Base egg steps: " + this.baseEggSteps + "\n" +
+                "Capture_rate: " + this.captureRate + "\n" +
+                "Defense: " + this.defense + "\n" +
+                "Experience growth: " + this.experienceGrowth + "\n" +
+                "HP: " + this.hp + "\n" +
+                "Sp attack: " + this.spAttack + "\n" +
+                "Sp defense: " + this.spDefense + "\n" +
+                "Type 1: " + this.type1 + "\n" +
+                "Type 2: " + this.type2 + "\n" +
+                "Speed: " + this.speed + "\n" +
+                "Is legendary: " + this.isLegendary
+                );
+    }
 }

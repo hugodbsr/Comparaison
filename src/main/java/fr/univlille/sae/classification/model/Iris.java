@@ -175,11 +175,10 @@ public class Iris extends LoadableData {
      */
     @Override
     public String toString() {
-        return "Iris{" +
-                "sepalLength=" + sepalLength +
-                ", sepalWidth=" + sepalWidth +
-                ", petalLength=" + petalLength +
-                ", petalWidth=" + petalWidth +
-                '}';
+        return "sepalLength: " + this.sepalLength + "\n" +
+                "sepalWidth: " + this.sepalWidth + "\n" +
+                "petalLength: " + this.petalLength + "\n" +
+                "petalWidth: " + this.petalWidth
+                ;
     }
 }

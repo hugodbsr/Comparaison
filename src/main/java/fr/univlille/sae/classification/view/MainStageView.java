@@ -10,6 +10,8 @@ import fr.univlille.sae.classification.utils.Observer;
 import fr.univlille.sae.classification.utils.ViewUtil;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.shape.*;
@@ -30,12 +32,12 @@ public class MainStageView extends DataVisualizationView implements Observer {
 
     private Stage root;
 
-    private Map<String, XYChart.Series<Double, Double>> serieList;
+    private Map<String, ScatterChart.Series<Double, Double>> serieList;
 
-    private XYChart.Series series1;
-    private XYChart.Series series2;
-    private XYChart.Series series3;
-    private XYChart.Series series4;
+    private ScatterChart.Series series1;
+    private ScatterChart.Series series2;
+    private ScatterChart.Series series3;
+    private ScatterChart.Series series4;
 
     /**
      * Constructeur de la vue principale.
@@ -43,11 +45,11 @@ public class MainStageView extends DataVisualizationView implements Observer {
      */
     public MainStageView(ClassificationModel model) {
         super();
-        this.serieList = new HashMap<String, XYChart.Series<Double, Double>>();
-        this.series1 = new XYChart.Series();
-        this.series2 = new XYChart.Series();
-        this.series3 = new XYChart.Series();
-        this.series4 = new XYChart.Series();
+        this.serieList = new HashMap<String, ScatterChart.Series<Double, Double>>();
+        this.series1 = new ScatterChart.Series();
+        this.series2 = new ScatterChart.Series();
+        this.series3 = new ScatterChart.Series();
+        this.series4 = new ScatterChart.Series();
         this.model = model;
         model.attach(this);
     }
@@ -105,8 +107,8 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 return;
             }
 
-            ObservableList<XYChart.Series> series = scatterChart.getData();
-            for (XYChart.Series serie : series) {
+            ObservableList<ScatterChart.Series> series = scatterChart.getData();
+            for (ScatterChart.Series serie : series) {
                 serie.getData().clear();
             }
 
@@ -117,20 +119,16 @@ public class MainStageView extends DataVisualizationView implements Observer {
 
                 List<LoadableData> points = new ArrayList<>(model.getDatas());
                 points.addAll(model.getDataToClass().keySet());
-                for (LoadableData i : points) {
-                    LoadableData data = (LoadableData) i;
-                    XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(data.getDataType(actualX), data.getDataType(actualY));
+                for (LoadableData data : points) {
+                    ScatterChart.Data<Double, Double> dataPoint = new ScatterChart.Data<>(data.getDataType(actualX), data.getDataType(actualY));
 
-                    if(model.getDataToClass().containsKey(data)) {
-                        dataPoint.setNode(ViewUtil.getForm(data, new Rectangle(10, 10), controller));
-                    }else {
-                        dataPoint.setNode(ViewUtil.getForm(data, new Circle(5), controller));
-                    }
+                    Node nodePoint = ViewUtil.getForm(data, new Circle(5), controller);
 
-                    XYChart.Series<Double, Double> editSerie = serieList.get(data.getClassification());
+                    ScatterChart.Series<Double, Double> editSerie = serieList.get(data.getClassification());
                     if(editSerie == null){
-                        editSerie = new XYChart.Series<>();
+                        editSerie = new ScatterChart.Series<Double, Double>();
                     }
+                    dataPoint.setNode(nodePoint);
                     editSerie.getData().add(dataPoint);
                     serieList.put(data.getClassification(), editSerie);
                 }
@@ -139,6 +137,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
                     serieList.get(serie).setName(serie);
                 }
                 scatterChart.getData().addAll(serieList.values());
+                scatterChart.setLegendVisible(true);
             }
         } catch (Exception e) {
             System.err.println("Erreur de mise à jour : " + e.getMessage());
@@ -152,21 +151,21 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 System.err.println("Erreur de mise à jour.");
                 return;
             }
-            if (data instanceof Iris) {
-                Iris iris = (Iris) data;
-                if (actualX == null || actualY == null) {
-                    controller.setAxesSelected("Aucuns axes sélectionnés");
-                    return;
-                }
-                XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
-                        iris.getDataType(actualX),
-                        iris.getDataType(actualY)
-                );
+            LoadableData newData = (LoadableData) data;
+            if (actualX == null || actualY == null) {
+                controller.setAxesSelected("Aucuns axes sélectionnés");
+                return;
+            }
+            XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
+                    newData.getDataType(actualX),
+                    newData.getDataType(actualY)
+            );
 
-                dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), controller));
-                if (!scatterChart.getData().isEmpty()) {
-                    series4.getData().add(dataPoint);
-                }
+            dataPoint.setNode(ViewUtil.getForm(newData, new Rectangle(10, 10), controller));
+            if (!scatterChart.getData().isEmpty()) {
+                series4.getData().add(dataPoint);
+                series4.setName("indéfini");
+                scatterChart.getData().add(series4);
             }
         } catch (Exception e) {
             System.err.println("Erreur de mise à jour : " + e.getMessage());
