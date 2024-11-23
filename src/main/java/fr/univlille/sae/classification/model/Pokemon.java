@@ -57,6 +57,13 @@ public class Pokemon extends LoadableData{
     }
 
     /**
+     * Constructeur par défaut.
+     */
+    public Pokemon() {
+        //
+    }
+
+    /**
      * Renvoie la classification de l'objet.
      *
      * @return classification sous forme de chaîne.
@@ -84,7 +91,6 @@ public class Pokemon extends LoadableData{
     @Override
     public String[] getAttributesName() {
         return new String[]{
-            "name",
             "attack",
             "base_egg_steps",
             "capture_rate",
@@ -93,8 +99,6 @@ public class Pokemon extends LoadableData{
             "hp",
             "sp_attack",
             "sp_defense",
-            "type1",
-            "type2",
             "speed",
             "is_legendary"
         };
@@ -157,8 +161,33 @@ public class Pokemon extends LoadableData{
      */
     @Override
     public double getDataType(String axes) {
-        // todo
-        return 0;
+        switch (axes) {
+            case "attack":
+                return this.attack;
+            case "base_egg_steps":
+                return this.baseEggSteps;
+            case "capture_rate":
+                return this.captureRate;
+            case "defense":
+                return this.defense;
+            case "experience_growth":
+                return this.experienceGrowth;
+            case "hp":
+                return this.hp;
+            case "sp_attack":
+                return this.spAttack;
+            case "sp_defense":
+                return this.spDefense;
+            case "speed":
+                return this.speed;
+            case "is_legendary":
+                if(this.isLegendary){
+                    return 1;
+                }
+                return 0;
+            default:
+                return this.attack;
+        }
     }
 
     @Override
