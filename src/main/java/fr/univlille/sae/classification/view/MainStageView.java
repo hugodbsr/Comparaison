@@ -107,10 +107,8 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 return;
             }
 
-            ObservableList<ScatterChart.Series> series = scatterChart.getData();
-            for (ScatterChart.Series serie : series) {
-                serie.getData().clear();
-            }
+            scatterChart.getData().clear();
+            serieList.clear();
 
             if (actualX == null && actualY == null) {
                 controller.setAxesSelected("Aucuns axes sélectionnés");
@@ -151,6 +149,10 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 System.err.println("Erreur de mise à jour.");
                 return;
             }
+
+            scatterChart.getData().clear();
+            serieList.clear();
+
             LoadableData newData = (LoadableData) data;
             if (actualX == null || actualY == null) {
                 controller.setAxesSelected("Aucuns axes sélectionnés");
