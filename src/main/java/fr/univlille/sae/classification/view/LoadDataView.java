@@ -1,5 +1,7 @@
 package fr.univlille.sae.classification.view;
 
+import fr.univlille.sae.classification.controller.AxesSettingsController;
+import fr.univlille.sae.classification.controller.LoadDataController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
@@ -48,6 +50,8 @@ public class LoadDataView {
             root.initOwner(owner);
             root.initModality(Modality.APPLICATION_MODAL);
             root.setTitle("Chargement des données");
+            LoadDataController controller = loader.getController();
+            controller.setFileType();
 
             root.showAndWait();
         } catch (IOException e) {

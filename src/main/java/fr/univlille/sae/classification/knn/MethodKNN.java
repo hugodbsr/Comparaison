@@ -101,7 +101,7 @@ public class MethodKNN {
 
         ClassificationModel model = ClassificationModel.getClassificationModel();
         model.setType(DataType.IRIS);
-        model.loadData(new File(path+"data/iris.csv"));
+        model.loadData(new File(path+"data/iris.csv"), "Iris");
         System.out.println();
 
         System.out.println(MethodKNN.robustesse(12, new DistanceEuclidienneNormalisée()));
