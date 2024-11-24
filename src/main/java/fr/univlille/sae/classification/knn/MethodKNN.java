@@ -1,22 +1,19 @@
 package fr.univlille.sae.classification.knn;
 
 import fr.univlille.sae.classification.knn.distance.Distance;
-import fr.univlille.sae.classification.knn.distance.DistanceEuclidienne;
-import fr.univlille.sae.classification.knn.distance.DistanceEuclidienneNormalisée;
+import fr.univlille.sae.classification.knn.distance.DistanceEuclidienneNormalisee;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.DataType;
 import fr.univlille.sae.classification.model.LoadableData;
-import org.apache.commons.collections.set.ListOrderedSet;
+
 
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.*;
 
 public class MethodKNN {
 
 
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
 
     public static String path = System.getProperty("user.dir") + File.separator + "res" + File.separator;
@@ -104,7 +101,7 @@ public class MethodKNN {
             results.put(i, robustesse(datas, i, distance, 0.2));
         }
 
-        System.out.println(results.toString());
+        System.out.println(results);
 
         // On return le K ayant le meilleur taux de reussite ( ou l'un des K si egalités).
         return Collections.max(results.entrySet(), Map.Entry.comparingByValue()).getKey();
@@ -147,9 +144,9 @@ public class MethodKNN {
 
         ClassificationModel model = ClassificationModel.getClassificationModel();
 
-        model.setType(DataType.IRIS);
-        model.loadData(new File(path+"data/iris.csv"));
-        MethodKNN knn = new MethodKNN(model);
+        model.setType(DataType.POKEMON);
+        model.loadData(new File(path+"data/pokemon_train.csv"));
+        MethodKNN.updateModel(model.getDatas());
         System.out.println();
 
         List<LoadableData> datas = ClassificationModel.getClassificationModel().getDatas();
@@ -159,11 +156,11 @@ public class MethodKNN {
         System.out.println("Search best k");
 
         // On cherche le meilleure K
-        int bestK = MethodKNN.bestK(datas, new DistanceEuclidienneNormalisée());
+        int bestK = MethodKNN.bestK(datas, new DistanceEuclidienneNormalisee());
         System.out.println(bestK);
 
         // Puis on clacul la robustesse avec le K trouvé
-        System.out.println(MethodKNN.robustesse( datas, bestK, new DistanceEuclidienneNormalisée(), 0.2));
+        System.out.println(MethodKNN.robustesse( datas, bestK, new DistanceEuclidienneNormalisee(), 0.2));
 
 
         }
