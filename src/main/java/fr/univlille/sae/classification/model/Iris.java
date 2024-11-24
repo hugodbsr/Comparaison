@@ -128,7 +128,7 @@ public class Iris extends LoadableData {
 
     @Override
     public double[] getAttributes() {
-        return new double[0];
+        return new double[]{sepalLength, sepalWidth, petalLength, petalWidth} ;
     }
 
     @Override
@@ -175,10 +175,12 @@ public class Iris extends LoadableData {
      */
     @Override
     public String toString() {
-        return "sepalLength: " + this.sepalLength + "\n" +
-                "sepalWidth: " + this.sepalWidth + "\n" +
-                "petalLength: " + this.petalLength + "\n" +
-                "petalWidth: " + this.petalWidth
-                ;
+        return "Iris{" +
+                "sepalLength=" + sepalLength +
+                ", sepalWidth=" + sepalWidth +
+                ", petalLength=" + petalLength +
+                ", petalWidth=" + petalWidth +
+                ", variety='" + getClassification() + '\'' +
+                '}';
     }
 }
