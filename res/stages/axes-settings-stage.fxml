@@ -3,6 +3,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.stage.*?>
 
 <Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.AxesSettingsController">
@@ -14,17 +15,23 @@
                   <children>
                      <HBox alignment="CENTER" prefHeight="46.0" prefWidth="406.0" spacing="20.0">
                         <children>
-                           <Label text="Valeur des ordonnées" />
-                           <ChoiceBox fx:id="selectOrd" prefWidth="150.0" />
+                           <Label text="Valeur des ordonnées">
+                              <font>
+                                 <Font name="System Bold" size="13.0" />
+                              </font></Label>
+                           <ChoiceBox fx:id="selectOrd" prefWidth="150.0" stylesheets="@../css/style.css" />
                         </children>
                      </HBox>
                      <HBox alignment="CENTER" prefHeight="44.0" prefWidth="406.0" spacing="20.0">
                         <children>
-                           <Label text="Valeur des abscisses" />
-                           <ChoiceBox fx:id="selectAbs" prefWidth="150.0" />
+                           <Label text="Valeur des abscisses">
+                              <font>
+                                 <Font name="System Bold" size="13.0" />
+                              </font></Label>
+                           <ChoiceBox fx:id="selectAbs" prefWidth="150.0" stylesheets="@../css/style.css" />
                         </children>
                      </HBox>
-                     <Button fx:id="confirmAxes" onAction="#validate" mnemonicParsing="false" text="Valider" />
+                     <Button fx:id="confirmAxes" mnemonicParsing="false" onAction="#validate" stylesheets="@../css/style.css" text="Valider" textFill="WHITE" />
                   </children>
                </VBox>
             </children></AnchorPane>

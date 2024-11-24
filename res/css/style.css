@@ -1,0 +1,28 @@
+.button{
+    -fx-background-color:  #116B69;
+    -fx-background-radius: 0.3em;
+}
+
+.button:hover{
+    -fx-background-color: #199391;
+}
+
+.choice-box{
+    -fx-background-color:  #116B69;
+    -fx-background-radius: 0.3em;
+}
+
+.choice-box > .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.list-cell{
+    -fx-background-color:  #116B69;
+    -fx-text-fill: white;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #1aa6a4;
+    -fx-text-fill: white;
+}

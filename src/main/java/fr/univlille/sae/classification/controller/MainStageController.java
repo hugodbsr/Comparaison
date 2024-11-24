@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +24,9 @@ public class MainStageController {
 
     @FXML
     Label AxesSelected;
+
+    @FXML
+    ListView PointInfo;
 
     private MainStageView mainStageView;
 
@@ -102,4 +106,8 @@ public class MainStageController {
     public Button getClassifyData() {
         return this.classifyData;
     }
+
+    public ListView getPointInfo(){
+        return this.PointInfo;
+    };
 }

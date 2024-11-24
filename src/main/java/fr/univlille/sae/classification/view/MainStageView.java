@@ -10,6 +10,8 @@ import fr.univlille.sae.classification.utils.Observer;
 import fr.univlille.sae.classification.utils.ViewUtil;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.shape.*;
@@ -18,9 +20,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Classe représentant la vue principale de l'application de classification.
@@ -32,10 +32,12 @@ public class MainStageView extends DataVisualizationView implements Observer {
 
     private Stage root;
 
-    private XYChart.Series series1;
-    private XYChart.Series series2;
-    private XYChart.Series series3;
-    private XYChart.Series series4;
+    private Map<String, ScatterChart.Series<Double, Double>> serieList;
+
+    private ScatterChart.Series series1;
+    private ScatterChart.Series series2;
+    private ScatterChart.Series series3;
+    private ScatterChart.Series series4;
 
     /**
      * Constructeur de la vue principale.
@@ -43,10 +45,11 @@ public class MainStageView extends DataVisualizationView implements Observer {
      */
     public MainStageView(ClassificationModel model) {
         super();
-        this.series1 = new XYChart.Series();
-        this.series2 = new XYChart.Series();
-        this.series3 = new XYChart.Series();
-        this.series4 = new XYChart.Series();
+        this.serieList = new HashMap<String, ScatterChart.Series<Double, Double>>();
+        this.series1 = new ScatterChart.Series();
+        this.series2 = new ScatterChart.Series();
+        this.series3 = new ScatterChart.Series();
+        this.series4 = new ScatterChart.Series();
         this.model = model;
         model.attach(this);
     }
@@ -88,7 +91,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
             controller = loader.getController();
             controller.setMainStageView(this);
             scatterChart = controller.getScatterChart();
-            scatterChart.getData().addAll(series1, series2, series3, series4);
+            //scatterChart.getData().addAll(series1, series2, series3, series4);
             controller.setAxesSelected("Aucun fichier sélectionné");
 
         } catch (IOException e) {
@@ -104,50 +107,37 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 return;
             }
 
-            ObservableList<XYChart.Series> series = scatterChart.getData();
-            for (XYChart.Series serie : series) {
+            ObservableList<ScatterChart.Series> series = scatterChart.getData();
+            for (ScatterChart.Series serie : series) {
                 serie.getData().clear();
             }
 
-            if (model.getType() == DataType.IRIS) {
-                if (actualX == null && actualY == null) {
-                    controller.setAxesSelected("Aucuns axes sélectionnés");
-                } else {
-                    controller.setAxesSelected("");
+            if (actualX == null && actualY == null) {
+                controller.setAxesSelected("Aucuns axes sélectionnés");
+            } else {
+                controller.setAxesSelected("");
 
-                    List<LoadableData> points = new ArrayList<>(model.getDatas());
-                    points.addAll(model.getDataToClass().keySet());
-                    for (LoadableData i : points) {
-                        Iris iris = (Iris) i;
-                        XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX), iris.getDataType(actualY));
+                List<LoadableData> points = new ArrayList<>(model.getDatas());
+                points.addAll(model.getDataToClass().keySet());
+                for (LoadableData data : points) {
+                    ScatterChart.Data<Double, Double> dataPoint = new ScatterChart.Data<>(data.getDataType(actualX), data.getDataType(actualY));
 
-                        if(model.getDataToClass().containsKey(iris)) {
-                            dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
-                        }else {
-                            dataPoint.setNode(ViewUtil.getForm(iris, new Circle(5), root));
-                        }
+                    Node nodePoint = ViewUtil.getForm(data, new Circle(5), controller);
 
-                        switch (iris.getClassification()) {
-                            case "Setosa":
-                                series1.getData().add(dataPoint);
-                                break;
-                            case "Versicolor":
-                                series2.getData().add(dataPoint);
-                                break;
-                            case "Virginica":
-                                series3.getData().add(dataPoint);
-                                break;
-                            default:
-                                series4.getData().add(dataPoint);
-                                break;
-                        }
+                    ScatterChart.Series<Double, Double> editSerie = serieList.get(data.getClassification());
+                    if(editSerie == null){
+                        editSerie = new ScatterChart.Series<Double, Double>();
                     }
-
-                    series1.setName("Setosa");
-                    series2.setName("Versicolor");
-                    series3.setName("Virginica");
-                    series4.setName("indéfini");
+                    dataPoint.setNode(nodePoint);
+                    editSerie.getData().add(dataPoint);
+                    serieList.put(data.getClassification(), editSerie);
                 }
+
+                for(String serie : serieList.keySet()) {
+                    serieList.get(serie).setName(serie);
+                }
+                scatterChart.getData().addAll(serieList.values());
+                scatterChart.setLegendVisible(true);
             }
         } catch (Exception e) {
             System.err.println("Erreur de mise à jour : " + e.getMessage());
@@ -161,21 +151,21 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 System.err.println("Erreur de mise à jour.");
                 return;
             }
-            if (data instanceof Iris) {
-                Iris iris = (Iris) data;
-                if (actualX == null || actualY == null) {
-                    controller.setAxesSelected("Aucuns axes sélectionnés");
-                    return;
-                }
-                XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
-                        iris.getDataType(actualX),
-                        iris.getDataType(actualY)
-                );
+            LoadableData newData = (LoadableData) data;
+            if (actualX == null || actualY == null) {
+                controller.setAxesSelected("Aucuns axes sélectionnés");
+                return;
+            }
+            XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
+                    newData.getDataType(actualX),
+                    newData.getDataType(actualY)
+            );
 
-                dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
-                if (!scatterChart.getData().isEmpty()) {
-                    series4.getData().add(dataPoint);
-                }
+            dataPoint.setNode(ViewUtil.getForm(newData, new Rectangle(10, 10), controller));
+            if (!scatterChart.getData().isEmpty()) {
+                series4.getData().add(dataPoint);
+                series4.setName("indéfini");
+                scatterChart.getData().add(series4);
             }
         } catch (Exception e) {
             System.err.println("Erreur de mise à jour : " + e.getMessage());

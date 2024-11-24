@@ -10,6 +10,8 @@ import fr.univlille.sae.classification.utils.Observer;
 import javafx.collections.ObservableList;
 import fr.univlille.sae.classification.utils.ViewUtil;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -19,7 +21,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe responsable de l'affichage et de la gestion de la vue des données.
@@ -29,6 +33,8 @@ public class DataStageView extends DataVisualizationView implements Observer {
 
     private ClassificationModel model;
     private DataStageController controller;
+
+    private Map<String, ScatterChart.Series<Double, Double>> serieList;
 
     private XYChart.Series series1;
     private XYChart.Series series2;
@@ -43,6 +49,7 @@ public class DataStageView extends DataVisualizationView implements Observer {
      */
     public DataStageView(ClassificationModel model) {
         super();
+        this.serieList = new HashMap<String, ScatterChart.Series<Double, Double>>();
         this.model = model;
         this.series1 = new XYChart.Series();
         this.series2 = new XYChart.Series();
@@ -100,50 +107,32 @@ public class DataStageView extends DataVisualizationView implements Observer {
             ObservableList<XYChart.Series> series = scatterChart.getData();
             for(XYChart.Series serie : series) {serie.getData().clear();}
 
-            //Jalon 1: on verifie que le type de donnée est bien IRIS
-            if (model.getType() == DataType.IRIS) {
-                if (actualX == null && actualY == null) {
-                    controller.setAxesSelected("Aucuns axes sélectionnés");
-                }
-                else {
-                    controller.setAxesSelected("");
+            if (actualX == null && actualY == null) {
+                controller.setAxesSelected("Aucuns axes sélectionnés");
+            } else {
+                controller.setAxesSelected("");
 
-                    //On recupere les données du model
-                    List<LoadableData> points = new ArrayList<>(model.getDatas());
-                    points.addAll(model.getDataToClass().keySet());
-                    // on ajoute chaque point a la serie
-                    for (LoadableData i : points) {
-                        Iris iris = (Iris) i;
-                        XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(iris.getDataType(actualX),
-                                iris.getDataType(actualY));
-                        if(model.getDataToClass().containsKey(iris) && !model.getDataToClass().get(iris)) {
-                            dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
-                        }else {
-                            dataPoint.setNode(ViewUtil.getForm(iris, new Circle(5), root));
-                        }
+                List<LoadableData> points = new ArrayList<>(model.getDatas());
+                points.addAll(model.getDataToClass().keySet());
+                for (LoadableData data : points) {
+                    ScatterChart.Data<Double, Double> dataPoint = new ScatterChart.Data<>(data.getDataType(actualX), data.getDataType(actualY));
 
+                    Node nodePoint = ViewUtil.getForm(data, new Circle(5), controller);
 
-                        switch (iris.getClassification()) {
-                            case "Setosa":
-                                series1.getData().add(dataPoint);
-                                break;
-                            case "Versicolor":
-                                series2.getData().add(dataPoint);
-                                break;
-                            case "Virginica":
-                                series3.getData().add(dataPoint);
-                                break;
-                            default:
-                                series4.getData().add(dataPoint);
-                                break;
-                        }
-
-                        series1.setName("Setosa");
-                        series2.setName("Versicolor");
-                        series3.setName("Virginica");
-                        series4.setName("indefini");
+                    ScatterChart.Series<Double, Double> editSerie = serieList.get(data.getClassification());
+                    if(editSerie == null){
+                        editSerie = new ScatterChart.Series<Double, Double>();
                     }
+                    dataPoint.setNode(nodePoint);
+                    editSerie.getData().add(dataPoint);
+                    serieList.put(data.getClassification(), editSerie);
                 }
+
+                for(String serie : serieList.keySet()) {
+                    serieList.get(serie).setName(serie);
+                }
+                scatterChart.getData().addAll(serieList.values());
+                scatterChart.setLegendVisible(true);
             }
         } catch (Exception e) {
             System.err.println("Erreur de mise à jour : " + e.getMessage());
@@ -162,21 +151,21 @@ public class DataStageView extends DataVisualizationView implements Observer {
                 System.err.println("Erreur de mise à jour.");
                 return;
             }
-            if (data instanceof Iris) {
-                Iris iris = (Iris) data;
-                if (actualX == null || actualY == null) {
-                    controller.setAxesSelected("Aucuns axes sélectionnés");
-                    return;
-                }
-                XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
-                        iris.getDataType(actualX),
-                        iris.getDataType(actualY)
-                );
+            LoadableData newData = (LoadableData) data;
+            if (actualX == null || actualY == null) {
+                controller.setAxesSelected("Aucuns axes sélectionnés");
+                return;
+            }
+            XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
+                    newData.getDataType(actualX),
+                    newData.getDataType(actualY)
+            );
 
-                dataPoint.setNode(ViewUtil.getForm(iris, new Rectangle(10, 10), root));
-                if (!scatterChart.getData().isEmpty()) {
-                    series4.getData().add(dataPoint);
-                }
+            dataPoint.setNode(ViewUtil.getForm(newData, new Rectangle(10, 10), controller));
+            if (!scatterChart.getData().isEmpty()) {
+                series4.getData().add(dataPoint);
+                series4.setName("indéfini");
+                scatterChart.getData().add(series4);
             }
         } catch (Exception e) {
             System.err.println("Erreur de mise à jour : " + e.getMessage());

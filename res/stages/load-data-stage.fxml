@@ -3,6 +3,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.stage.*?>
 
 <Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.LoadDataController">
@@ -14,13 +15,16 @@
                   <children>
                      <HBox alignment="CENTER" prefHeight="91.0" prefWidth="272.0">
                         <children>
-                           <Button fx:id="browseFile" mnemonicParsing="false" onAction="#openFileChooser" text="Parcourir" />
+                           <Button fx:id="browseFile" mnemonicParsing="false" onAction="#openFileChooser" stylesheets="@../css/style.css" text="Parcourir" textFill="WHITE">
+                              <font>
+                                 <Font name="System Bold" size="13.0" />
+                              </font></Button>
                            <TextField fx:id="filePath" prefHeight="26.0" prefWidth="207.0" />
                         </children>
                      </HBox>
                      <HBox alignment="CENTER" prefHeight="76.0" prefWidth="310.0">
                         <children>
-                           <Button fx:id="confirmDataSelection" mnemonicParsing="false" onAction="#validate" text="Valider" />
+                           <Button fx:id="confirmDataSelection" mnemonicParsing="false" onAction="#validate" stylesheets="@../css/style.css" text="Valider" textFill="WHITE" />
                         </children>
                      </HBox>
                   </children>

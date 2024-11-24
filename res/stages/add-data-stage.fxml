@@ -3,8 +3,8 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.stage.*?>
-
 
 <Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.AddDataController">
     <scene>
@@ -16,13 +16,13 @@
                             <HBox alignment="CENTER" layoutX="10.0" layoutY="109.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
                                 <children>
                                     <Label text="Sepal Length" />
-                                    <Spinner fx:id="sepalLengthSpinner"/>
+                                    <Spinner fx:id="sepalLengthSpinner" />
                                 </children>
                             </HBox>
                             <HBox alignment="CENTER" layoutX="10.0" layoutY="102.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
                                 <children>
                                     <Label text="Sepal Width" />
-                                    <Spinner fx:id="sepalWidthSpinner"/>
+                                    <Spinner fx:id="sepalWidthSpinner" />
                                 </children>
                             </HBox>
                             <HBox alignment="CENTER" layoutX="10.0" layoutY="102.0" prefHeight="17.0" prefWidth="335.0" spacing="20.0">
@@ -37,7 +37,10 @@
                                     <Spinner fx:id="petalWidthSpinner" />
                                 </children>
                             </HBox>
-                            <Button fx:id="confirmAdd" mnemonicParsing="false" onAction="#validate" text="Valider" />
+                            <Button fx:id="confirmAdd" mnemonicParsing="false" onAction="#validate" stylesheets="@../css/style.css" text="Valider" textFill="WHITE">
+                        <font>
+                           <Font name="System Bold" size="13.0" />
+                        </font></Button>
                         </children></VBox>
                 </children></AnchorPane>
         </Scene>
