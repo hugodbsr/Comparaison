@@ -41,7 +41,7 @@ public class ClassificationModel extends Observable {
      * Initialise le modèle avec le type de données Iris.
      */
     private ClassificationModel() {
-        this(DataType.IRIS);
+        this(DataType.POKEMON);
     }
 
     /**
@@ -91,6 +91,7 @@ public class ClassificationModel extends Observable {
             System.err.println("Erreur lors du chargement des données : " + e.getMessage());
         }
     }
+
 
     /**
      * Classifie toutes les données à classifier.

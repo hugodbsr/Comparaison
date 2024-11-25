@@ -10,10 +10,8 @@ public class DistanceManhattanNormalisée implements Distance{
     public double distance(LoadableData l1, LoadableData l2) {
         double distance = 0;
 
-
-
         for(int i = 0 ;i<l1.getAttributes().length; i++){
-            double dPoids = (Math.abs(l1.getAttributes()[i]- l2.getAttributes()[i])- MethodeKnn.minData[i])/MethodeKnn.amplitude[i];
+            double dPoids = (Math.abs(l1.getAttributes()[i]- l2.getAttributes()[i])- MethodKNN.minData[i])/MethodKNN.amplitude[i];
             distance = distance + dPoids;
 
         }

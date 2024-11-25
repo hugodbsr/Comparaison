@@ -1,6 +1,6 @@
 package fr.univlille.sae.classification.view;
 
-import fr.univlille.sae.classification.controller.AxesSettingsController;
+import fr.univlille.sae.classification.controller.KNNController;
 import fr.univlille.sae.classification.controller.LoadDataController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import javafx.fxml.FXMLLoader;
@@ -11,10 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-/**
- * Classe responsable de l'affichage de la vue de chargement des données.
- */
-public class LoadDataView {
+public class KNNView {
 
     private ClassificationModel model;
     private Stage owner;
@@ -24,17 +21,14 @@ public class LoadDataView {
      * @param model modèle de classification à utiliser.
      * @param owner fenêtre parente.
      */
-    public LoadDataView(ClassificationModel model, Stage owner) {
+    public KNNView(ClassificationModel model, Stage owner) {
         this.model = model;
         this.owner = owner;
     }
 
-    /**
-     * Affiche la fenêtre de chargement des données.
-     */
     public void show() {
         FXMLLoader loader = new FXMLLoader();
-        URL fxmlFileUrl = getClass().getClassLoader().getResource("stages"+File.separator+"load-data-stage.fxml");
+        URL fxmlFileUrl = getClass().getClassLoader().getResource("stages"+ File.separator+"k-NN-stage.fxml");
 
         if (fxmlFileUrl == null) {
             System.out.println("Impossible de charger le fichier fxml");
@@ -49,9 +43,8 @@ public class LoadDataView {
             root.setResizable(false);
             root.initOwner(owner);
             root.initModality(Modality.APPLICATION_MODAL);
-            root.setTitle("Chargement des données");
-            LoadDataController controller = loader.getController();
-            controller.setFileType();
+            root.setTitle("Configuration de la classification");
+            KNNController controller = loader.getController();
 
             root.showAndWait();
         } catch (IOException e) {
