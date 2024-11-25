@@ -132,7 +132,6 @@ public class MainStageView extends DataVisualizationView implements Observer {
                     serieList.get(serie).setName(serie);
                 }
                 scatterChart.getData().addAll(serieList.values());
-                scatterChart.setLegendVisible(true);
             }
         } catch (Exception e) {
             System.err.println("Erreur de mise à jour : " + e.getMessage());
