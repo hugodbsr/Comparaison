@@ -4,7 +4,7 @@ import fr.univlille.sae.classification.knn.MethodKNN;
 
 import fr.univlille.sae.classification.model.LoadableData;
 
-public class DistanceManhattanNormalisée implements Distance{
+public class DistanceManhattanNormalisee implements Distance{
 
     @Override
     public double distance(LoadableData l1, LoadableData l2) {
@@ -13,7 +13,7 @@ public class DistanceManhattanNormalisée implements Distance{
 
 
         for(int i = 0 ;i<l1.getAttributes().length; i++){
-            double dPoids = (Math.abs(l1.getAttributes()[i]- l2.getAttributes()[i])- MethodeKnn.minData[i])/MethodeKnn.amplitude[i];
+            double dPoids = (Math.abs(l1.getAttributes()[i]- l2.getAttributes()[i])- MethodKNN.minData[i])/MethodKNN.amplitude[i];
             distance = distance + dPoids;
 
         }
