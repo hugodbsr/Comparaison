@@ -3,6 +3,9 @@ package fr.univlille.sae.classification.model;
 import com.opencsv.bean.CsvBindByName;
 import javafx.scene.paint.Color;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Représente un point Iris.
  * Contient des informations sur les dimensions des sépales et des pétales et sur la variété de la fleur.
@@ -159,14 +162,15 @@ public class Iris extends LoadableData {
      * Renvoie les noms des attributs de l'Iris.
      * @return tableau de chaînes contenant les noms des attributs.
      */
+
     @Override
-    public String[] getAttributesName() {
-        return new String[]{
-                "sepalLength",
-                "sepalWidth",
-                "petalLength",
-                "petalWidth"
-        };
+    public Map<String, Double> getAttributesNames() {
+        Map<String, Double> attrNames = new HashMap<>();
+        attrNames.put("Longueur des sépales", sepalLength);
+        attrNames.put("Largeur des sépales", sepalWidth);
+        attrNames.put("Longueur des pétales", petalLength);
+        attrNames.put("Largeur des pétales", petalWidth);
+        return attrNames;
     }
 
     /**

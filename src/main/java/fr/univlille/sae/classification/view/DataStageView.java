@@ -115,7 +115,7 @@ public class DataStageView extends DataVisualizationView implements Observer {
                 List<LoadableData> points = new ArrayList<>(model.getDatas());
                 points.addAll(model.getDataToClass().keySet());
                 for (LoadableData data : points) {
-                    ScatterChart.Data<Double, Double> dataPoint = new ScatterChart.Data<>(data.getDataType(actualX), data.getDataType(actualY));
+                    ScatterChart.Data<Double, Double> dataPoint = new ScatterChart.Data<>(data.getAttributesNames().get(actualX), data.getAttributesNames().get(actualY));
 
                     Node nodePoint = ViewUtil.getForm(data, new Circle(5), controller);
 
@@ -157,8 +157,8 @@ public class DataStageView extends DataVisualizationView implements Observer {
                 return;
             }
             XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
-                    newData.getDataType(actualX),
-                    newData.getDataType(actualY)
+                    newData.getAttributesNames().get(actualX),
+                    newData.getAttributesNames().get(actualY)
             );
 
             dataPoint.setNode(ViewUtil.getForm(newData, new Rectangle(10, 10), controller));

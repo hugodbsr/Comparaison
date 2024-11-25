@@ -67,8 +67,8 @@ public class AxesSettingsView {
             }
 
             LoadableData dataType = model.getDatas().get(0);
-            controller.setSelectAbs(dataType.getAttributesName());
-            controller.setSelectOrd(dataType.getAttributesName());
+            controller.setSelectAbs(dataType.getAttributesNames().keySet().toArray(new String[0]));
+            controller.setSelectOrd(dataType.getAttributesNames().keySet().toArray(new String[0]));
 
             root.showAndWait();
         } catch (IOException e) {
