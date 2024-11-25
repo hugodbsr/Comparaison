@@ -1,6 +1,7 @@
 package fr.univlille.sae.classification.controller;
 
 import fr.univlille.sae.classification.model.ClassificationModel;
+import fr.univlille.sae.classification.model.DataType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -14,8 +15,10 @@ import java.io.IOException;
 
 public class LoadDataController {
 
+
     @FXML
     Stage stage;
+
 
     @FXML
     TextField filePath;
@@ -44,6 +47,7 @@ public class LoadDataController {
         if(file != null) {
             filePath.setText(file.getPath());
         }
+
     }
 
     /**
@@ -58,6 +62,7 @@ public class LoadDataController {
             alert.initOwner(stage);
             alert.setContentText("Le chargement du fichier à echoué, veuillez reessayer !");
             alert.showAndWait();
+            openFileChooser();
             return;
         }
 

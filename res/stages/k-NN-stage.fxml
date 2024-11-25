@@ -16,7 +16,7 @@
                         <children>
                             <HBox alignment="CENTER" prefHeight="92.0" prefWidth="364.0">
                                 <children>
-                                    <ChoiceBox fx:id="AlgoSelector" prefWidth="150.0" stylesheets="@../css/style.css" />
+                                    <ChoiceBox fx:id="algoSelector" prefWidth="150.0" stylesheets="@../css/style.css" />
                                 </children>
                         <padding>
                            <Insets top="20.0" />
@@ -36,8 +36,8 @@
                      </HBox>
                      <HBox alignment="CENTER" prefHeight="36.0" prefWidth="364.0" spacing="20.0">
                         <children>
-                           <TextField fx:id="KEntry" />
-                           <Button fx:id="AutoK" mnemonicParsing="false" stylesheets="@../css/style.css" text="Attribution auto" textFill="WHITE">
+                           <Spinner fx:id="kEntry" />
+                           <Button fx:id="autoK" mnemonicParsing="false" onAction="#bestK" stylesheets="@../css/style.css" text="Attribution auto" textFill="WHITE">
                               <font>
                                  <Font name="System Bold" size="13.0" />
                               </font>
@@ -46,7 +46,7 @@
                      </HBox>
                             <HBox alignment="CENTER" prefHeight="59.0" prefWidth="364.0">
                                 <children>
-                                    <Button fx:id="confirmK" mnemonicParsing="false" stylesheets="@../css/style.css" text="Valider" textFill="WHITE">
+                                    <Button fx:id="confirmK" onAction="#validate" mnemonicParsing="false" stylesheets="@../css/style.css" text="Valider" textFill="WHITE">
                               <font>
                                  <Font name="System Bold" size="14.0" />
                               </font></Button>

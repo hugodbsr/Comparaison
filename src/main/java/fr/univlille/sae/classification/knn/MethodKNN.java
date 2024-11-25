@@ -65,6 +65,7 @@ public class MethodKNN {
 
         // On recupere les K voisions  de data.
         List<LoadableData> kVoisins = MethodKNN.kVoisins(datas, data, k, distance);
+        System.out.println("Neighbours: " + kVoisins);
 
        // System.out.println("Neighbours found :  " + kVoisins);
 
@@ -90,7 +91,7 @@ public class MethodKNN {
 
 
     public static int bestK(List<LoadableData> datas, Distance distance) {
-         int maxK = (int) (Math.sqrt(datas.size()));
+        int maxK = (int) (Math.sqrt(datas.size()));
         System.out.println("Max k: " + maxK);
 
         Map<Integer, Double> results = new HashMap<>();
@@ -155,8 +156,8 @@ public class MethodKNN {
 
         ClassificationModel model = ClassificationModel.getClassificationModel();
 
-        model.setType(DataType.POKEMON);
-        model.loadData(new File(path+"data/pokemon_train.csv"));
+        model.setType(DataType.IRIS);
+        model.loadData(new File(path+"data/iris.csv"));
         MethodKNN.updateModel(model.getDatas());
         System.out.println();
 
@@ -168,11 +169,11 @@ public class MethodKNN {
             System.out.println("Search best k");
 
             // On cherche le meilleure K
-            int bestK = MethodKNN.bestK(datas, new DistanceEuclidienneNormalisee());
+            int bestK = MethodKNN.bestK(datas, new DistanceManhattanNormalisee());
             System.out.println(bestK);
 
             // Puis on clacul la robustesse avec le K trouvé
-            System.out.println(MethodKNN.robustesse( datas, bestK, new DistanceEuclidienneNormalisee(), 0.2));
+            System.out.println(MethodKNN.robustesse( datas, bestK, new DistanceManhattanNormalisee(), 0.2));
 
         }
 

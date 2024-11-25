@@ -28,6 +28,7 @@ public class ClassificationModel extends Observable {
 
     private Distance distance;
     private int kOptimal;
+    private int k;
 
     /**
      * Renvoie une instance unique du modèle. Par défaut, le type de ce modèle est Iris.
@@ -43,7 +44,7 @@ public class ClassificationModel extends Observable {
      * Initialise le modèle avec le type de données Iris.
      */
     private ClassificationModel() {
-        this(DataType.POKEMON);
+        this(DataType.IRIS);
     }
 
     /**
@@ -54,7 +55,8 @@ public class ClassificationModel extends Observable {
         this.datas = new ArrayList<>();
         this.dataToClass = new ConcurrentHashMap<>();
         this.type = type;
-        this.kOptimal = 1;
+        this.kOptimal = 0;
+        this.k = 0;
         this.distance =  new DistanceEuclidienne();
     }
     /**
@@ -89,6 +91,8 @@ public class ClassificationModel extends Observable {
                 types.add(d.getClassification());
             }
 
+            Collections.shuffle(datas);
+
             LoadableData.setClassificationTypes(types);
             notifyObservers();
         } catch (IOException e) {
@@ -112,7 +116,7 @@ public class ClassificationModel extends Observable {
      */
     public void classifierDonnee(LoadableData data) {
         if(dataToClass.get(data) != null && dataToClass.get(data)) return;
-
+        this.dataToClass.remove(data);
         data.setClassification(MethodKNN.estimateClass(datas, data, kOptimal, distance));
         notifyObservers(data);
         dataToClass.put(data, true);
@@ -141,6 +145,18 @@ public class ClassificationModel extends Observable {
 
     public int getkOptimal() {
         return kOptimal;
+    }
+
+    public void setKOptimal(int kOptimal) {
+        this.kOptimal = kOptimal;
+    }
+
+    public int getK() {
+        return k;
+    }
+
+    public void setK(int k) {
+        this.k = k;
     }
 
     /**
