@@ -61,7 +61,7 @@ public class LoadDataController {
             return;
         }
 
-        ClassificationModel.getClassificationModel().loadData(file, fileType.getValue());
+        ClassificationModel.getClassificationModel().loadData(file);
         stage.close();
     }
 }

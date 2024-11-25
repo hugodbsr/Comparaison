@@ -75,17 +75,11 @@ public class ClassificationModel extends Observable {
      * Charge les données à partir d'un fichier CSV.
      * @param file fichier contenant les données à charger.
      */
-    public void loadData(File file, String fileNameType) {
+    public void loadData(File file) {
         try {
-            Map<String, Class<? extends LoadableData>> fileTypeMap = new HashMap<>();
-            fileTypeMap.put("Iris", Iris.class);
-            fileTypeMap.put("Pokémon", Pokemon.class);
-
-            Class<? extends LoadableData> classeType = fileTypeMap.get(fileNameType);
-
             this.datas = new CsvToBeanBuilder<LoadableData>(Files.newBufferedReader(file.toPath()))
                     .withSeparator(',')
-                    .withType(classeType)
+                    .withType(Pokemon.class)
                     .build().parse();
 
             Set<String> types = new HashSet<>();
@@ -99,6 +93,7 @@ public class ClassificationModel extends Observable {
             System.err.println("Erreur lors du chargement des données : " + e.getMessage());
         }
     }
+
 
     /**
      * Classifie toutes les données à classifier.
