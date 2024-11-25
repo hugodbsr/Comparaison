@@ -1,7 +1,6 @@
 package fr.univlille.sae.classification.knn;
 
-import fr.univlille.sae.classification.knn.distance.Distance;
-import fr.univlille.sae.classification.knn.distance.DistanceEuclidienneNormalisee;
+import fr.univlille.sae.classification.knn.distance.*;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.DataType;
 import fr.univlille.sae.classification.model.LoadableData;
@@ -91,8 +90,7 @@ public class MethodKNN {
 
 
     public static int bestK(List<LoadableData> datas, Distance distance) {
-        //ToDO Juste pour eviter d'avoir k = 35 je limite la taille max de K. Je vais chercher si y'a une methode particuliere pour limiter sa taille
-        int maxK = (int) (Math.sqrt(datas.size())/2 *2);
+         int maxK = (int) (Math.sqrt(datas.size()));
         System.out.println("Max k: " + maxK);
 
         Map<Integer, Double> results = new HashMap<>();
@@ -111,31 +109,44 @@ public class MethodKNN {
 
     public static double robustesse(List<LoadableData> datas, int k, Distance distance, double testPart) {
 
-        int totalFind = 0;
-        int totalTry = 0;
 
-        // On calcul la robusstesse en utilisant testPart% du fichier de base comme donnée a tester.
-        int partSize = (int) (datas.size() * testPart);
 
-        List<LoadableData> trainingData = new ArrayList<>(List.copyOf(datas.subList(0, datas.size()-partSize)));
-        List<LoadableData> testData = List.copyOf(datas.subList(datas.size()-partSize, datas.size()));
+        double taux = 0;
 
-        // On met a jour l'algo avec les nouvelles données (permet de re-calculer l'amplitude ainsi que les val max et min
-        updateModel(trainingData);
+        for(int i = 0; i<(int)1/testPart; i++) {
 
-        // On estime la classe chaque donnée de test, et on verifie si l'algo a bon
-        for(LoadableData l : testData) {
-            totalTry++;
-            String baseClass = l.getClassification();
-          //  System.out.println("Base class : " + baseClass);
-          //  System.out.println("Base data: " + l);
-            if(baseClass.equals(MethodKNN.estimateClass(trainingData,l, k, distance))) totalFind++;
+            int totalFind = 0;
+            int totalTry = 0;
+
+            // On calcul la robusstesse en utilisant testPart% du fichier de base comme donnée a tester.
+            int partSize = (int) (datas.size() * testPart);
+            List<LoadableData> testData = List.copyOf(datas.subList(i*partSize, (i*partSize)+partSize));
+            List<LoadableData> trainingData = new ArrayList<>(List.copyOf(datas));
+            trainingData.removeAll(testData);
+
+            // On met a jour l'algo avec les nouvelles données (permet de re-calculer l'amplitude ainsi que les val max et min
+            updateModel(trainingData);
+
+            // On estime la classe chaque donnée de test, et on verifie si l'algo a bon
+            for(LoadableData l : testData) {
+                totalTry++;
+                String baseClass = l.getClassification();
+                //  System.out.println("Base class : " + baseClass);
+                //  System.out.println("Base data: " + l);
+                if(baseClass.equals(MethodKNN.estimateClass(trainingData,l, k, distance))) totalFind++;
+
+            }
+
+
+            // On affiche le taux de reussite a chaque tour
+            System.out.println("total find: " +totalFind + " total try: " + totalTry);
+            taux += (totalFind/(double) totalTry);
 
         }
 
-        // On return le taux de reussite
-        System.out.println("total find: " +totalFind + " total try: " + totalTry);
-        return (totalFind/(double) totalTry);
+
+
+        return taux/(1/testPart);
     }
 
     public static void main(String[] args) {
@@ -153,14 +164,18 @@ public class MethodKNN {
         // On mélange les données pour tester sur differentes variétes car le fichier de base est trié.
         Collections.shuffle(datas);
 
-        System.out.println("Search best k");
+        for(int i = 0; i<1; i++) {
+            System.out.println("Search best k");
 
-        // On cherche le meilleure K
-        int bestK = MethodKNN.bestK(datas, new DistanceEuclidienneNormalisee());
-        System.out.println(bestK);
+            // On cherche le meilleure K
+            int bestK = MethodKNN.bestK(datas, new DistanceEuclidienneNormalisee());
+            System.out.println(bestK);
 
-        // Puis on clacul la robustesse avec le K trouvé
-        System.out.println(MethodKNN.robustesse( datas, bestK, new DistanceEuclidienneNormalisee(), 0.2));
+            // Puis on clacul la robustesse avec le K trouvé
+            System.out.println(MethodKNN.robustesse( datas, bestK, new DistanceEuclidienneNormalisee(), 0.2));
+
+        }
+
 
 
         }

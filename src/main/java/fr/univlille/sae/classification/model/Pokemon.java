@@ -200,7 +200,7 @@ public class Pokemon extends LoadableData{
 
     @Override
     public String[] getStringAttributes() {
-        return new String[0];
+        return new String[]{name, type2, String.valueOf(isLegendary)};
     }
 
     @Override

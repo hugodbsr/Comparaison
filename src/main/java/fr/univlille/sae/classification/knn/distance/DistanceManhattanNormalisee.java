@@ -4,7 +4,7 @@ import fr.univlille.sae.classification.knn.MethodKNN;
 
 import fr.univlille.sae.classification.model.LoadableData;
 
-public class DistanceManhattanNormalisée implements Distance{
+public class DistanceManhattanNormalisee implements Distance{
 
     @Override
     public double distance(LoadableData l1, LoadableData l2) {

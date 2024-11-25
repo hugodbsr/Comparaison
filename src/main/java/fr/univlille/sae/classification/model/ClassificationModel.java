@@ -3,6 +3,8 @@ package fr.univlille.sae.classification.model;
 import com.opencsv.bean.CsvToBeanBuilder;
 import fr.univlille.sae.classification.knn.MethodKNN;
 import fr.univlille.sae.classification.knn.distance.Distance;
+import fr.univlille.sae.classification.knn.distance.DistanceEuclidienne;
+import fr.univlille.sae.classification.knn.distance.DistanceManhattan;
 import fr.univlille.sae.classification.utils.Observable;
 
 import java.io.File;
@@ -52,6 +54,8 @@ public class ClassificationModel extends Observable {
         this.datas = new ArrayList<>();
         this.dataToClass = new ConcurrentHashMap<>();
         this.type = type;
+        this.kOptimal = 1;
+        this.distance =  new DistanceEuclidienne();
     }
     /**
      * Ajoute un point au nuage de points avec toutes les données de ce point.
@@ -108,11 +112,8 @@ public class ClassificationModel extends Observable {
      */
     public void classifierDonnee(LoadableData data) {
         if(dataToClass.get(data) != null && dataToClass.get(data)) return;
-        List<String> classes = new ArrayList<>(LoadableData.getClassificationTypes());
 
-
-
-        data.setClassification(MethodKNN.estimateClass(datas, data, 1, distance));
+        data.setClassification(MethodKNN.estimateClass(datas, data, kOptimal, distance));
         notifyObservers(data);
         dataToClass.put(data, true);
     }
