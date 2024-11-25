@@ -5,13 +5,11 @@ import fr.univlille.sae.classification.knn.MethodKNN;
 import fr.univlille.sae.classification.knn.distance.Distance;
 import fr.univlille.sae.classification.utils.Observable;
 
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Modèle de classification des données.
@@ -20,7 +18,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ClassificationModel extends Observable {
 
     private List<LoadableData> datas;
-    private Map<LoadableData, Boolean> dataToClass;
+    private final Map<LoadableData, Boolean> dataToClass;
 
     private DataType type;
 
@@ -79,7 +77,7 @@ public class ClassificationModel extends Observable {
         try {
             this.datas = new CsvToBeanBuilder<LoadableData>(Files.newBufferedReader(file.toPath()))
                     .withSeparator(',')
-                    .withType(Pokemon.class)
+                    .withType(type.getClazz())
                     .build().parse();
 
             Set<String> types = new HashSet<>();

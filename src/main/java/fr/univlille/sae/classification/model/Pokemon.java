@@ -37,6 +37,7 @@ public class Pokemon extends LoadableData{
 
 
     public Pokemon(String name, int attack, int baseEggSteps, double captureRate, int defense, int experienceGrowth, int hp, int spAttack, int spDefense, String type1, String type2, double speed, boolean isLegendary) {
+        super();
         this.name = name;
         this.attack = attack;
         this.baseEggSteps = baseEggSteps;
@@ -82,6 +83,7 @@ public class Pokemon extends LoadableData{
     public void setClassification(String classification) {
         this.type1 = classification;
     }
+
 
     /**
      * Renvoie les noms des attributs de l'objet.
@@ -192,7 +194,8 @@ public class Pokemon extends LoadableData{
 
     @Override
     public double[] getAttributes() {
-        return new double[0];
+        return new double[]{attack, baseEggSteps, captureRate, defense,
+                            experienceGrowth, hp, spAttack, spDefense, speed};
     }
 
     @Override
