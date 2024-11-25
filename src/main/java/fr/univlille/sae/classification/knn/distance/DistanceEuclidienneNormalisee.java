@@ -1,10 +1,9 @@
 package fr.univlille.sae.classification.knn.distance;
 
 import fr.univlille.sae.classification.knn.MethodKNN;
-import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.LoadableData;
 
-public class DistanceEuclidienneNormalisée implements Distance{
+public class DistanceEuclidienneNormalisee implements Distance{
     @Override
     public double distance(LoadableData l1, LoadableData l2) {
         if(l1.getAttributes().length != l2.getAttributes().length) throw new IllegalArgumentException("Error while trying to get Distance : Attributes do not match");

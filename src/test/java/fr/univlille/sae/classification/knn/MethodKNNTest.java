@@ -1,7 +1,7 @@
 package fr.univlille.sae.classification.knn;
 
 import fr.univlille.sae.classification.knn.distance.DistanceEuclidienne;
-import fr.univlille.sae.classification.knn.distance.DistanceEuclidienneNormalisée;
+import fr.univlille.sae.classification.knn.distance.DistanceEuclidienneNormalisee;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.LoadableData;
 import org.junit.jupiter.api.BeforeEach;
@@ -69,7 +69,7 @@ public class MethodKNNTest {
         System.out.println(first);
         System.out.println(second);
 
-        List<LoadableData> kVoisins = MethodKNN.kVoisins(datas, first, 1, new DistanceEuclidienneNormalisée());
+        List<LoadableData> kVoisins = MethodKNN.kVoisins(datas, first, 1, new DistanceEuclidienneNormalisee());
 
         assertEquals(second, kVoisins.get(0));
     }
