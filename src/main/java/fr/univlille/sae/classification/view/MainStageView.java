@@ -123,6 +123,10 @@ public class MainStageView extends DataVisualizationView implements Observer {
                     if(editSerie == null){
                         editSerie = new ScatterChart.Series<Double, Double>();
                     }
+                    if(data.getClassification().equals("undefined")) {
+                        nodePoint = ViewUtil.getForm(data, new Rectangle(10,10), controller);
+                    }
+
                     dataPoint.setNode(nodePoint);
                     editSerie.getData().add(dataPoint);
                     serieList.put(data.getClassification(), editSerie);
@@ -146,8 +150,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 return;
             }
 
-            scatterChart.getData().clear();
-            serieList.clear();
+
 
             LoadableData newData = (LoadableData) data;
             if (actualX == null || actualY == null) {
