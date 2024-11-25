@@ -123,7 +123,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
                     if(editSerie == null){
                         editSerie = new ScatterChart.Series<Double, Double>();
                     }
-                    if(data.getClassification().equals("undefined")) {
+                    if(data.getClassification().equals("undefined") || model.getDataToClass().containsKey(data)) {
                         nodePoint = ViewUtil.getForm(data, new Rectangle(10,10), controller);
                     }
 

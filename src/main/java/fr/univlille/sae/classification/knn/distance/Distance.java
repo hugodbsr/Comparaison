@@ -21,4 +21,16 @@ public interface Distance {
 
     }
 
+    static String getDistanceName(Distance distance){
+        if (distance instanceof DistanceEuclidienneNormalisee) {
+            return "Euclidienne Normalisee";
+        }else if (distance instanceof DistanceManhattan){
+            return "Manhattan";
+        }else if (distance instanceof DistanceManhattanNormalisee){
+            return "ManhattanNormalisee";
+        }else {
+            return "Euclidienne";
+        }
+    }
+
 }

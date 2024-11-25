@@ -42,7 +42,10 @@ public class KNNController {
                         1,
                         1));
 
+        kEntry.getValueFactory().setValue(ClassificationModel.getClassificationModel().getK());
+
         algoSelector.getItems().addAll("Euclidienne", "Euclidienne Normalisée", "Manhattan", "Manhattan Normalisée");
+        algoSelector.setValue(Distance.getDistanceName(ClassificationModel.getClassificationModel().getDistance()));
     }
 
 
@@ -69,23 +72,25 @@ public class KNNController {
                     //List<LoadableData> datasShuffle = new ArrayList<>(List.copyOf(model.getDatas()));
                    // Collections.shuffle(datasShuffle);
                     MethodKNN.updateModel(model.getDatas());
-
+                    Distance dist = Distance.getByName(algoSelector.getValue());
 
                     updateProgress(1, 3);
                     updateMessage("Recherche du meilleur K");
 
-                    int bestK = MethodKNN.bestK(model.getDatas(), model.getDistance());
+                    int bestK = MethodKNN.bestK(model.getDatas(), dist);
 
 
                     updateMessage("Test de robustesse");
                     updateProgress(2, 3);
 
 
-                    double robustesse = MethodKNN.robustesse( model.getDatas(), bestK, model.getDistance(), 0.2);
+                    double robustesse = MethodKNN.robustesse( model.getDatas(), bestK, dist, 0.2);
                     model.setKOptimal(bestK);
 
                     updateMessage("Affichage du resultat");
                     updateProgress(2.5, 3);
+
+                    model.setDistance(dist);
 
                     HBox hBox = new HBox();
                     Label label = new Label("Best K: " + bestK + " robustesse : " + robustesse);
