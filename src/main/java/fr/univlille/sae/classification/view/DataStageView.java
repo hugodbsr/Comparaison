@@ -1,104 +1,101 @@
 package fr.univlille.sae.classification.view;
 
-import fr.univlille.sae.classification.controller.MainStageController;
+import fr.univlille.sae.classification.controller.DataStageController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.DataType;
 import fr.univlille.sae.classification.model.Iris;
 import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.utils.Observable;
 import fr.univlille.sae.classification.utils.Observer;
-import fr.univlille.sae.classification.utils.ViewUtil;
 import javafx.collections.ObservableList;
+import fr.univlille.sae.classification.utils.ViewUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.*;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * Classe représentant la vue principale de l'application de classification.
+ * Classe responsable de l'affichage et de la gestion de la vue des données.
+ * Implémente l'interface Observer pour recevoir des notifications de mise à jour.
  */
-public class MainStageView extends DataVisualizationView implements Observer {
+public class DataStageView extends DataVisualizationView implements Observer {
 
     private ClassificationModel model;
-    private MainStageController controller;
-
-    private Stage root;
+    private DataStageController controller;
 
     private Map<String, ScatterChart.Series<Double, Double>> serieList;
 
-    private ScatterChart.Series series1;
-    private ScatterChart.Series series2;
-    private ScatterChart.Series series3;
-    private ScatterChart.Series series4;
+    private XYChart.Series series1;
+    private XYChart.Series series2;
+    private XYChart.Series series3;
+    private XYChart.Series series4;
+
+    private Stage root;
 
     /**
-     * Constructeur de la vue principale.
-     * @param model modèle de classification à utiliser.
+     * Constructeur pour initialiser la vue de données.
+     * @param model le modèle de classification utilisé pour gérer les données.
      */
-    public MainStageView(ClassificationModel model) {
+    public DataStageView(ClassificationModel model) {
         super();
         this.serieList = new HashMap<String, ScatterChart.Series<Double, Double>>();
-        this.series1 = new ScatterChart.Series();
-        this.series2 = new ScatterChart.Series();
-        this.series3 = new ScatterChart.Series();
-        this.series4 = new ScatterChart.Series();
         this.model = model;
+        this.series1 = new XYChart.Series();
+        this.series2 = new XYChart.Series();
+        this.series3 = new XYChart.Series();
+        this.series4 = new XYChart.Series();
         model.attach(this);
     }
 
     /**
-     * Affiche la vue principale.
+     * Affiche la vue des données en chargeant le fichier FXML et en initialisant la scène.
      */
     public void show() {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            URL fxmlFileUrl = getClass().getClassLoader().getResource("stages"+File.separator+"main-stage.fxml");
+            URL fxmlFileUrl = getClass().getClassLoader().getResource("stages"+File.separator+"data-view-stage.fxml");
 
             if (fxmlFileUrl == null) {
                 System.out.println("Impossible de charger le fichier fxml");
                 System.exit(-1);
             }
-
             loader.setLocation(fxmlFileUrl);
-
             root = loader.load();
             root.setResizable(false);
             root.setTitle("SAE3.3 - Logiciel de classification");
             root.show();
-
-            root.setOnCloseRequest(event -> {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation");
-                alert.setHeaderText("Voulez-vous quitter l'application ?");
-                alert.setContentText("Aucunes modifications ne seront sauvegardées ! Les points ajoutés ne seront pas sauvegardés.");
-                Optional<ButtonType> optionalButtonType = alert.showAndWait();
-                if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.OK) {
-                    System.exit(0);
-                } else {
-                    event.consume();
-                }
-            });
-
             controller = loader.getController();
-            controller.setMainStageView(this);
+            controller.setDataStageView(this);
             scatterChart = controller.getScatterChart();
-            //scatterChart.getData().addAll(series1, series2, series3, series4);
+
+            scatterChart.getData().addAll(series4, series1, series2, series3);
+
             controller.setAxesSelected("Aucun fichier sélectionné");
 
+            if (!model.getDatas().isEmpty()) {
+                update(model);
+            }
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement du fichier FXML : " + e.getMessage());
         }
     }
 
+    /**
+     * Met à jour l'affichage des données en fonction des changements dans le modèle.
+     * @param observable modèle observé.
+     */
     @Override
     public void update(Observable observable) {
         try {
@@ -106,11 +103,9 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 System.err.println("Erreur de mise à jour.");
                 return;
             }
-
-            ObservableList<ScatterChart.Series> series = scatterChart.getData();
-            for (ScatterChart.Series serie : series) {
-                serie.getData().clear();
-            }
+            // On vide le nuage pour s'assurer qu'il est bien vide
+            ObservableList<XYChart.Series> series = scatterChart.getData();
+            for(XYChart.Series serie : series) {serie.getData().clear();}
 
             if (actualX == null && actualY == null) {
                 controller.setAxesSelected("Aucuns axes sélectionnés");
@@ -144,6 +139,11 @@ public class MainStageView extends DataVisualizationView implements Observer {
         }
     }
 
+    /**
+     * Met à jour l'affichage en ajoutant un nouveau point de données.
+     * @param observable modèle observé.
+     * @param data point de données à ajouter.
+     */
     @Override
     public void update(Observable observable, Object data) {
         try {
@@ -172,10 +172,17 @@ public class MainStageView extends DataVisualizationView implements Observer {
         }
     }
 
-    public MainStageController getController() {
+    /**
+     * Renvoie le contrôleur associé à cette vue.
+     * @return contrôleur de la vue.
+     */
+    public DataStageController getController() {
         return controller;
     }
 
+    /**
+     * Recharge les données de la vue en fonction des données du modèle.
+     */
     @Override
     public void reload() {
         this.update(ClassificationModel.getClassificationModel());

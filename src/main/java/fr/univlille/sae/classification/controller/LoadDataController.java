@@ -4,7 +4,6 @@ import fr.univlille.sae.classification.model.ClassificationModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -19,11 +18,6 @@ public class LoadDataController {
     @FXML
     Stage stage;
 
-    @FXML
-    Button browseFile;
-
-    @FXML
-    Button confirmDataSelection;
 
     @FXML
     TextField filePath;
@@ -31,11 +25,14 @@ public class LoadDataController {
     @FXML
     ComboBox selectType;
 
+    /**
+     * Fichier sélectionné
+     */
     File file;
 
-
-
-
+    /**
+     * Ouvre un explorateur de fichiers pour sélectionner le fichier à étudier
+     */
     public void openFileChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisissez le fichier à importer");
@@ -47,9 +44,12 @@ public class LoadDataController {
 
     }
 
-    public void validate() throws IOException {
+    /**
+     * Valide le fichier sélectionné au préalable
+     */
+    public void validate(){
 
-        if (file == null) {
+        if (file == null || file.isDirectory() || !file.exists()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de chargement du fichier");
             alert.setHeaderText(null);
@@ -58,12 +58,9 @@ public class LoadDataController {
             alert.showAndWait();
             openFileChooser();
             return;
-            //throw exception
         }
+
         ClassificationModel.getClassificationModel().loadData(file);
         stage.close();
     }
-
-
-
 }

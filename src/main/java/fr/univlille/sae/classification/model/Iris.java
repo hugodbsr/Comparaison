@@ -1,12 +1,13 @@
 package fr.univlille.sae.classification.model;
 
-import com.opencsv.bean.*;
+import com.opencsv.bean.CsvBindByName;
 import javafx.scene.paint.Color;
 
-import java.util.Random;
-
-public class Iris extends LoadableData{
-
+/**
+ * Représente un point Iris.
+ * Contient des informations sur les dimensions des sépales et des pétales et sur la variété de la fleur.
+ */
+public class Iris extends LoadableData {
 
     @CsvBindByName(column = "sepal.length")
     private double sepalLength;
@@ -19,24 +20,50 @@ public class Iris extends LoadableData{
     @CsvBindByName(column = "variety")
     private String variety;
 
+    /**
+     * Constructeur pour créer une instance de Iris avec les dimensions des sépales et des pétales.
+     * @param sepalLength longueur du sépale.
+     * @param sepalWidth largeur du sépale.
+     * @param petalLength longueur du pétale.
+     * @param petalWidth largeur du pétale.
+     */
     public Iris(double sepalLength, double sepalWidth, double petalLength, double petalWidth) {
         this(sepalLength, sepalWidth, petalLength, petalWidth, "undefined");
     }
 
+    /**
+     * Constructeur par défaut.
+     */
     public Iris() {
         //
     }
 
+    /**
+     * Renvoie la classification (variété) de l'Iris.
+     * @return variété de l'Iris.
+     */
     @Override
     public String getClassification() {
         return variety;
     }
 
+    /**
+     * Définit la classification (variété) de l'Iris.
+     * @param classification variété à définir.
+     */
     @Override
     public void setClassification(String classification) {
         this.variety = classification;
     }
 
+    /**
+     * Constructeur pour créer une instance de Iris avec tous les attributs.
+     * @param sepalLength longueur du sépale.
+     * @param sepalWidth largeur du sépale.
+     * @param petalLength longueur du pétale.
+     * @param petalWidth largeur du pétale.
+     * @param variety variété de l'Iris.
+     */
     public Iris(double sepalLength, double sepalWidth, double petalLength, double petalWidth, String variety) {
         super();
         this.sepalWidth = sepalWidth;
@@ -46,25 +73,46 @@ public class Iris extends LoadableData{
         this.variety = variety;
     }
 
+    /**
+     * Renvoie la largeur du sépale.
+     * @return largeur du sépale.
+     */
     public double getSepalWidth() {
         return sepalWidth;
     }
 
+    /**
+     * Renvoie la longueur du sépale.
+     * @return longueur du sépale.
+     */
     public double getSepalLength() {
         return sepalLength;
     }
 
+    /**
+     * Renvoie la largeur du pétale.
+     * @return largeur du pétale.
+     */
     public double getPetalWidth() {
         return petalWidth;
     }
 
+    /**
+     * Renvoie la longueur du pétale.
+     * @return longueur du pétale.
+     */
     public double getPetalLength() {
         return petalLength;
     }
 
-
-    public double getDataType(String axes){
-        switch (axes){
+    /**
+     * Renvoie la valeur des données en fonction de l'axe spécifié.
+     * @param axes nom de l'axe pour lequel la valeur est requise.
+     * @return valeur correspondante.
+     */
+    @Override
+    public double getDataType(String axes) {
+        switch (axes) {
             case "sepalWidth":
                 return sepalWidth;
             case "sepalLength":
@@ -78,8 +126,24 @@ public class Iris extends LoadableData{
         }
     }
 
-    public Color getColor(){
-        switch (this.variety){
+    @Override
+    public double[] getAttributes() {
+        return new double[]{sepalLength, sepalWidth, petalLength, petalWidth} ;
+    }
+
+    @Override
+    public String[] getStringAttributes() {
+        return new String[0];
+    }
+
+
+    /**
+     * Renvoie la couleur associée à la variété de l'Iris.
+     * @return couleur correspondant à la variété.
+     */
+    @Override
+    public Color getColor() {
+        switch (this.variety) {
             case "Setosa":
                 return Color.RED;
             case "Versicolor":
@@ -87,20 +151,28 @@ public class Iris extends LoadableData{
             case "Virginica":
                 return Color.GREEN;
             default:
-                return Color.BLACK;
+                return Color.BLACK; // Couleur par défaut si la variété est inconnue
         }
     }
 
+    /**
+     * Renvoie les noms des attributs de l'Iris.
+     * @return tableau de chaînes contenant les noms des attributs.
+     */
+    @Override
     public String[] getAttributesName() {
-        String[] names = new String[]{
+        return new String[]{
                 "sepalLength",
                 "sepalWidth",
                 "petalLength",
                 "petalWidth"
         };
-        return names;
     }
 
+    /**
+     * Représentation sous forme de chaîne de l'objet Iris.
+     * @return chaîne contenant les dimensions de l'Iris.
+     */
     @Override
     public String toString() {
         return "Iris{" +
@@ -108,6 +180,7 @@ public class Iris extends LoadableData{
                 ", sepalWidth=" + sepalWidth +
                 ", petalLength=" + petalLength +
                 ", petalWidth=" + petalWidth +
+                ", variety='" + getClassification() + '\'' +
                 '}';
     }
 }

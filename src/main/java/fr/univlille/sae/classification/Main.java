@@ -7,22 +7,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Main extends Application {
-
-
-    public void start(Stage stage) throws IOException {
-            ClassificationModel model = ClassificationModel.getClassificationModel();
-            MainStageView view = new MainStageView(model);
-
-            view.show();
-    }
-
-    // Ouvre l'application
+public class Main {
     public static void main(String[] args) {
-        Application.launch(args);
+            ClassificationApp.main(args);
     }
-
-
-
-
 }
