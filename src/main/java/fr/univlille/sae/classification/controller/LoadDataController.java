@@ -51,12 +51,14 @@ public class LoadDataController {
     }
 
 
-    DataType typeChoisi = fileType.getSelectionModel().getSelectedItem();
 
     /**
      * Valide le fichier sélectionné au préalable
      */
     public void validate(){
+
+        DataType typeChoisi = fileType.getValue();
+
 
         if (file == null || file.isDirectory() || !file.exists() || fileType.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

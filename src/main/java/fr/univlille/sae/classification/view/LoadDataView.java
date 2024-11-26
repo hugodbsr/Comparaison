@@ -50,8 +50,6 @@ public class LoadDataView {
             root.initOwner(owner);
             root.initModality(Modality.APPLICATION_MODAL);
             root.setTitle("Chargement des données");
-            LoadDataController controller = loader.getController();
-            controller.setFileType();
 
             root.showAndWait();
         } catch (IOException e) {
