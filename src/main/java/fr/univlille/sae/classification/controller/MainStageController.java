@@ -3,6 +3,7 @@ package fr.univlille.sae.classification.controller;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.view.*;
 import javafx.fxml.FXML;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,6 +29,12 @@ public class MainStageController {
     @FXML
     ListView PointInfo;
 
+    @FXML
+    Button ZoomIn;
+
+    @FXML
+    Button ZoomOut;
+
     private MainStageView mainStageView;
 
     /**
@@ -37,6 +44,11 @@ public class MainStageController {
     public void openLoadData() {
         LoadDataView loadDataView = new LoadDataView(ClassificationModel.getClassificationModel(), stage);
         loadDataView.show();
+    }
+
+    public void openClassification(){
+        KNNView knnView = new KNNView(ClassificationModel.getClassificationModel(), stage);
+        knnView.show();
     }
 
     /**
@@ -110,4 +122,8 @@ public class MainStageController {
     public ListView getPointInfo(){
         return this.PointInfo;
     };
+
+    public void setZoomIn(){
+        ((NumberAxis)getScatterChart().getXAxis()).getUpperBound();
+    }
 }

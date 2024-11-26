@@ -21,6 +21,23 @@ public class Iris extends LoadableData {
     private String variety;
 
     /**
+     * Constructeur pour créer une instance de Iris avec tous les attributs.
+     * @param sepalLength longueur du sépale.
+     * @param sepalWidth largeur du sépale.
+     * @param petalLength longueur du pétale.
+     * @param petalWidth largeur du pétale.
+     * @param variety variété de l'Iris.
+     */
+    public Iris(double sepalLength, double sepalWidth, double petalLength, double petalWidth, String variety) {
+        super();
+        this.sepalWidth = sepalWidth;
+        this.sepalLength = sepalLength;
+        this.petalWidth = petalWidth;
+        this.petalLength = petalLength;
+        this.variety = variety;
+    }
+
+    /**
      * Constructeur pour créer une instance de Iris avec les dimensions des sépales et des pétales.
      * @param sepalLength longueur du sépale.
      * @param sepalWidth largeur du sépale.
@@ -54,23 +71,6 @@ public class Iris extends LoadableData {
     @Override
     public void setClassification(String classification) {
         this.variety = classification;
-    }
-
-    /**
-     * Constructeur pour créer une instance de Iris avec tous les attributs.
-     * @param sepalLength longueur du sépale.
-     * @param sepalWidth largeur du sépale.
-     * @param petalLength longueur du pétale.
-     * @param petalWidth largeur du pétale.
-     * @param variety variété de l'Iris.
-     */
-    public Iris(double sepalLength, double sepalWidth, double petalLength, double petalWidth, String variety) {
-        super();
-        this.sepalWidth = sepalWidth;
-        this.sepalLength = sepalLength;
-        this.petalWidth = petalWidth;
-        this.petalLength = petalLength;
-        this.variety = variety;
     }
 
     /**

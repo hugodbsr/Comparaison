@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.stage.*?>
+
+<Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.KNNController">
+    <scene>
+        <Scene>
+            <AnchorPane prefHeight="224.0" prefWidth="363.0">
+                <children>
+                    <VBox layoutX="-1.0" layoutY="-3.0" prefHeight="229.0" prefWidth="364.0">
+                        <children>
+                            <HBox alignment="CENTER" prefHeight="92.0" prefWidth="364.0">
+                                <children>
+                                    <ChoiceBox fx:id="AlgoSelector" prefWidth="150.0" stylesheets="@../css/style.css" />
+                                </children>
+                        <padding>
+                           <Insets top="20.0" />
+                        </padding>
+                            </HBox>
+                     <HBox alignment="CENTER_LEFT" prefHeight="24.0" prefWidth="314.0">
+                        <children>
+                           <Label text="Attribution de K">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                        </children>
+                        <VBox.margin>
+                           <Insets left="50.0" />
+                        </VBox.margin>
+                     </HBox>
+                     <HBox alignment="CENTER" prefHeight="36.0" prefWidth="364.0" spacing="20.0">
+                        <children>
+                           <TextField fx:id="KEntry" />
+                           <Button fx:id="AutoK" mnemonicParsing="false" stylesheets="@../css/style.css" text="Attribution auto" textFill="WHITE">
+                              <font>
+                                 <Font name="System Bold" size="13.0" />
+                              </font>
+                           </Button>
+                        </children>
+                     </HBox>
+                            <HBox alignment="CENTER" prefHeight="59.0" prefWidth="364.0">
+                                <children>
+                                    <Button fx:id="confirmK" mnemonicParsing="false" stylesheets="@../css/style.css" text="Valider" textFill="WHITE">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font></Button>
+                                </children>
+                            </HBox>
+                        </children>
+                    </VBox>
+                </children></AnchorPane>
+        </Scene>
+    </scene>
+</Stage>

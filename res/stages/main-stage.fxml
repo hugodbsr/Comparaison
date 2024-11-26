@@ -29,7 +29,7 @@
                                     <children>
                                        <AnchorPane prefHeight="426.0" prefWidth="698.0">
                                           <children>
-                                             <ScatterChart fx:id="scatterChart" layoutX="-1.0" legendVisible="false" prefHeight="426.0" prefWidth="677.0" stylesheets="@../css/style.css">
+                                             <ScatterChart fx:id="scatterChart" layoutX="-1.0" legendVisible="false" prefHeight="345.0" prefWidth="677.0" stylesheets="@../css/style.css">
                                                <xAxis>
                                                  <NumberAxis fx:id="absAxe" prefHeight="42.0" prefWidth="617.0" side="BOTTOM" stylesheets="@../css/style.css" />
                                                </xAxis>
@@ -37,28 +37,43 @@
                                                  <NumberAxis fx:id="ordAxe" prefHeight="354.0" prefWidth="54.0" side="LEFT" stylesheets="@../css/style.css" />
                                                </yAxis>
                                              </ScatterChart>
-                                             <Label fx:id="AxesSelected" alignment="CENTER" layoutX="1.0" layoutY="152.0" prefHeight="38.0" prefWidth="672.0">
+                                             <Label fx:id="AxesSelected" alignment="CENTER" layoutX="73.0" layoutY="152.0" prefHeight="38.0" prefWidth="600.0">
                                                 <font>
                                                    <Font size="21.0" />
                                                 </font>
                                              </Label>
+                                             <VBox layoutY="345.0" prefHeight="78.0" prefWidth="678.0" />
                                           </children>
                                           <HBox.margin>
                                              <Insets left="10.0" />
                                           </HBox.margin>
                                        </AnchorPane>
-                                        <Button fx:id="settingsView" mnemonicParsing="false" onAction="#openAxesSetting" stylesheets="@../css/style.css">
-                                            <graphic>
-                                                <ImageView fitHeight="100.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@gear.png" />
-                                                    </image>
-                                             </ImageView>
-                                            </graphic>
-                                          <HBox.margin>
+                                       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                                          <children>
+                                              <Button fx:id="settingsView" mnemonicParsing="false" onAction="#openAxesSetting" stylesheets="@../css/style.css">
+                                                  <graphic>
+                                                      <ImageView fitHeight="100.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                          <image>
+                                                              <Image url="@gear.png" />
+                                                          </image>
+                                                   </ImageView>
+                                                  </graphic>
+                                              </Button>
+                                             <Button fx:id="ZoomIn" layoutX="27.0" layoutY="30.0" mnemonicParsing="false" onAction="#openAxesSetting" stylesheets="@../css/style.css" text="+" textFill="WHITE">
+                                                <font>
+                                                   <Font name="System Bold" size="20.0" />
+                                                </font>
+                                             </Button>
+                                             <Button fx:id="ZoomOut" layoutX="27.0" layoutY="88.0" mnemonicParsing="false" onAction="#openAxesSetting" stylesheets="@../css/style.css" text="-" textFill="WHITE">
+                                                <font>
+                                                   <Font name="System Bold" size="22.0" />
+                                                </font>
+                                             </Button>
+                                          </children>
+                                          <padding>
                                              <Insets top="20.0" />
-                                          </HBox.margin>
-                                        </Button>
+                                          </padding>
+                                       </VBox>
                                     </children>
                                  </HBox>
                                  <VBox alignment="TOP_CENTER" prefHeight="128.0" prefWidth="775.0">
@@ -73,7 +88,7 @@
                                                 <font>
                                                    <Font name="System Bold" size="14.0" />
                                                 </font></Button>
-                                             <Button fx:id="classifyData" disable="true" mnemonicParsing="false" onAction="#classifyDatas" prefHeight="30.0" prefWidth="174.0" stylesheets="@../css/style.css" text="Classifier les données" textFill="WHITE">
+                                             <Button fx:id="classifyData" disable="true" mnemonicParsing="false" onAction="#openClassification" prefHeight="30.0" prefWidth="174.0" stylesheets="@../css/style.css" text="Classifier les données" textFill="WHITE">
                                                 <font>
                                                    <Font name="System Bold" size="14.0" />
                                                 </font></Button>

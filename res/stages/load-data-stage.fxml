@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.stage.Stage?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.stage.*?>
 
-<Stage fx:id="stage" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.LoadDataController">
+<Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.LoadDataController">
     <scene>
         <Scene>
             <AnchorPane prefHeight="143.0" prefWidth="363.0">
@@ -26,13 +22,9 @@
                            <TextField fx:id="filePath" prefHeight="26.0" prefWidth="207.0" />
                         </children>
                      </HBox>
-                     <HBox prefHeight="100.0" prefWidth="200.0">
+                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                         <children>
-                           <ComboBox prefWidth="150.0">
-                              <HBox.margin>
-                                 <Insets left="110.0" top="15.0" />
-                              </HBox.margin>
-                           </ComboBox>
+                           <ChoiceBox fx:id="fileType" prefWidth="150.0" stylesheets="@../css/style.css" />
                         </children>
                      </HBox>
                      <HBox alignment="CENTER" prefHeight="76.0" prefWidth="310.0">
