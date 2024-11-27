@@ -29,12 +29,6 @@ public class MainStageController {
     @FXML
     ListView PointInfo;
 
-    @FXML
-    Button ZoomIn;
-
-    @FXML
-    Button ZoomOut;
-
     private MainStageView mainStageView;
 
     private double initialX;
