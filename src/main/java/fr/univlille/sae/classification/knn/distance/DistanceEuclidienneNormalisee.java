@@ -14,7 +14,8 @@ public class DistanceEuclidienneNormalisee implements Distance{
         double[] normaliseL1 = normalise(l1);
         double[] normaliseL2 = normalise(l2);
         for(int i = 0;i<normaliseL1.length;i++) {
-            total += Math.pow(normaliseL2[i] - normaliseL1[i], 2);
+           //total += Math.pow(normaliseL2[i] - normaliseL1[i], 2);
+            total += Math.pow((l2.getAttributes()[i] - l1.getAttributes()[i])/MethodKNN.amplitude[i], 2);
         }
         //A Check
         for(int i = 0;i<l2.getStringAttributes().length;i++) {

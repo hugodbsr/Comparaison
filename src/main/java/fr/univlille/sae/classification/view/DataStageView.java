@@ -124,6 +124,9 @@ public class DataStageView extends DataVisualizationView implements Observer {
                     if(editSerie == null){
                         editSerie = new ScatterChart.Series<Double, Double>();
                     }
+                    if(data.getClassification().equals("undefined") || model.getDataToClass().containsKey(data)) {
+                        nodePoint = ViewUtil.getForm(data, new Rectangle(10,10), controller);
+                    }
                     dataPoint.setNode(nodePoint);
                     editSerie.getData().add(dataPoint);
                     serieList.put(data.getClassification(), editSerie);
@@ -133,7 +136,6 @@ public class DataStageView extends DataVisualizationView implements Observer {
                     serieList.get(serie).setName(serie);
                 }
                 scatterChart.getData().addAll(serieList.values());
-                scatterChart.setLegendVisible(true);
             }
         } catch (Exception e) {
             System.err.println("Erreur de mise à jour : " + e.getMessage());
