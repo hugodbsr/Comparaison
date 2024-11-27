@@ -1,7 +1,11 @@
 package fr.univlille.sae.classification.model;
 
+import javafx.print.PrintColor;
 import javafx.scene.paint.Color;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -11,10 +15,13 @@ public abstract class LoadableData {
 
     private static Set<String> classificationTypes;
 
+    private static Map<String, Color> classification = new HashMap<>() ;
+
     /**
      * Constructeur par défaut.
      */
     protected LoadableData() {
+
     }
 
     /**
@@ -31,13 +38,39 @@ public abstract class LoadableData {
         return classificationTypes;
     }
 
+    public static Map<String, Color> getClassifications() {
+        return classification;
+    }
+
     /**
      * Définit les types de classification disponibles.
      * @param classificationTypes ensemble de types de classification à définir.
      */
     public static void setClassificationTypes(Set<String> classificationTypes) {
         LoadableData.classificationTypes = classificationTypes;
+        LoadableData.classification.clear();
+
+        int nb = 0;
+        for(String s : classificationTypes) {
+            // Génération de couleurs avec une plage évitant le blanc
+
+            LoadableData.classification.put(s, getColor(nb++));
+        }
+
+        LoadableData.classification.put("undefined", getColor(nb));
     }
+
+    private static Color getColor(int i) {
+        double ratio = (double) i / classificationTypes.size();
+
+        // Réduire les composantes pour éviter les tons clairs
+        double red = 0.2 + 0.6 * ratio; // Entre 0.2 et 0.8
+        double green = 0.8 - 0.6 * ratio; // Entre 0.8 et 0.2
+        double blue = 0.5 + 0.3 * Math.sin(ratio * Math.PI); // Entre 0.5 et 0.8
+
+        return Color.color(red, green, blue);
+    }
+
 
     /**
      * Définit la classification de l'objet.

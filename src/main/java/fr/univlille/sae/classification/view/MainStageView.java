@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
 
@@ -137,7 +138,13 @@ public class MainStageView extends DataVisualizationView implements Observer {
                     serieList.get(serie).setName(serie);
                 }
                 scatterChart.getData().addAll(serieList.values());
+
+
+                HBox hBox = ViewUtil.loadLegend();
+                controller.loadLegend(hBox);
             }
+
+
         } catch (Exception e) {
             System.err.println("Erreur de mise à jour : " + e.getMessage());
         }
@@ -169,6 +176,9 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 series4.setName("indéfini");
                 scatterChart.getData().add(series4);
             }
+
+
+            controller.loadLegend(ViewUtil.loadLegend());
         } catch (Exception e) {
             System.err.println("Erreur de mise à jour : " + e.getMessage());
         }
