@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public abstract class DataVisualizationController {
@@ -17,6 +18,9 @@ public abstract class DataVisualizationController {
 
     @FXML
     Label AxesSelected;
+
+    @FXML
+    HBox legend;
 
 
     @FXML
@@ -139,6 +143,13 @@ public abstract class DataVisualizationController {
 
     public void setAxesSelectedDisable(){
         this.AxesSelected.setDisable(true);
+    }
+
+
+
+    public void loadLegend(HBox hbox) {
+        this.legend.getChildren().clear();
+        this.legend.getChildren().addAll(hbox.getChildren());
     }
 
 

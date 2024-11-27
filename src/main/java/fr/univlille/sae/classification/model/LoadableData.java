@@ -3,6 +3,7 @@ package fr.univlille.sae.classification.model;
 import javafx.scene.paint.Color;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Set;
 
 /**
@@ -11,6 +12,8 @@ import java.util.Set;
 public abstract class LoadableData {
 
     private static Set<String> classificationTypes;
+
+    private static Map<String, Color> classification = new HashMap<>() ;
 
     /**
      * Constructeur par défaut.
@@ -30,6 +33,10 @@ public abstract class LoadableData {
      */
     public static Set<String> getClassificationTypes() {
         return classificationTypes;
+    }
+
+    public static Map<String, Color> getClassifications() {
+        return classification;
     }
 
     /**
