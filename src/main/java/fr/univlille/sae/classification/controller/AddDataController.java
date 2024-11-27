@@ -5,19 +5,18 @@ import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.view.MainStageView;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controlleur pour le FXML add-data-stage, pour ajouter une nouvelle donnée
@@ -35,35 +34,66 @@ public class AddDataController {
      */
     MainStageView mainStageView;
 
-    private List<Spinner<Double>> spinners;
+    private List<Object> components;
 
     /**
      * Méthode d'intitialisation du controlleur
      */
     @FXML
     public void initialize() {
-        this.spinners = new ArrayList<>();
+        this.components = new ArrayList<>();
         ClassificationModel model = ClassificationModel.getClassificationModel();
         if (!model.getDatas().isEmpty()) {
-            String[] attributes = model.getDatas().get(0).getAttributesNames().keySet().toArray(new String[0]);
-            for (String attribute : attributes) {
-                Label label = new Label(attribute);
+            Map<String, Object> attrMap = model.getDatas().get(0).getAttributesNames();
+            for (Map.Entry<String, Object> entry : attrMap.entrySet()) {
+                String attrName = entry.getKey();
+                Object attrValue = entry.getValue();
 
-                Spinner<Double> spinner = new Spinner<>();
-                spinner.setEditable(true);
-                SpinnerValueFactory<Double> valueFactory =
-                        new SpinnerValueFactory.DoubleSpinnerValueFactory(
-                                0,
-                                Double.POSITIVE_INFINITY,
-                                0.0,
-                                0.1
-                        );
-                spinner.setValueFactory(valueFactory);
-                HBox hbox = new HBox(10, label, spinner);
+                Label label = new Label(attrName);
+                HBox hbox = new HBox(10, label);
                 hbox.setAlignment(Pos.CENTER);
-                hbox.setSpacing(10.0);
-                entries.getChildren().addAll(hbox);
-                spinners.add(spinner);
+                hbox.setSpacing(10);
+
+                if (attrValue instanceof Double) {
+                    Spinner<Double> doubleSpinner = new Spinner<>();
+                    doubleSpinner.setEditable(true);
+                    SpinnerValueFactory<Double> valueFactory =
+                            new SpinnerValueFactory.DoubleSpinnerValueFactory(
+                                    0.0,
+                                    9999,
+                                    0.0,
+                                    0.5
+                            );
+                    doubleSpinner.setValueFactory(valueFactory);
+                    hbox.getChildren().add(doubleSpinner);
+                    components.add(doubleSpinner);
+                }
+                else if (attrValue instanceof Integer) {
+                    Spinner<Integer> integerSpinner = new Spinner<>();
+                    integerSpinner.setEditable(true);
+                    SpinnerValueFactory<Integer> valueFactory =
+                            new SpinnerValueFactory.IntegerSpinnerValueFactory(
+                                    0,
+                                    Integer.MAX_VALUE,
+                                    0,
+                                    1
+                            );
+                    integerSpinner.setValueFactory(valueFactory);
+                    hbox.getChildren().add(integerSpinner);
+                    components.add(integerSpinner);
+                }
+                else if (attrValue instanceof String) {
+                    TextField textField = new TextField();
+                    hbox.getChildren().add(textField);
+                    components.add(textField);
+                }
+                else if (attrValue instanceof Boolean) {
+                    ChoiceBox<String> choiceBox = new ChoiceBox<>();
+                    choiceBox.getItems().addAll("VRAI", "FAUX");
+                    hbox.getChildren().add(choiceBox);
+                    components.add(choiceBox);
+                }
+                entries.getChildren().add(hbox);
             }
         }
     }
@@ -83,8 +113,18 @@ public class AddDataController {
         mainStageView.getController().getClassifyData().setDisable(false);
 
         try {
-            Double[] values = spinners.stream().map(Spinner::getValue).toArray(Double[]::new);
-            ClassificationModel.getClassificationModel().ajouterDonnee((Object[]) values);
+            Object[] values = components.stream().map(component -> {
+                if (component instanceof Spinner) {
+                    return ((Spinner<?>) component).getValue();
+                } else if (component instanceof TextField) {
+                    return ((TextField) component).getText();
+                } else if (component instanceof ChoiceBox) {
+                    return ((ChoiceBox<String>) component).getValue().equals("VRAI");
+                }
+                return null;
+            }).toArray();
+
+            ClassificationModel.getClassificationModel().ajouterDonnee(values);
         }catch (IllegalArgumentException e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");

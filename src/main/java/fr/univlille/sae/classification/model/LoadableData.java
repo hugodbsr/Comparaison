@@ -46,7 +46,7 @@ public abstract class LoadableData {
      */
     public abstract void setClassification(String classification);
 
-    public abstract Map<String, Double> getAttributesNames();
+    public abstract Map<String, Object> getAttributesNames();
 
     /**
      * Renvoie la couleur associée à l'objet.

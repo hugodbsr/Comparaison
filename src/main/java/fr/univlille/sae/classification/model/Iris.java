@@ -4,6 +4,7 @@ import com.opencsv.bean.CsvBindByName;
 import javafx.scene.paint.Color;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -164,8 +165,8 @@ public class Iris extends LoadableData {
      */
 
     @Override
-    public Map<String, Double> getAttributesNames() {
-        Map<String, Double> attrNames = new HashMap<>();
+    public Map<String, Object> getAttributesNames() {
+        Map<String, Object> attrNames = new LinkedHashMap<>();
         attrNames.put("Longueur des sépales", sepalLength);
         attrNames.put("Largeur des sépales", sepalWidth);
         attrNames.put("Longueur des pétales", petalLength);
@@ -179,12 +180,12 @@ public class Iris extends LoadableData {
      */
     @Override
     public String toString() {
-        return "Iris{" +
-                "sepalLength=" + sepalLength +
-                ", sepalWidth=" + sepalWidth +
-                ", petalLength=" + petalLength +
-                ", petalWidth=" + petalWidth +
-                ", variety='" + getClassification() + '\'' +
-                '}';
+        return (
+                "Sepal length: " + sepalLength + "\n" +
+                "Sepal width: " + sepalWidth + "\n" +
+                "Petal length: " + petalLength + "\n" +
+                "Petal width: " + petalWidth + "\n" +
+                "Variety: " + getClassification()
+        );
     }
 }

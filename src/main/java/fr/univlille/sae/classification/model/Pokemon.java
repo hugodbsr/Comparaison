@@ -4,6 +4,7 @@ import com.opencsv.bean.CsvBindByName;
 import javafx.scene.paint.Color;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Pokemon extends LoadableData {
@@ -95,18 +96,19 @@ public class Pokemon extends LoadableData {
      */
 
     @Override
-    public Map<String, Double> getAttributesNames() {
-        Map<String, Double> attrNames = new HashMap<>();
-        attrNames.put("Attaque", (double) attack);
-        attrNames.put("Base egg steps", (double) baseEggSteps);
+    public Map<String, Object> getAttributesNames() {
+        Map<String, Object> attrNames = new LinkedHashMap<>();
+        attrNames.put("Name", name);
+        attrNames.put("Attaque", attack);
+        attrNames.put("Base egg steps", baseEggSteps);
         attrNames.put("Capture rate", captureRate);
-        attrNames.put("Defense", (double) defense);
-        attrNames.put("Experience growth", (double) experienceGrowth);
-        attrNames.put("HP", (double) hp);
-        attrNames.put("Special attack", (double) spAttack);
-        attrNames.put("Special defense", (double) spDefense);
+        attrNames.put("Defense", defense);
+        attrNames.put("Experience growth", experienceGrowth);
+        attrNames.put("HP", hp);
+        attrNames.put("Special attack", spAttack);
+        attrNames.put("Special defense", spDefense);
         attrNames.put("Speed", speed);
-        attrNames.put("Is legendary", isLegendary ? 1.0 : 0.0);
+        attrNames.put("Is legendary", isLegendary);
         return attrNames;
     }
 

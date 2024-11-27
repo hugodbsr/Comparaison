@@ -3,7 +3,7 @@ package fr.univlille.sae.classification.model;
 public enum DataType {
 
     IRIS(4, Iris.class),
-    POKEMON(12, Pokemon.class);
+    POKEMON(11, Pokemon.class);
 
     private final int argumentSize;
     private final Class<? extends LoadableData> clazz;

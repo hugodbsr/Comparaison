@@ -25,9 +25,15 @@ public class PointFactory {
                     break;
                 case POKEMON:
                     if(size != DataType.POKEMON.getArgumentSize()) {
-                        throw new IllegalArgumentException("Le nombre de coordonnées doit être de 12 pour le type IRIS.");
+                        throw new IllegalArgumentException("Le nombre de coordonnées doit être de 11 pour le type POKEMON.");
                     }
-                    data = new Pokemon(coords);
+                    data = null;
+                    if (coords.length == 13) {
+                        data = new Pokemon(coords);
+                    }
+                    else if (coords.length == 11) {
+                        data = new Pokemon((String) coords[0], (Integer) coords[1], (Integer) coords[2], (Double) coords[3], (Integer) coords[4], (Integer) coords[5], (Integer) coords[6], (Integer) coords[7], (Integer) coords[8], "", "", (Double) coords[9], (Boolean) coords[10]);
+                    }
                     break;
                 default:
                     throw new IllegalArgumentException("Type de données non supporté : " + type);
