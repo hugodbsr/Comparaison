@@ -111,6 +111,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 controller.setAxesSelected("Aucuns axes sélectionnés");
             } else {
                 controller.setAxesSelected("");
+                controller.setAxesSelectedDisable();
 
                 List<LoadableData> points = new ArrayList<>(model.getDatas());
                 points.addAll(model.getDataToClass().keySet());

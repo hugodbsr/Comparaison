@@ -29,13 +29,19 @@ public class MainStageController {
     @FXML
     ListView PointInfo;
 
-    @FXML
-    Button ZoomIn;
-
-    @FXML
-    Button ZoomOut;
-
     private MainStageView mainStageView;
+
+    private double initialX;
+    private double initialY;
+    private double initialLowerBoundX;
+    private double initialUpperBoundX;
+    private double initialLowerBoundY;
+    private double initialUpperBoundY;
+
+    public void initialize() {
+        setupZoom();
+        setupDrag();
+    }
 
     /**
      * Ouvre l'interface de chargement des données.
@@ -111,6 +117,10 @@ public class MainStageController {
         this.AxesSelected.setText(texte);
     }
 
+    public void setAxesSelectedDisable(){
+        this.AxesSelected.setDisable(true);
+    }
+
     /**
      * Renvoie le bouton de classification de données.
      * @return Bouton utilisé pour déclencher la classification des données.
@@ -123,7 +133,82 @@ public class MainStageController {
         return this.PointInfo;
     };
 
-    public void setZoomIn(){
-        ((NumberAxis)getScatterChart().getXAxis()).getUpperBound();
+    private void setupZoom() {
+        NumberAxis xAxis = (NumberAxis) scatterChart.getXAxis();
+        NumberAxis yAxis = (NumberAxis) scatterChart.getYAxis();
+
+        scatterChart.setOnScroll(event -> {
+            xAxis.setAutoRanging(false);
+            yAxis.setAutoRanging(false);
+
+            double delta = event.getDeltaY();
+            double mouseX = event.getSceneX();
+            double mouseY = event.getSceneY();
+
+            double chartX = xAxis.sceneToLocal(mouseX, mouseY).getX();
+            double chartY = yAxis.sceneToLocal(mouseX, mouseY).getY();
+
+            double zoomFactor;
+            if (delta > 0) {
+                zoomFactor = 0.90;
+            } else {
+                zoomFactor = 1.05;
+            }
+
+            double xLower = xAxis.getLowerBound();
+            double xUpper = xAxis.getUpperBound();
+            double yLower = yAxis.getLowerBound();
+            double yUpper = yAxis.getUpperBound();
+
+            double rangeX = xUpper - xLower;
+            double rangeY = yUpper - yLower;
+
+            double newRangeX = rangeX * zoomFactor;
+            double newRangeY = rangeY * zoomFactor;
+
+            xAxis.setLowerBound(xLower + (chartX / xAxis.getWidth()) * (rangeX - newRangeX));
+            xAxis.setUpperBound(xUpper - ((xAxis.getWidth() - chartX) / xAxis.getWidth()) * (rangeX - newRangeX));
+
+            yAxis.setLowerBound(yLower + ((yAxis.getHeight() - chartY) / yAxis.getHeight()) * (rangeY - newRangeY));
+            yAxis.setUpperBound(yUpper - (chartY / yAxis.getHeight()) * (rangeY - newRangeY));
+        });
+
+        xAxis.setAutoRanging(true);
+        yAxis.setAutoRanging(true);
     }
+
+
+    private void setupDrag() {
+        scatterChart.setOnMousePressed(event -> {
+            initialX = event.getSceneX();
+            initialY = event.getSceneY();
+            initialLowerBoundX = ((NumberAxis) scatterChart.getXAxis()).getLowerBound();
+            initialUpperBoundX = ((NumberAxis) scatterChart.getXAxis()).getUpperBound();
+            initialLowerBoundY = ((NumberAxis) scatterChart.getYAxis()).getLowerBound();
+            initialUpperBoundY = ((NumberAxis) scatterChart.getYAxis()).getUpperBound();
+        });
+
+        NumberAxis xAxis = (NumberAxis) scatterChart.getXAxis();
+        NumberAxis yAxis = (NumberAxis) scatterChart.getYAxis();
+
+        scatterChart.setOnMouseDragged(event -> {
+            xAxis.setAutoRanging(false);
+            yAxis.setAutoRanging(false);
+            double deltaX = event.getSceneX() - initialX;
+            double deltaY = event.getSceneY() - initialY;
+
+            double newLowerBoundX = initialLowerBoundX - deltaX * (xAxis.getUpperBound() - xAxis.getLowerBound()) / scatterChart.getWidth();
+            double newUpperBoundX = initialUpperBoundX - deltaX * (xAxis.getUpperBound() - xAxis.getLowerBound()) / scatterChart.getWidth();
+            double newLowerBoundY = initialLowerBoundY + deltaY * (yAxis.getUpperBound() - yAxis.getLowerBound()) / scatterChart.getHeight();
+            double newUpperBoundY = initialUpperBoundY + deltaY * (yAxis.getUpperBound() - yAxis.getLowerBound()) / scatterChart.getHeight();
+
+            xAxis.setLowerBound(newLowerBoundX);
+            xAxis.setUpperBound(newUpperBoundX);
+            yAxis.setLowerBound(newLowerBoundY);
+            yAxis.setUpperBound(newUpperBoundY);
+        });
+        xAxis.setAutoRanging(true);
+        yAxis.setAutoRanging(true);
+    }
+
 }

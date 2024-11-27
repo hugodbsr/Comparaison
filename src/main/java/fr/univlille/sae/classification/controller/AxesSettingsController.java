@@ -123,6 +123,7 @@ public class AxesSettingsController{
         }
 
         dataVisualizationView.reload();
+        reset();
 
         stage.close();
     }
