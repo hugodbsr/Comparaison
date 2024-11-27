@@ -2,13 +2,10 @@ package fr.univlille.sae.classification.view;
 
 import fr.univlille.sae.classification.controller.MainStageController;
 import fr.univlille.sae.classification.model.ClassificationModel;
-import fr.univlille.sae.classification.model.DataType;
-import fr.univlille.sae.classification.model.Iris;
 import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.utils.Observable;
 import fr.univlille.sae.classification.utils.Observer;
 import fr.univlille.sae.classification.utils.ViewUtil;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.chart.ScatterChart;
@@ -107,15 +104,14 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 return;
             }
 
-            ObservableList<ScatterChart.Series> series = scatterChart.getData();
-            for (ScatterChart.Series serie : series) {
-                serie.getData().clear();
-            }
+            scatterChart.getData().clear();
+            serieList.clear();
 
             if (actualX == null && actualY == null) {
                 controller.setAxesSelected("Aucuns axes sélectionnés");
             } else {
                 controller.setAxesSelected("");
+                controller.setAxesSelectedDisable();
 
                 List<LoadableData> points = new ArrayList<>(model.getDatas());
                 points.addAll(model.getDataToClass().keySet());
@@ -128,6 +124,10 @@ public class MainStageView extends DataVisualizationView implements Observer {
                     if(editSerie == null){
                         editSerie = new ScatterChart.Series<Double, Double>();
                     }
+                    if(data.getClassification().equals("undefined") || model.getDataToClass().containsKey(data)) {
+                        nodePoint = ViewUtil.getForm(data, new Rectangle(10,10), controller);
+                    }
+
                     dataPoint.setNode(nodePoint);
                     editSerie.getData().add(dataPoint);
                     serieList.put(data.getClassification(), editSerie);
@@ -137,7 +137,6 @@ public class MainStageView extends DataVisualizationView implements Observer {
                     serieList.get(serie).setName(serie);
                 }
                 scatterChart.getData().addAll(serieList.values());
-                scatterChart.setLegendVisible(true);
             }
         } catch (Exception e) {
             System.err.println("Erreur de mise à jour : " + e.getMessage());
@@ -151,6 +150,9 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 System.err.println("Erreur de mise à jour.");
                 return;
             }
+
+
+
             LoadableData newData = (LoadableData) data;
             if (actualX == null || actualY == null) {
                 controller.setAxesSelected("Aucuns axes sélectionnés");

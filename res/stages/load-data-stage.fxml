@@ -22,6 +22,11 @@
                            <TextField fx:id="filePath" prefHeight="26.0" prefWidth="207.0" />
                         </children>
                      </HBox>
+                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                           <ChoiceBox fx:id="fileType" prefWidth="150.0" stylesheets="@../css/style.css" />
+                        </children>
+                     </HBox>
                      <HBox alignment="CENTER" prefHeight="76.0" prefWidth="310.0">
                         <children>
                            <Button fx:id="confirmDataSelection" mnemonicParsing="false" onAction="#validate" stylesheets="@../css/style.css" text="Valider" textFill="WHITE" />

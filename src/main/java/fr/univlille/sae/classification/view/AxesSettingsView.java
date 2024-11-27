@@ -4,6 +4,7 @@ import fr.univlille.sae.classification.controller.AxesSettingsController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.LoadableData;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -69,6 +70,12 @@ public class AxesSettingsView {
             LoadableData dataType = model.getDatas().get(0);
             controller.setSelectAbs(dataType.getAttributesNames().keySet().toArray(new String[0]));
             controller.setSelectOrd(dataType.getAttributesNames().keySet().toArray(new String[0]));
+
+            controller.setAbsSizeUpper(((NumberAxis)dataVisualizationView.getScatterChart().getXAxis()).getUpperBound());
+            controller.setAbsSizeLower(((NumberAxis)dataVisualizationView.getScatterChart().getXAxis()).getLowerBound());
+
+            controller.setOrdSizeUpper(((NumberAxis)dataVisualizationView.getScatterChart().getYAxis()).getUpperBound());
+            controller.setOrdSizeLower(((NumberAxis)dataVisualizationView.getScatterChart().getYAxis()).getLowerBound());
 
             root.showAndWait();
         } catch (IOException e) {

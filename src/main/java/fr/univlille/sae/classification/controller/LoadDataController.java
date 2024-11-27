@@ -1,9 +1,11 @@
 package fr.univlille.sae.classification.controller;
 
 import fr.univlille.sae.classification.model.ClassificationModel;
+import fr.univlille.sae.classification.model.DataType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -21,10 +23,18 @@ public class LoadDataController {
     @FXML
     TextField filePath;
 
+    @FXML
+    ChoiceBox<DataType> fileType = new ChoiceBox<>();
+
     /**
      * Fichier sélectionné
      */
     File file;
+
+    @FXML
+    public void initialize() {
+        fileType.getItems().addAll(DataType.values());
+    }
 
     /**
      * Ouvre un explorateur de fichiers pour sélectionner le fichier à étudier
@@ -40,12 +50,17 @@ public class LoadDataController {
 
     }
 
+
+
     /**
      * Valide le fichier sélectionné au préalable
      */
     public void validate(){
 
-        if (file == null || file.isDirectory() || !file.exists()) {
+        DataType typeChoisi = fileType.getValue();
+
+
+        if (file == null || file.isDirectory() || !file.exists() || fileType.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de chargement du fichier");
             alert.setHeaderText(null);
@@ -56,6 +71,7 @@ public class LoadDataController {
             return;
         }
 
+        ClassificationModel.getClassificationModel().setType(typeChoisi);
         ClassificationModel.getClassificationModel().loadData(file);
         stage.close();
     }

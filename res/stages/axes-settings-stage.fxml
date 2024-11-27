@@ -9,31 +9,88 @@
 <Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.AxesSettingsController">
     <scene>
         <Scene>
-            <AnchorPane prefHeight="200" prefWidth="200">
+            <AnchorPane prefHeight="226.0" prefWidth="440.0">
             <children>
-               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="406.0" spacing="15.0">
-                  <children>
-                     <HBox alignment="CENTER" prefHeight="46.0" prefWidth="406.0" spacing="20.0">
-                        <children>
-                           <Label text="Valeur des ordonnées">
-                              <font>
-                                 <Font name="System Bold" size="13.0" />
-                              </font></Label>
-                           <ChoiceBox fx:id="selectOrd" prefWidth="150.0" stylesheets="@../css/style.css" />
-                        </children>
-                     </HBox>
-                     <HBox alignment="CENTER" prefHeight="44.0" prefWidth="406.0" spacing="20.0">
-                        <children>
-                           <Label text="Valeur des abscisses">
-                              <font>
-                                 <Font name="System Bold" size="13.0" />
-                              </font></Label>
-                           <ChoiceBox fx:id="selectAbs" prefWidth="150.0" stylesheets="@../css/style.css" />
-                        </children>
-                     </HBox>
-                     <Button fx:id="confirmAxes" mnemonicParsing="false" onAction="#validate" stylesheets="@../css/style.css" text="Valider" textFill="WHITE" />
-                  </children>
-               </VBox>
+               <TabPane prefHeight="226.0" prefWidth="455.0" tabClosingPolicy="UNAVAILABLE">
+                 <tabs>
+                   <Tab text="Valeur des Axes">
+                     <content>
+                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <children>
+                                 <VBox alignment="CENTER" prefHeight="195.0" prefWidth="457.0" spacing="15.0">
+                                    <children>
+                                       <HBox alignment="CENTER" prefHeight="46.0" prefWidth="406.0" spacing="20.0">
+                                          <children>
+                                             <Label text="Valeur des ordonnées">
+                                                <font>
+                                                   <Font name="System Bold" size="13.0" />
+                                                </font>
+                                             </Label>
+                                             <ChoiceBox fx:id="selectOrd" prefWidth="150.0" stylesheets="@../css/style.css" />
+                                          </children>
+                                       </HBox>
+                                       <HBox alignment="CENTER" prefHeight="44.0" prefWidth="406.0" spacing="20.0">
+                                          <children>
+                                             <Label text="Valeur des abscisses">
+                                                <font>
+                                                   <Font name="System Bold" size="13.0" />
+                                                </font>
+                                             </Label>
+                                             <ChoiceBox fx:id="selectAbs" prefWidth="150.0" stylesheets="@../css/style.css" />
+                                          </children>
+                                       </HBox>
+                                       <Button fx:id="confirmAxes" mnemonicParsing="false" onAction="#validate" stylesheets="@../css/style.css" text="Valider" textFill="WHITE" />
+                                    </children>
+                                 </VBox>
+                              </children></AnchorPane>
+                     </content>
+                   </Tab>
+                   <Tab text="Dimension des axes">
+                     <content>
+                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <children>
+                                 <VBox alignment="CENTER" prefHeight="195.0" prefWidth="457.0" spacing="15.0">
+                                    <children>
+                                       <HBox alignment="CENTER" prefHeight="46.0" prefWidth="406.0" spacing="20.0">
+                                          <children>
+                                             <Label text="Borne des ordonnées">
+                                                <font>
+                                                   <Font name="System Bold" size="13.0" />
+                                                </font>
+                                             </Label>
+                                             <Spinner fx:id="OrdSizeLower" editable="true" prefHeight="26.0" prefWidth="107.0" stylesheets="@../css/style.css" />
+                                             <Spinner fx:id="OrdSizeUpper" editable="true" layoutX="264.0" layoutY="20.0" prefHeight="26.0" prefWidth="107.0" stylesheets="@../css/style.css" />
+                                          </children>
+                                       </HBox>
+                                       <HBox alignment="CENTER" prefHeight="44.0" prefWidth="406.0" spacing="20.0">
+                                          <children>
+                                             <Label text="Borne des abscisses">
+                                                <font>
+                                                   <Font name="System Bold" size="13.0" />
+                                                </font>
+                                             </Label>
+                                             <Spinner fx:id="AbsSizeLower" editable="true" prefHeight="26.0" prefWidth="104.0" stylesheets="@../css/style.css" />
+                                             <Spinner fx:id="AbsSizeUpper" editable="true" layoutX="261.0" layoutY="19.0" prefHeight="26.0" prefWidth="104.0" stylesheets="@../css/style.css" />
+                                          </children>
+                                       </HBox>
+                                       <HBox alignment="CENTER" prefHeight="21.0" prefWidth="457.0" spacing="20.0">
+                                          <children>
+                                             <Button fx:id="confirmAxes" mnemonicParsing="false" onAction="#validate" stylesheets="@../css/style.css" text="Valider" textFill="WHITE" />
+                                             <Button fx:id="reset" layoutX="208.0" layoutY="10.0" mnemonicParsing="false" onAction="#reset" stylesheets="@../css/style.css" text="Rénitialiser" textFill="WHITE" />
+                                          </children>
+                                       </HBox>
+                                    </children>
+                                 </VBox>
+                              </children></AnchorPane>
+                     </content>
+                   </Tab>
+                     <Tab text="Couleurs des données">
+                         <content>
+                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                         </content>
+                     </Tab>
+                 </tabs>
+               </TabPane>
             </children></AnchorPane>
         </Scene>
     </scene>
