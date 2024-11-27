@@ -79,7 +79,7 @@ public class DataStageView extends DataVisualizationView implements Observer {
             controller = loader.getController();
             controller.setDataStageView(this);
             scatterChart = controller.getScatterChart();
-
+            scatterChart.setLegendVisible(false);
             scatterChart.getData().addAll(series4, series1, series2, series3);
 
             controller.setAxesSelected("Aucun fichier sélectionné");
