@@ -24,16 +24,16 @@ public class LoadDataController {
     TextField filePath;
 
     @FXML
-    ChoiceBox<String> fileType = new ChoiceBox<String>();
+    ChoiceBox<DataType> fileType = new ChoiceBox<>();
 
     /**
      * Fichier sélectionné
      */
     File file;
 
-    public void setFileType(){
-        fileType.getItems().clear();
-        fileType.getItems().addAll("Iris", "Pokémon");
+    @FXML
+    public void initialize() {
+        fileType.getItems().addAll(DataType.values());
     }
 
     /**
@@ -50,10 +50,15 @@ public class LoadDataController {
 
     }
 
+
+
     /**
      * Valide le fichier sélectionné au préalable
      */
     public void validate(){
+
+        DataType typeChoisi = fileType.getValue();
+
 
         if (file == null || file.isDirectory() || !file.exists() || fileType.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -66,6 +71,7 @@ public class LoadDataController {
             return;
         }
 
+        ClassificationModel.getClassificationModel().setType(typeChoisi);
         ClassificationModel.getClassificationModel().loadData(file);
         stage.close();
     }
