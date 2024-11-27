@@ -112,54 +112,7 @@ public class Pokemon extends LoadableData {
         return attrNames;
     }
 
-    /**
-     * Renvoie la couleur associée à l'objet.
-     *
-     * @return couleur correspondant à la classification de l'objet.
-     */
-    @Override
-    public Color getColor() {
-        switch (this.type1) {
-            case "normal":
-                return Color.LIGHTGREY;
-            case "grass":
-                return Color.GREEN;
-            case "electric":
-                return Color.YELLOW;
-            case "bug":
-                return Color.GREENYELLOW;
-            case "psychic":
-                return Color.PLUM;
-            case "poison":
-                return Color.PURPLE;
-            case "steel":
-                return Color.SILVER;
-            case "dragon":
-                return Color.WHITE;
-            case "flying":
-                return Color.SKYBLUE;
-            case "water":
-                return Color.BLUE;
-            case "rock":
-                return Color.SIENNA;
-            case "fire":
-                return Color.RED;
-            case "fairy":
-                return Color.PINK;
-            case "fighting":
-                return Color.FIREBRICK;
-            case "ice":
-                return Color.DARKTURQUOISE;
-            case "ghost":
-                return Color.DARKMAGENTA;
-            case "dark":
-                return Color.GREY;
-            case "ground":
-                return Color.KHAKI;
-            default:
-                return Color.BLACK; // Couleur par défaut si la variété est inconnue
-        }
-    }
+
 
     /**
      * Renvoie la valeur des données en fonction de l'axe spécifié.

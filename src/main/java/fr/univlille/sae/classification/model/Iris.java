@@ -141,23 +141,8 @@ public class Iris extends LoadableData {
     }
 
 
-    /**
-     * Renvoie la couleur associée à la variété de l'Iris.
-     * @return couleur correspondant à la variété.
-     */
-    @Override
-    public Color getColor() {
-        switch (this.variety) {
-            case "Setosa":
-                return Color.RED;
-            case "Versicolor":
-                return Color.BLUE;
-            case "Virginica":
-                return Color.GREEN;
-            default:
-                return Color.BLACK; // Couleur par défaut si la variété est inconnue
-        }
-    }
+   
+
 
     /**
      * Renvoie les noms des attributs de l'Iris.

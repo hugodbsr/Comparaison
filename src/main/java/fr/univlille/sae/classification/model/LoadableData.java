@@ -55,11 +55,11 @@ public abstract class LoadableData {
 
     public abstract Map<String, Object> getAttributesNames();
 
-    /**
-     * Renvoie la couleur associée à l'objet.
-     * @return couleur correspondant à la classification de l'objet.
-     */
-    public abstract Color getColor();
+
+
+
+
+
 
     /**
      * Renvoie la valeur des données en fonction de l'axe spécifié.
