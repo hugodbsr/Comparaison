@@ -36,10 +36,10 @@ public class DataStageView extends DataVisualizationView implements Observer {
 
     private Map<String, ScatterChart.Series<Double, Double>> serieList;
 
-    private XYChart.Series series1;
-    private XYChart.Series series2;
-    private XYChart.Series series3;
-    private XYChart.Series series4;
+    private ScatterChart.Series series1;
+    private ScatterChart.Series series2;
+    private ScatterChart.Series series3;
+    private ScatterChart.Series series4;
 
     private Stage root;
 
