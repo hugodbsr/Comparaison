@@ -8,6 +8,7 @@ import fr.univlille.sae.classification.utils.Observer;
 import fr.univlille.sae.classification.utils.ViewUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -120,6 +121,17 @@ public class MainStageView extends DataVisualizationView implements Observer {
                     Object xValue = data.getAttributesNames().get(actualX);
                     Object yValue = data.getAttributesNames().get(actualY);
 
+
+
+                    double x = 0;
+                    if(xValue instanceof Number) {
+                        x = ((Number) xValue).doubleValue();
+                    }
+                    double y = 0;
+                    if(yValue instanceof Number) {
+                        y = ((Number) yValue).doubleValue();
+                    }
+                    /**
                     Double x = 0.0;
                     if (xValue instanceof Integer) {
                         x = ((Integer) xValue).doubleValue();
@@ -133,7 +145,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
                     } else if (yValue instanceof Double) {
                         y = (Double) yValue;
                     }
-
+                    **/
                     ScatterChart.Data<Double, Double> dataPoint = new ScatterChart.Data<>(x, y);
 
                     Node nodePoint = ViewUtil.getForm(data, new Circle(5), controller);

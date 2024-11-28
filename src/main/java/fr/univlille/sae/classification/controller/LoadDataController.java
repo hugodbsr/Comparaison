@@ -1,5 +1,7 @@
 package fr.univlille.sae.classification.controller;
 
+import com.opencsv.exceptions.CsvException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.DataType;
 import javafx.fxml.FXML;
@@ -34,6 +36,7 @@ public class LoadDataController {
     @FXML
     public void initialize() {
         fileType.getItems().addAll(DataType.values());
+        fileType.setValue(DataType.values()[0]);
     }
 
     /**
@@ -72,7 +75,15 @@ public class LoadDataController {
         }
 
         ClassificationModel.getClassificationModel().setType(typeChoisi);
-        ClassificationModel.getClassificationModel().loadData(file);
+        try {
+            ClassificationModel.getClassificationModel().loadData(file);
+        }catch (RuntimeException | CsvRequiredFieldEmptyException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(stage);
+            alert.setHeaderText(e.toString());
+            alert.setContentText("Le chargement du fichier à echoué, veuillez reessayer !");
+            alert.showAndWait();
+        }
         stage.close();
     }
 }

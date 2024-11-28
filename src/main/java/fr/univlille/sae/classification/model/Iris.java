@@ -13,13 +13,13 @@ import java.util.Map;
  */
 public class Iris extends LoadableData {
 
-    @CsvBindByName(column = "sepal.length")
+    @CsvBindByName(column = "sepal.length", required = true)
     private double sepalLength;
-    @CsvBindByName(column = "sepal.width")
+    @CsvBindByName(column = "sepal.width", required = true)
     private double sepalWidth;
-    @CsvBindByName(column = "petal.length")
+    @CsvBindByName(column = "petal.length", required = true)
     private double petalLength;
-    @CsvBindByName(column = "petal.width")
+    @CsvBindByName(column = "petal.width", required = true)
     private double petalWidth;
     @CsvBindByName(column = "variety")
     private String variety;

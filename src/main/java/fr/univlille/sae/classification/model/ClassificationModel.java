@@ -1,6 +1,8 @@
 package fr.univlille.sae.classification.model;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.exceptions.CsvBadConverterException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import fr.univlille.sae.classification.knn.MethodKNN;
 import fr.univlille.sae.classification.knn.distance.Distance;
 import fr.univlille.sae.classification.knn.distance.DistanceEuclidienne;
@@ -79,7 +81,7 @@ public class ClassificationModel extends Observable {
      * Charge les données à partir d'un fichier CSV.
      * @param file fichier contenant les données à charger.
      */
-    public void loadData(File file) {
+    public void loadData(File file) throws CsvRequiredFieldEmptyException, CsvBadConverterException {
         try {
             this.datas = new CsvToBeanBuilder<LoadableData>(Files.newBufferedReader(file.toPath()))
                     .withSeparator(',')
@@ -137,6 +139,7 @@ public class ClassificationModel extends Observable {
 
     public void setDistance(Distance distance) {
         this.distance = distance;
+        this.kOptimal = 0;
     }
 
     public Distance getDistance() {

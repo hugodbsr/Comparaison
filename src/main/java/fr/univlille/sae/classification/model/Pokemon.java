@@ -49,7 +49,11 @@ public class Pokemon extends LoadableData{
         this.hp = hp;
         this.spAttack = spAttack;
         this.spDefense = spDefense;
-        this.type1 = type1;
+        if(type1 == null || type1.isEmpty()) {
+            this.type1 = "undefined";
+        }else {
+            this.type1 = type1;
+        }
         this.type2 = type2;
         this.speed = speed;
         this.isLegendary = isLegendary;
@@ -123,7 +127,7 @@ public class Pokemon extends LoadableData{
 
     @Override
     public String[] getStringAttributes() {
-        return new String[]{name, type2, String.valueOf(isLegendary)};
+        return new String[]{type2, String.valueOf(isLegendary)};
     }
 
     @Override

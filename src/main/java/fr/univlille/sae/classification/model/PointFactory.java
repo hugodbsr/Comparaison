@@ -32,7 +32,7 @@ public class PointFactory {
                         data = new Pokemon(coords);
                     }
                     else if (coords.length == 11) {
-                        data = new Pokemon((String) coords[0], (Integer) coords[1], (Integer) coords[2], (Double) coords[3], (Integer) coords[4], (Integer) coords[5], (Integer) coords[6], (Integer) coords[7], (Integer) coords[8], "", "", (Double) coords[9], (Boolean) coords[10]);
+                        data = new Pokemon((String) coords[0], (Integer) coords[1], (Integer) coords[2], (Double) coords[3], (Integer) coords[4], (Integer) coords[5], (Integer) coords[6], (Integer) coords[7], (Integer) coords[8], "undefined", "", (Double) coords[9], (Boolean) coords[10]);
                     }
                     break;
                 default:

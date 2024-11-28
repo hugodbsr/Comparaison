@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.ScatterChart?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.stage.Stage?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.stage.*?>
 
-<Stage fx:id="stage" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.MainStageController">
+<Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.MainStageController">
     <scene>
         <Scene>
             <AnchorPane prefHeight="535.0" prefWidth="922.0">
@@ -43,7 +37,7 @@
                                                  <NumberAxis fx:id="ordAxe" prefHeight="354.0" prefWidth="54.0" side="LEFT" stylesheets="@../css/style.css" />
                                                </yAxis>
                                              </ScatterChart>
-                                             <Label fx:id="AxesSelected" alignment="CENTER" layoutX="73.0" layoutY="152.0" prefHeight="38.0" prefWidth="600.0">
+                                             <Label fx:id="AxesSelected" alignment="CENTER" layoutX="-2.0" layoutY="3.0" prefHeight="380.0" prefWidth="682.0">
                                                 <font>
                                                    <Font size="21.0" />
                                                 </font>
