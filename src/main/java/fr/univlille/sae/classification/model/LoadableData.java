@@ -60,15 +60,6 @@ public abstract class LoadableData {
 
 
 
-
-    /**
-     * Renvoie la valeur des données en fonction de l'axe spécifié.
-     * @param axes nom de l'axe pour lequel la valeur est requise.
-     * @return valeur correspondante.
-     */
-    public abstract double getDataType(String axes);
-
-
     public abstract double[] getAttributes();
 
     public abstract String[] getStringAttributes();

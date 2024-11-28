@@ -114,42 +114,7 @@ public class Pokemon extends LoadableData {
 
 
 
-    /**
-     * Renvoie la valeur des données en fonction de l'axe spécifié.
-     *
-     * @param axes nom de l'axe pour lequel la valeur est requise.
-     * @return valeur correspondante.
-     */
-    @Override
-    public double getDataType(String axes) {
-        switch (axes) {
-            case "attack":
-                return this.attack;
-            case "base_egg_steps":
-                return this.baseEggSteps;
-            case "capture_rate":
-                return this.captureRate;
-            case "defense":
-                return this.defense;
-            case "experience_growth":
-                return this.experienceGrowth;
-            case "hp":
-                return this.hp;
-            case "sp_attack":
-                return this.spAttack;
-            case "sp_defense":
-                return this.spDefense;
-            case "speed":
-                return this.speed;
-            case "is_legendary":
-                if(this.isLegendary){
-                    return 1;
-                }
-                return 0;
-            default:
-                return this.attack;
-        }
-    }
+
 
     @Override
     public double[] getAttributes() {

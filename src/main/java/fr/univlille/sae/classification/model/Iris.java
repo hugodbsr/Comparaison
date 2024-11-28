@@ -109,26 +109,6 @@ public class Iris extends LoadableData {
         return petalLength;
     }
 
-    /**
-     * Renvoie la valeur des données en fonction de l'axe spécifié.
-     * @param axes nom de l'axe pour lequel la valeur est requise.
-     * @return valeur correspondante.
-     */
-    @Override
-    public double getDataType(String axes) {
-        switch (axes) {
-            case "sepalWidth":
-                return sepalWidth;
-            case "sepalLength":
-                return sepalLength;
-            case "petalWidth":
-                return petalWidth;
-            case "petalLength":
-                return petalLength;
-            default:
-                return sepalLength;
-        }
-    }
 
     @Override
     public double[] getAttributes() {
