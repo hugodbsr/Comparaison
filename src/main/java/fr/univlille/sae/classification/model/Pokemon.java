@@ -1,13 +1,11 @@
 package fr.univlille.sae.classification.model;
 
 import com.opencsv.bean.CsvBindByName;
-import javafx.scene.paint.Color;
-
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Pokemon extends LoadableData {
+public class Pokemon extends LoadableData{
 
     // name,attack,base_egg_steps,capture_rate,defense,experience_growth,hp,sp_attack,sp_defense,type1,type2,speed,is_legendary
     // Swablu,40,5120,255.0,60,600000,45,75,50,normal,flying,1.2,False
@@ -111,6 +109,7 @@ public class Pokemon extends LoadableData {
         attrNames.put("Is legendary", isLegendary);
         return attrNames;
     }
+
 
 
 
