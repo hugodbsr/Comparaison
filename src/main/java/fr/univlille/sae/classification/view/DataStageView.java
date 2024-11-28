@@ -159,46 +159,7 @@ public class DataStageView extends DataVisualizationView implements Observer {
         }
     }
 
-    /**
-     * Met à jour l'affichage en ajoutant un nouveau point de données.
-     * @param observable modèle observé.
-     * @param data point de données à ajouter.
-     */
-    @Override
-    public void update(Observable observable, Object data) {
-        try {
-            if (scatterChart == null || !(observable instanceof ClassificationModel)) {
-                System.err.println("Erreur de mise à jour.");
-                return;
-            }
-            LoadableData newData = (LoadableData) data;
-            if (actualX == null || actualY == null) {
-                controller.setAxesSelected("Aucuns axes sélectionnés");
-                return;
-            }
-            Object attrX = newData.getAttributesNames().get(actualX);
-            Object attrY = newData.getAttributesNames().get(actualY);
-            if (attrX instanceof Integer) {
-                attrX = ((Integer) attrX).doubleValue();
-            }
-            if (attrY instanceof Integer) {
-                attrY = ((Integer) attrY).doubleValue();
-            }
-            XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
-                    (Double) attrX,
-                    (Double) attrY
-            );
 
-            dataPoint.setNode(ViewUtil.getForm(newData, new Rectangle(10, 10), controller));
-            if (!scatterChart.getData().isEmpty()) {
-                series4.getData().add(dataPoint);
-                series4.setName("indéfini");
-                scatterChart.getData().add(series4);
-            }
-        } catch (Exception e) {
-            System.err.println("Erreur de mise à jour : " + e.getMessage());
-        }
-    }
 
     /**
      * Renvoie le contrôleur associé à cette vue.
