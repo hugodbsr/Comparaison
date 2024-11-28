@@ -7,6 +7,7 @@ import fr.univlille.sae.classification.model.DataType;
 import fr.univlille.sae.classification.model.LoadableData;
 
 
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.util.*;
 
@@ -30,6 +31,10 @@ public class MethodKNN {
     }
 
 
+    /**
+     * Permet de mettre a jour les données de l'algorithme. Recalcul les amplitudes et les min/max des données
+     * @param datas Les données sur lequel l'algorithme doit travailler
+     */
     public static void updateModel(List<LoadableData> datas) {
         if(datas.isEmpty()) return;
         minData = new double[datas.get(0).getAttributes().length];
@@ -47,6 +52,15 @@ public class MethodKNN {
         }
     }
 
+    /**
+     * Permet de recuperer les K-voisins les plus proches d'une données dans un jeu de données
+     * en fonction d'une Distance.
+     * @param datas Le jeu de données
+     * @param data  La donnée avec laquelle calculer la distance
+     * @param k     Le nombre de voisins a recupérer
+     * @param distance
+     * @return
+     */
     public static List<LoadableData> kVoisins(List<LoadableData> datas, LoadableData data, int k, Distance distance) {
 
         // On recupere toutes les données

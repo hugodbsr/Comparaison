@@ -39,10 +39,11 @@ public class KNNController {
 
     @FXML
     public void initialize() {
+        int max = (int) Math.sqrt(ClassificationModel.getClassificationModel().getDatas().size());
         kEntry.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,
-                        (int) Math.sqrt(ClassificationModel.getClassificationModel().getDatas().size()),
+                        (max%2 == 0) ? max-1 : max,
                         1,
-                        1));
+                        2));
 
         kEntry.getValueFactory().setValue(ClassificationModel.getClassificationModel().getK());
 

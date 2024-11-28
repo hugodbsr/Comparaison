@@ -83,6 +83,8 @@ public class ClassificationModel extends Observable {
      */
     public void loadData(File file) throws CsvRequiredFieldEmptyException, CsvBadConverterException {
         try {
+            this.dataToClass.clear();
+
             this.datas = new CsvToBeanBuilder<LoadableData>(Files.newBufferedReader(file.toPath()))
                     .withSeparator(',')
                     .withType(type.getClazz())
@@ -119,7 +121,7 @@ public class ClassificationModel extends Observable {
     public void classifierDonnee(LoadableData data) {
         if(dataToClass.get(data) != null && dataToClass.get(data)) return;
         this.dataToClass.remove(data);
-        data.setClassification(MethodKNN.estimateClass(datas, data, kOptimal, distance));
+        data.setClassification(MethodKNN.estimateClass(datas, data, k, distance));
         notifyObservers(data);
         dataToClass.put(data, true);
     }
