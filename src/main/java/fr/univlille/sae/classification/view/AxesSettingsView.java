@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Classe responsable de la création et de l'affichage de la vue de configuration des axes.
@@ -68,8 +69,16 @@ public class AxesSettingsView {
             }
 
             LoadableData dataType = model.getDatas().get(0);
-            controller.setSelectAbs(dataType.getAttributesName());
-            controller.setSelectOrd(dataType.getAttributesName());
+            String[] attributes = dataType.getAttributesNames().keySet().toArray(new String[0]);
+            ArrayList<String> finalAttrList = new ArrayList<>();
+            for (String attribute : attributes) {
+                if ((dataType.getAttributesNames().get(attribute) instanceof Integer) || (dataType.getAttributesNames().get(attribute) instanceof Double)) {
+                    finalAttrList.add(attribute);
+                }
+            }
+            String[] finalAttributes = finalAttrList.toArray(new String[0]);
+            controller.setSelectAbs(finalAttributes);
+            controller.setSelectOrd(finalAttributes);
 
             controller.setAbsSizeUpper(((NumberAxis)dataVisualizationView.getScatterChart().getXAxis()).getUpperBound());
             controller.setAbsSizeLower(((NumberAxis)dataVisualizationView.getScatterChart().getXAxis()).getLowerBound());

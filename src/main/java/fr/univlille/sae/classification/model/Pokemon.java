@@ -3,7 +3,11 @@ package fr.univlille.sae.classification.model;
 import com.opencsv.bean.CsvBindByName;
 import javafx.scene.paint.Color;
 
-public class Pokemon extends LoadableData{
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class Pokemon extends LoadableData {
 
     // name,attack,base_egg_steps,capture_rate,defense,experience_growth,hp,sp_attack,sp_defense,type1,type2,speed,is_legendary
     // Swablu,40,5120,255.0,60,600000,45,75,50,normal,flying,1.2,False
@@ -90,20 +94,22 @@ public class Pokemon extends LoadableData{
      *
      * @return tableau de chaînes contenant les noms des attributs.
      */
+
     @Override
-    public String[] getAttributesName() {
-        return new String[]{
-            "attack",
-            "base_egg_steps",
-            "capture_rate",
-            "defense",
-            "experience_growth",
-            "hp",
-            "sp_attack",
-            "sp_defense",
-            "speed",
-            "is_legendary"
-        };
+    public Map<String, Object> getAttributesNames() {
+        Map<String, Object> attrNames = new LinkedHashMap<>();
+        attrNames.put("Name", name);
+        attrNames.put("Attaque", attack);
+        attrNames.put("Base egg steps", baseEggSteps);
+        attrNames.put("Capture rate", captureRate);
+        attrNames.put("Defense", defense);
+        attrNames.put("Experience growth", experienceGrowth);
+        attrNames.put("HP", hp);
+        attrNames.put("Special attack", spAttack);
+        attrNames.put("Special defense", spDefense);
+        attrNames.put("Speed", speed);
+        attrNames.put("Is legendary", isLegendary);
+        return attrNames;
     }
 
     /**

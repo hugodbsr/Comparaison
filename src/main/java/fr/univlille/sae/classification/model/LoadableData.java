@@ -2,6 +2,7 @@ package fr.univlille.sae.classification.model;
 
 import javafx.scene.paint.Color;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -45,11 +46,7 @@ public abstract class LoadableData {
      */
     public abstract void setClassification(String classification);
 
-    /**
-     * Renvoie les noms des attributs de l'objet.
-     * @return tableau de chaînes contenant les noms des attributs.
-     */
-    public abstract String[] getAttributesName();
+    public abstract Map<String, Object> getAttributesNames();
 
     /**
      * Renvoie la couleur associée à l'objet.

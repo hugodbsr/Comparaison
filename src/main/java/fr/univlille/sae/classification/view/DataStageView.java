@@ -103,9 +103,9 @@ public class DataStageView extends DataVisualizationView implements Observer {
                 System.err.println("Erreur de mise à jour.");
                 return;
             }
-            // On vide le nuage pour s'assurer qu'il est bien vide
-            ObservableList<XYChart.Series> series = scatterChart.getData();
-            for(XYChart.Series serie : series) {serie.getData().clear();}
+
+            scatterChart.getData().clear();
+            serieList.clear();
 
             if (actualX == null && actualY == null) {
                 controller.setAxesSelected("Aucuns axes sélectionnés");
@@ -116,7 +116,24 @@ public class DataStageView extends DataVisualizationView implements Observer {
                 List<LoadableData> points = new ArrayList<>(model.getDatas());
                 points.addAll(model.getDataToClass().keySet());
                 for (LoadableData data : points) {
-                    ScatterChart.Data<Double, Double> dataPoint = new ScatterChart.Data<>(data.getDataType(actualX), data.getDataType(actualY));
+                    Object xValue = data.getAttributesNames().get(actualX);
+                    Object yValue = data.getAttributesNames().get(actualY);
+
+                    Double x = 0.0;
+                    if (xValue instanceof Integer) {
+                        x = ((Integer) xValue).doubleValue();
+                    } else if (xValue instanceof Double) {
+                        x = (Double) xValue;
+                    }
+
+                    Double y = 0.0;
+                    if (yValue instanceof Integer) {
+                        y = ((Integer) yValue).doubleValue();
+                    } else if (yValue instanceof Double) {
+                        y = (Double) yValue;
+                    }
+
+                    ScatterChart.Data<Double, Double> dataPoint = new ScatterChart.Data<>(x, y);
 
                     Node nodePoint = ViewUtil.getForm(data, new Circle(5), controller);
 
@@ -159,9 +176,17 @@ public class DataStageView extends DataVisualizationView implements Observer {
                 controller.setAxesSelected("Aucuns axes sélectionnés");
                 return;
             }
+            Object attrX = newData.getAttributesNames().get(actualX);
+            Object attrY = newData.getAttributesNames().get(actualY);
+            if (attrX instanceof Integer) {
+                attrX = ((Integer) attrX).doubleValue();
+            }
+            if (attrY instanceof Integer) {
+                attrY = ((Integer) attrY).doubleValue();
+            }
             XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
-                    newData.getDataType(actualX),
-                    newData.getDataType(actualY)
+                    (Double) attrX,
+                    (Double) attrY
             );
 
             dataPoint.setNode(ViewUtil.getForm(newData, new Rectangle(10, 10), controller));
