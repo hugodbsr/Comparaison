@@ -181,6 +181,8 @@ public class AddDataController {
             openErrorStage(e, "Erreur, les données ne respecte pas le format specifié");
         }catch (IllegalArgumentException e) {
             openErrorStage(e);
+        }catch (NullPointerException e) {
+            openErrorStage(e);
         }
         stage.close();
     }
