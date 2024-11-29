@@ -2,9 +2,9 @@
 
 #### Préambule
 
-Avant de commencer, sachez que cette importation nécessite certaines connaissances en Java ou en programmation orientée objet. Toutefois, si vous n'êtes pas familier avec ces concepts, ce tutoriel vous guidera à travers toutes les étapes nécessaires pour importer de nouvelles données.
+Avant de commencer, sachez que cette importation nécessite certaines connaissances en Java ou en programmation orientée objet. Cependant, si vous n'êtes pas familier avec ces concepts, ce tutoriel vous guidera à travers toutes les étapes nécessaires pour importer de nouvelles données.
 
-Assurez-vous que votre base de données est sous forme de fichier CSV, avec les noms des colonnes sur la première ligne. Il est également essentiel de savoir quelles données vous souhaitez analyser. Cette étape est indépendante du logiciel que vous utilisez, et dépend plutôt de la manière dont vous allez importer vos données.
+Assurez-vous que votre base de données est sous forme de fichier CSV, avec les noms des colonnes sur la première ligne. Il est également essentiel de savoir quelles données vous souhaitez analyser. Cette étape est indépendante du logiciel que vous utilisez et dépend plutôt de la manière dont vous allez importer vos données.
 
 ---
 
@@ -27,19 +27,20 @@ private double column4;
 
 Réitérez cette opération pour toutes les colonnes de votre CSV. Vous remarquerez qu’il est nécessaire d’attribuer un type à chaque attribut. Assurez-vous de bien distinguer les types numériques (entiers, réels) des chaînes de caractères.
 
-Ensuite, créez les différents constructeurs pour votre classe. Commencez par un constructeur vide, indispensable au bon fonctionnement de l’importation :
+Ensuite, créez les différents constructeurs pour votre classe. Commencez par un constructeur vide, indispensable au bon fonctionnement de l’importation. N'oubliez pas d'initialiser la donnée à classifier par défaut. Par exemple, la première donnée correspond à l'indice 0 :
 
 ```java
 public [NomDeLaClasse]() {
-    // Constructeur vide
+    classificationType = [numéro de la donnée à classifier];
 }
 ```
 
-Puis, créez un constructeur prenant en paramètre tous les attributs définis précédemment :
+Puis, créez un constructeur prenant en paramètre tous les attributs définis précédemment, ainsi que le numéro de la donnée à classifier, la première donnée correspondant à l'indice 0 :
 
 ```java
 public [NomDeLaClasse](String column1, int column2, boolean column3, double column4) {
     super();
+    classificationType = [numéro de la donnée à classifier];
     this.column1 = column1;
     this.column2 = column2;
     this.column3 = column3;
@@ -59,17 +60,55 @@ Ensuite, modifiez les méthodes `getClassification()` et `setClassification()` p
 
 ```java
 @Override
-public String getClassification() {
-    return [DonnéeÀClassifier];
+public String getClassification() throws IllegalAccessException {
+    return (String) this.getClass().getDeclaredFields()[classificationType].get(this).toString();
 }
 
 @Override
-public void setClassification(String classification) {
-    this.[DonnéeÀClassifier] = classification;
+public void setClassification(String classification) throws IllegalAccessException {
+    this.getClass().getDeclaredFields()[classificationType].set(this, classification);
 }
 ```
 
-La méthode `getAttributesNames()` permet de renvoyer les différents attributs étudiés dans le graphe, c'est-à-dire tous les attributs sauf celui que vous souhaitez classifier. Vous pouvez rendre les noms des attributs plus lisibles que leur nom de variable, comme dans l’exemple ci-dessous :
+Il vous suffit ensuite de copier-coller cette méthode pour pouvoir définir le type de classification actuel :
+
+```java
+public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
+    if (classificationType < 0 || classificationType >= getAttributesNames().size()) {
+        throw new IllegalArgumentException("Cet attribut n'existe pas.");
+    }
+    String keyToVerify = getAttributesNames().keySet().toArray(new String[0])[classificationType];
+    if (!getClassifiedAttributes().containsKey(keyToVerify)) {
+        throw new IllegalArgumentException("Cet attribut ne peut pas être utilisé pour la classification.");
+    }
+    LoadableData.classificationType = classificationType;
+    LoadableData.setClassificationTypes(ClassificationModel.getClassificationModel().getDatas());
+}
+```
+
+Vous devez ensuite inscrire les différentes classifications que vous souhaitez étudier :
+
+```java
+public Map<String, Object> getClassifiedAttributes() {
+    Map<String, Object> attributes = new LinkedHashMap<>();
+    attributes.put("column1", column1);
+    attributes.put("column2", column2);
+    attributes.put("column3", column3);
+    attributes.put("column4", column4);
+    return attributes;
+}
+```
+
+Puis ajoutez cette méthode pour pouvoir définir le type de classification :
+
+```java
+@Override
+public int getClassificationType() {
+    return classificationType;
+}
+```
+
+La méthode `getAttributesNames()` renvoie les différents attributs étudiés dans le graphe, c'est-à-dire tous les attributs sauf celui que vous souhaitez classifier. Vous pouvez rendre les noms des attributs plus lisibles que leur nom de variable, comme dans l’exemple ci-dessous :
 
 ```java
 @Override
@@ -88,7 +127,7 @@ La méthode `getAttributes()` permet de renvoyer les différents attributs numé
 ```java
 @Override
 public double[] getAttributes() {
-    return new double[]{column1, column2, column3, column4};
+    return new double[]{column1, column2, column3 ? 1.0 : 0.0, column4}; // Assurez-vous de convertir les booléens
 }
 ```
 
@@ -97,7 +136,7 @@ La méthode `getStringAttributes()` renvoie un tableau d'attributs de type chaî
 ```java
 @Override
 public String[] getStringAttributes() {
-    return new String[]{column1, String.valueOf(column2)};
+    return new String[]{column1, String.valueOf(column2), String.valueOf(column3)};
 }
 ```
 
@@ -134,4 +173,4 @@ case [Nom des données]:
 
 ---
 
-Ces explications devraient vous permettre d’ajouter des données à la classification. Si vous rencontrez des difficultés lors de votre implémentation, n'hésitez pas à relire ce tutoriel ou à consulter les implémentations existantes.
+Ces explications devraient vous permettre d’ajouter des données à la classification. Si vous rencontrez des difficultés lors de votre implémentation, n'hésitez pas à relire ce tutoriel ou à consulter les implémentations existantes. Veillez à vous assurer que toutes les méthodes ont bien été implémentées, sinon l'implémentation ne fonctionnera pas correctement.
