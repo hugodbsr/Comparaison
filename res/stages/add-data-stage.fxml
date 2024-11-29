@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.stage.*?>
 
-<Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.AddDataController">
+<Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.AddDataController">
     <scene>
         <Scene>
-            <AnchorPane prefHeight="406.0" prefWidth="385.0">
+            <AnchorPane prefHeight="458.0" prefWidth="389.0">
                 <children>
-                    <VBox alignment="CENTER" layoutY="385.0" prefHeight="38.0" prefWidth="384.0" spacing="20.0">
+                    <VBox alignment="CENTER" layoutX="1.0" layoutY="420.0" prefHeight="38.0" prefWidth="384.0" spacing="20.0">
                         <children>
                             <Button fx:id="confirmAdd" mnemonicParsing="false" onAction="#validate" stylesheets="@../css/style.css" text="Valider" textFill="WHITE">
                         <font>
                            <Font name="System Bold" size="13.0" />
                         </font></Button>
                         </children></VBox>
-               <VBox fx:id="entries" layoutY="16.0" prefHeight="366.0" prefWidth="385.0" spacing="10.0" stylesheets="@../css/style.css" />
+               <VBox fx:id="entries" layoutY="-4.0" prefHeight="424.0" prefWidth="390.0" spacing="10.0">
+                  <opaqueInsets>
+                     <Insets top="1.0" />
+                  </opaqueInsets></VBox>
                 </children></AnchorPane>
         </Scene>
     </scene>

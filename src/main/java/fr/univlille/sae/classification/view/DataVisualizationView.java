@@ -23,7 +23,7 @@ import java.util.*;
  */
 public abstract class DataVisualizationView {
 
-    private static Set<DataVisualizationView> views = new HashSet<DataVisualizationView>();
+    private static Set<DataVisualizationView> views = new HashSet<>();
 
 
     public DataVisualizationController controller;
@@ -169,7 +169,7 @@ public abstract class DataVisualizationView {
                     if(editSerie == null){
                         editSerie = new ScatterChart.Series<Double, Double>();
                     }
-                    if(data.getClassification().equals("undefined") || model.getDataToClass().containsKey(data)) {
+                    if(data.getClassification().equals("undefined") || data.getClassification().equals("null") || model.getDataToClass().containsKey(data)) {
                         nodePoint = ViewUtil.getForm(data, new Rectangle(10,10), controller);
                     }
 
