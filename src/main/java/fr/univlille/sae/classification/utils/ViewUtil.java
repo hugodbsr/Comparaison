@@ -26,6 +26,8 @@ import java.util.Map;
  */
 public class ViewUtil {
 
+    private static Shape clickedForm;
+
     /**
      * Définit la couleur de la forme.
      * @param form       Forme à configurer
@@ -39,14 +41,20 @@ public class ViewUtil {
             form.setFill(color);
 
             form.setOnMouseClicked(e -> {
+                if(clickedForm!=null) {
+                    clickedForm.setStyle("-fx-stroke-width: 0;");
+                }
                 if (controller instanceof DataStageController) {
                     DataStageController dataController = (DataStageController) controller;
                     dataController.getPointInfo().getItems().clear();
                     dataController.getPointInfo().getItems().add(dataLoaded.toString());
+                    form.setStyle("-fx-stroke-width: 2;");
                 } else if (controller instanceof MainStageController) {
                     MainStageController mainController = (MainStageController) controller;
                     mainController.getPointInfo().getItems().clear();
                     mainController.getPointInfo().getItems().add(dataLoaded.toString());
+                    form.setStyle("-fx-stroke: #60ffc6; -fx-stroke-width: 3;");
+                    clickedForm = form;
                 } else {
                     System.err.println("Contrôleur inconnu");
                 }

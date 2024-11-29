@@ -168,10 +168,10 @@ public abstract class DataVisualizationController {
     }
 
     /**
-     * Désactive le texte des axes sélectionnés.
+     * Désactive ou active la zone de texte des axes sélectionnés.
      */
-    public void setAxesSelectedDisable(){
-        this.AxesSelected.setDisable(true);
+    public void setAxesSelectedDisability(boolean disability){
+        this.AxesSelected.setDisable(disability);
     }
 
     /**
