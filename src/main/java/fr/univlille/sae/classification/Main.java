@@ -6,8 +6,14 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+/**
+ * Cette classe redirige l'exécution vers la classe principale de l'application,
+ */
 public class Main {
+    /**
+     * Point d'entrée principal de l'application.
+     * @param args les arguments de ligne de commande.
+     */
     public static void main(String[] args) {
             ClassificationApp.main(args);
     }
