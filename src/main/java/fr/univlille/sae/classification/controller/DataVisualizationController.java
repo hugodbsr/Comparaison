@@ -142,8 +142,8 @@ public abstract class DataVisualizationController {
         this.AxesSelected.setText(texte);
     }
 
-    public void setAxesSelectedDisable(){
-        this.AxesSelected.setDisable(true);
+    public void setAxesSelectedDisability(boolean disability){
+        this.AxesSelected.setDisable(disability);
     }
 
 

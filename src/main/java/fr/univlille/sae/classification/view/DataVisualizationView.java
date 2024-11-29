@@ -124,11 +124,12 @@ public abstract class DataVisualizationView {
             scatterChart.getData().clear();
             serieList.clear();
 
-            if (actualX == null && actualY == null) {
+            if (actualX == null && actualY == null || actualY.isEmpty() || actualX.isEmpty()) {
                 controller.setAxesSelected("Aucuns axes sélectionnés");
+                controller.setAxesSelectedDisability(false);
             } else {
                 controller.setAxesSelected("");
-                controller.setAxesSelectedDisable();
+                controller.setAxesSelectedDisability(true);
 
                 List<LoadableData> points = new ArrayList<>(model.getDatas());
                 points.addAll(model.getDataToClass().keySet());
@@ -207,8 +208,9 @@ public abstract class DataVisualizationView {
             }
 
             LoadableData newData = (LoadableData) data;
-            if (actualX == null || actualY == null) {
+            if (actualX == null || actualY == null || actualY.isEmpty() || actualX.isEmpty()) {
                 controller.setAxesSelected("Aucuns axes sélectionnés");
+                controller.setAxesSelectedDisability(false);
                 return;
             }
             Object attrX = newData.getAttributesNames().get(actualX);
