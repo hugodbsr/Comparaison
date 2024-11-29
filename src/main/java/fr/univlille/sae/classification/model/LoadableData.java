@@ -29,7 +29,7 @@ public abstract class LoadableData {
      * Renvoie la classification de l'objet.
      * @return classification sous forme de chaîne.
      */
-    public abstract String getClassification();
+    public abstract String getClassification() throws IllegalAccessException;
 
     /**
      * Renvoie les types de classification définis.
@@ -97,11 +97,15 @@ public abstract class LoadableData {
 
     */
 
+    public abstract Map<String, Object> getClassifiedAttributes();
+
+    public abstract int getClassificationType() ;
+
     /**
      * Définit la classification de l'objet.
      * @param classification classification à définir.
      */
-    public abstract void setClassification(String classification);
+    public abstract void setClassification(String classification) throws IllegalAccessException;
 
     public abstract Map<String, Object> getAttributesNames();
 
