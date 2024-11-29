@@ -1,13 +1,11 @@
 package fr.univlille.sae.classification.model;
 
 import com.opencsv.bean.CsvBindByName;
-import javafx.scene.paint.Color;
-
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Pokemon extends LoadableData {
+public class Pokemon extends LoadableData{
 
     // name,attack,base_egg_steps,capture_rate,defense,experience_growth,hp,sp_attack,sp_defense,type1,type2,speed,is_legendary
     // Swablu,40,5120,255.0,60,600000,45,75,50,normal,flying,1.2,False
@@ -51,7 +49,11 @@ public class Pokemon extends LoadableData {
         this.hp = hp;
         this.spAttack = spAttack;
         this.spDefense = spDefense;
-        this.type1 = type1;
+        if(type1 == null || type1.isEmpty()) {
+            this.type1 = "undefined";
+        }else {
+            this.type1 = type1;
+        }
         this.type2 = type2;
         this.speed = speed;
         this.isLegendary = isLegendary;
@@ -112,91 +114,10 @@ public class Pokemon extends LoadableData {
         return attrNames;
     }
 
-    /**
-     * Renvoie la couleur associée à l'objet.
-     *
-     * @return couleur correspondant à la classification de l'objet.
-     */
-    @Override
-    public Color getColor() {
-        switch (this.type1) {
-            case "normal":
-                return Color.LIGHTGREY;
-            case "grass":
-                return Color.GREEN;
-            case "electric":
-                return Color.YELLOW;
-            case "bug":
-                return Color.GREENYELLOW;
-            case "psychic":
-                return Color.PLUM;
-            case "poison":
-                return Color.PURPLE;
-            case "steel":
-                return Color.SILVER;
-            case "dragon":
-                return Color.WHITE;
-            case "flying":
-                return Color.SKYBLUE;
-            case "water":
-                return Color.BLUE;
-            case "rock":
-                return Color.SIENNA;
-            case "fire":
-                return Color.RED;
-            case "fairy":
-                return Color.PINK;
-            case "fighting":
-                return Color.FIREBRICK;
-            case "ice":
-                return Color.DARKTURQUOISE;
-            case "ghost":
-                return Color.DARKMAGENTA;
-            case "dark":
-                return Color.GREY;
-            case "ground":
-                return Color.KHAKI;
-            default:
-                return Color.BLACK; // Couleur par défaut si la variété est inconnue
-        }
-    }
 
-    /**
-     * Renvoie la valeur des données en fonction de l'axe spécifié.
-     *
-     * @param axes nom de l'axe pour lequel la valeur est requise.
-     * @return valeur correspondante.
-     */
-    @Override
-    public double getDataType(String axes) {
-        switch (axes) {
-            case "attack":
-                return this.attack;
-            case "base_egg_steps":
-                return this.baseEggSteps;
-            case "capture_rate":
-                return this.captureRate;
-            case "defense":
-                return this.defense;
-            case "experience_growth":
-                return this.experienceGrowth;
-            case "hp":
-                return this.hp;
-            case "sp_attack":
-                return this.spAttack;
-            case "sp_defense":
-                return this.spDefense;
-            case "speed":
-                return this.speed;
-            case "is_legendary":
-                if(this.isLegendary){
-                    return 1;
-                }
-                return 0;
-            default:
-                return this.attack;
-        }
-    }
+
+
+
 
     @Override
     public double[] getAttributes() {
@@ -206,7 +127,7 @@ public class Pokemon extends LoadableData {
 
     @Override
     public String[] getStringAttributes() {
-        return new String[]{name, type2, String.valueOf(isLegendary)};
+        return new String[]{type2, String.valueOf(isLegendary)};
     }
 
     @Override

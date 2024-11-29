@@ -90,6 +90,7 @@ public class AddDataController {
                 else if (attrValue instanceof Boolean) {
                     ChoiceBox<String> choiceBox = new ChoiceBox<>();
                     choiceBox.getItems().addAll("VRAI", "FAUX");
+                    choiceBox.setValue("VRAI");
                     hbox.getChildren().add(choiceBox);
                     components.add(choiceBox);
                 }
@@ -124,6 +125,7 @@ public class AddDataController {
                 return null;
             }).toArray();
 
+            System.out.println(Arrays.toString(values));
             ClassificationModel.getClassificationModel().ajouterDonnee(values);
         }catch (IllegalArgumentException e){
             Alert alert = new Alert(Alert.AlertType.ERROR);

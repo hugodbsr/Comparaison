@@ -13,6 +13,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -79,7 +81,7 @@ public class DataStageView extends DataVisualizationView implements Observer {
             controller = loader.getController();
             controller.setDataStageView(this);
             scatterChart = controller.getScatterChart();
-
+            scatterChart.setLegendVisible(false);
             scatterChart.getData().addAll(series4, series1, series2, series3);
 
             controller.setAxesSelected("Aucun fichier sélectionné");
@@ -153,6 +155,9 @@ public class DataStageView extends DataVisualizationView implements Observer {
                     serieList.get(serie).setName(serie);
                 }
                 scatterChart.getData().addAll(serieList.values());
+
+                VBox vBox = ViewUtil.loadLegend();
+                controller.loadLegend(vBox);
             }
         } catch (Exception e) {
             System.err.println("Erreur de mise à jour : " + e.getMessage());
@@ -195,6 +200,8 @@ public class DataStageView extends DataVisualizationView implements Observer {
                 series4.setName("indéfini");
                 scatterChart.getData().add(series4);
             }
+            VBox vBox = ViewUtil.loadLegend();
+            controller.loadLegend(vBox);
         } catch (Exception e) {
             System.err.println("Erreur de mise à jour : " + e.getMessage());
         }
