@@ -8,6 +8,7 @@ import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.utils.Observable;
 import fr.univlille.sae.classification.utils.ViewUtil;
 import javafx.scene.Node;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.HBox;
@@ -49,8 +50,18 @@ public abstract class DataVisualizationView {
     }
 
 
-    public static void resetAxis() {
+    public static void resetEachAxis() {
         // call method resetAxis for each instance of DataVisualizationView (views)
+        for(DataVisualizationView view : views) {
+            view.resetAxis();
+        }
+    }
+
+    public void resetAxis(){
+        setActualY("");
+        setActualX("");
+        ((NumberAxis) scatterChart.getXAxis()).setLabel("");
+        ((NumberAxis) scatterChart.getYAxis()).setLabel("");
     }
 
     /**
@@ -194,8 +205,6 @@ public abstract class DataVisualizationView {
                 System.err.println("Erreur de mise à jour.");
                 return;
             }
-
-
 
             LoadableData newData = (LoadableData) data;
             if (actualX == null || actualY == null) {

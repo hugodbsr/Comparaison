@@ -79,7 +79,7 @@ public class LoadDataController {
 
         ClassificationModel.getClassificationModel().setType(typeChoisi);
         try {
-            DataVisualizationView.resetAxis();
+            DataVisualizationView.resetEachAxis();
             LoadableData.setClassificationTypeGlobal(-1);
             ClassificationModel.getClassificationModel().loadData(file);
             ChooseAttributesView chooseAttributesView = new ChooseAttributesView(ClassificationModel.getClassificationModel(), (Stage) stage.getOwner());
