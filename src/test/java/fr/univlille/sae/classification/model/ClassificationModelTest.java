@@ -56,7 +56,7 @@ class ClassificationModelTest {
     }
 
     @Test
-    void testLoadData() throws IOException, CsvRequiredFieldEmptyException {
+    void testLoadData() throws IOException, CsvRequiredFieldEmptyException, IllegalAccessException {
 
         model.loadData(csvTemp);
 

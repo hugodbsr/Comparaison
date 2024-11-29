@@ -27,6 +27,21 @@ public class DistanceEuclidienneNormaliseeTest {
             }
 
             @Override
+            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
+
+            }
+
+            @Override
+            public Map<String, Object> getClassifiedAttributes() {
+                return Map.of();
+            }
+
+            @Override
+            public int getClassificationType() {
+                return 0;
+            }
+
+            @Override
             public void setClassification(String classification) {
 
             }
@@ -51,6 +66,21 @@ public class DistanceEuclidienneNormaliseeTest {
             @Override
             public String getClassification() {
                 return "";
+            }
+
+            @Override
+            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
+
+            }
+
+            @Override
+            public Map<String, Object> getClassifiedAttributes() {
+                return Map.of();
+            }
+
+            @Override
+            public int getClassificationType() {
+                return 0;
             }
 
             @Override
@@ -87,6 +117,21 @@ public class DistanceEuclidienneNormaliseeTest {
             }
 
             @Override
+            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
+
+            }
+
+            @Override
+            public Map<String, Object> getClassifiedAttributes() {
+                return Map.of();
+            }
+
+            @Override
+            public int getClassificationType() {
+                return 0;
+            }
+
+            @Override
             public void setClassification(String classification) {
 
             }
@@ -111,6 +156,21 @@ public class DistanceEuclidienneNormaliseeTest {
             @Override
             public String getClassification() {
                 return "";
+            }
+
+            @Override
+            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
+
+            }
+
+            @Override
+            public Map<String, Object> getClassifiedAttributes() {
+                return Map.of();
+            }
+
+            @Override
+            public int getClassificationType() {
+                return 0;
             }
 
             @Override
@@ -148,6 +208,21 @@ public class DistanceEuclidienneNormaliseeTest {
             }
 
             @Override
+            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
+
+            }
+
+            @Override
+            public Map<String, Object> getClassifiedAttributes() {
+                return Map.of();
+            }
+
+            @Override
+            public int getClassificationType() {
+                return 0;
+            }
+
+            @Override
             public void setClassification(String classification) {
 
             }
@@ -171,6 +246,21 @@ public class DistanceEuclidienneNormaliseeTest {
             @Override
             public String getClassification() {
                 return "";
+            }
+
+            @Override
+            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
+
+            }
+
+            @Override
+            public Map<String, Object> getClassifiedAttributes() {
+                return Map.of();
+            }
+
+            @Override
+            public int getClassificationType() {
+                return 0;
             }
 
             @Override
@@ -206,6 +296,21 @@ public class DistanceEuclidienneNormaliseeTest {
             }
 
             @Override
+            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
+
+            }
+
+            @Override
+            public Map<String, Object> getClassifiedAttributes() {
+                return Map.of();
+            }
+
+            @Override
+            public int getClassificationType() {
+                return 0;
+            }
+
+            @Override
             public void setClassification(String classification) {
 
             }
@@ -229,6 +334,21 @@ public class DistanceEuclidienneNormaliseeTest {
             @Override
             public String getClassification() {
                 return "";
+            }
+
+            @Override
+            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
+
+            }
+
+            @Override
+            public Map<String, Object> getClassifiedAttributes() {
+                return Map.of();
+            }
+
+            @Override
+            public int getClassificationType() {
+                return 0;
             }
 
             @Override
