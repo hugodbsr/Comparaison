@@ -18,7 +18,7 @@ public class ClassificationApp extends Application {
      * Point d'entrée principal pour l'initialisation de l'interface utilisateur.
      * Cette méthode configure la vue principale en utilisant une instance du modèle
      * de classification, puis affiche la fenêtre principale.
-     * @param stage la fenêtre principale de l'application.
+     * @param stage La fenêtre principale de l'application.
      */
     public void start(Stage stage) throws IOException {
         ClassificationModel model = ClassificationModel.getClassificationModel();
@@ -30,7 +30,7 @@ public class ClassificationApp extends Application {
     /**
      * Point d'entrée principal de l'application.
      * Cette méthode lance l'application JavaFX.
-     * @param args les arguments de ligne de commande.
+     * @param args Les arguments de ligne de commande.
      */
     public static void main(String[] args) {
         Application.launch(args);

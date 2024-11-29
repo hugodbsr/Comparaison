@@ -13,15 +13,15 @@ public interface Observer {
     /**
      * Méthode appelée pour notifier l'observateur qu'un changement s'est produit
      * dans l'objet observé.
-     * @param observable l'objet observé qui a subi un changement.
+     * @param observable L'objet observé qui a subi un changement
      */
     void update(Observable observable);
 
     /**
      * Méthode appelée pour notifier l'observateur qu'un changement s'est produit
      * dans l'objet observé, avec des données supplémentaires.
-     * @param observable l'objet observé qui a subi un changement.
-     * @param data des informations supplémentaires concernant le changement.
+     * @param observable L'objet observé qui a subi un changement
+     * @param data Informations supplémentaires concernant le changement
      */
     void update(Observable observable, Object data);
 

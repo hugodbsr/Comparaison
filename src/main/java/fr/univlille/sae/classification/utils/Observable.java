@@ -8,12 +8,19 @@ import java.util.HashSet;
  */
 public abstract class Observable {
 
+    /**
+     * Liste des observateurs attachés.
+     */
     protected Collection<Observer> attached = new HashSet<>();
+
+    /**
+     * Liste des observateurs à détacher.
+     */
     protected Collection<Observer> toDetach = new HashSet<>();
 
     /**
      * Attache un observateur à l'objet observable.
-     * @param obs observateur à attacher.
+     * @param obs Observateur à attacher
      */
     public void attach(Observer obs) {
         attached.add(obs);
@@ -21,7 +28,7 @@ public abstract class Observable {
 
     /**
      * Détache un observateur de l'objet observable.
-     * @param obs observateur à détacher.
+     * @param obs Observateur à détacher
      */
     public void detach(Observer obs) {
         this.toDetach.add(obs);
@@ -39,7 +46,7 @@ public abstract class Observable {
 
     /**
      * Notifie tous les observateurs attachés avec des données supplémentaires.
-     * @param data données à transmettre aux observateurs.
+     * @param data Données à transmettre aux observateurs
      */
     protected void notifyObservers(Object data) {
         this.updateList();
