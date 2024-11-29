@@ -2,10 +2,7 @@ package fr.univlille.sae.classification.controller;
 
 import fr.univlille.sae.classification.knn.MethodKNN;
 import fr.univlille.sae.classification.knn.distance.Distance;
-import fr.univlille.sae.classification.knn.distance.DistanceManhattanNormalisee;
 import fr.univlille.sae.classification.model.ClassificationModel;
-import fr.univlille.sae.classification.model.LoadableData;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -14,10 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Contrôleur pour la fenêtre de l'algorithme KNN.

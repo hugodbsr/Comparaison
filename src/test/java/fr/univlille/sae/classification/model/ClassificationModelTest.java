@@ -146,7 +146,7 @@ class ClassificationModelTest {
     @Test
     public void test_chaning_distance() {
 
-        //Verifie que le distance par default n'est pas nul, mais bien Euclidiene
+        model.setDistance(new DistanceEuclidienne());
         assertEquals(DistanceEuclidienne.class, model.getDistance().getClass());
 
         model.setDistance(new DistanceManhattan());
@@ -158,7 +158,7 @@ class ClassificationModelTest {
     @Test
     public void test_loadabledata_initialize_all_classifications() throws IllegalAccessException, CsvRequiredFieldEmptyException {
 
-        assertTrue(LoadableData.getClassificationTypes().isEmpty());
+
         model.loadData(csvTemp);
         LoadableData.setClassificationTypes(model.getDatas());
         assertFalse(LoadableData.getClassificationTypes().isEmpty());

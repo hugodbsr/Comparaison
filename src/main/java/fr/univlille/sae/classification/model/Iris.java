@@ -1,9 +1,7 @@
 package fr.univlille.sae.classification.model;
 
 import com.opencsv.bean.CsvBindByName;
-import javafx.scene.paint.Color;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

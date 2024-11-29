@@ -3,27 +3,14 @@ package fr.univlille.sae.classification.view;
 import fr.univlille.sae.classification.controller.DataStageController;
 import fr.univlille.sae.classification.controller.MainStageController;
 import fr.univlille.sae.classification.model.ClassificationModel;
-import fr.univlille.sae.classification.model.LoadableData;
-import fr.univlille.sae.classification.utils.Observable;
 import fr.univlille.sae.classification.utils.Observer;
-import javafx.collections.ObservableList;
-import fr.univlille.sae.classification.utils.ViewUtil;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.layout.HBox;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Classe responsable de l'affichage et de la gestion de la vue des données.

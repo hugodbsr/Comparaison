@@ -3,7 +3,6 @@ package fr.univlille.sae.classification.controller;
 import fr.univlille.sae.classification.view.DataVisualizationView;
 import javafx.fxml.FXML;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;

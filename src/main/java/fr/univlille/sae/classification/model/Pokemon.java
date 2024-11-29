@@ -3,7 +3,8 @@ package fr.univlille.sae.classification.model;
 import com.opencsv.bean.CsvBindByName;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Représente un point Pokémon.
@@ -86,9 +87,15 @@ public class Pokemon extends LoadableData{
         Field[] fields = getClass().getDeclaredFields();
         for(int i = 0; i<fields.length; i++) {
             if(i != LoadableData.classificationType) {
-                fields[i].set(this, list[i]);
+                System.out.println(" i : " + i + " field " + fields[i].getName());
+                if(i < LoadableData.classificationType) {
+                    fields[i].set(this, list[i]);
+                }else {
+                    fields[i].set(this, list[i-1]);
+                }
+
             }else if(fields[i].getType().equals(String.class)) {
-                fields[i].set(this, "undefinied");
+                fields[i].set(this, "undefined");
             }
         }
 

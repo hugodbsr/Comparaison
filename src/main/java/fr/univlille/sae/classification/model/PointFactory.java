@@ -1,6 +1,5 @@
 package fr.univlille.sae.classification.model;
 
-import java.text.ParseException;
 import java.util.Arrays;
 
 /**

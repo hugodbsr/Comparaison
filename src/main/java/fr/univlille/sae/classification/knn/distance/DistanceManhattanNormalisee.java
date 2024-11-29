@@ -1,7 +1,6 @@
 package fr.univlille.sae.classification.knn.distance;
 
 import fr.univlille.sae.classification.knn.MethodKNN;
-
 import fr.univlille.sae.classification.model.LoadableData;
 
 public class DistanceManhattanNormalisee implements Distance{

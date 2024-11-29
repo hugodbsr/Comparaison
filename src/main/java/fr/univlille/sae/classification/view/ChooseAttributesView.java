@@ -1,7 +1,5 @@
 package fr.univlille.sae.classification.view;
 
-import fr.univlille.sae.classification.controller.AddDataController;
-import fr.univlille.sae.classification.controller.ChooseAttributesController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;

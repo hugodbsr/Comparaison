@@ -1,8 +1,6 @@
 package fr.univlille.sae.classification.view;
 
-import fr.univlille.sae.classification.controller.DataStageController;
 import fr.univlille.sae.classification.controller.DataVisualizationController;
-import fr.univlille.sae.classification.controller.MainStageController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.utils.Observable;
@@ -11,9 +9,9 @@ import javafx.scene.Node;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 import java.util.*;
 
@@ -215,24 +213,38 @@ public abstract class DataVisualizationView {
                 controller.setAxesSelectedDisability(false);
                 return;
             }
-            Object attrX = newData.getAttributesNames().get(actualX);
-            Object attrY = newData.getAttributesNames().get(actualY);
-            if (attrX instanceof Integer) {
-                attrX = ((Integer) attrX).doubleValue();
+            Object xValue = newData.getAttributesNames().get(actualX);
+            Object yValue = newData.getAttributesNames().get(actualY);
+
+
+
+            double x = 0;
+            if(xValue instanceof Number) {
+                x = ((Number) xValue).doubleValue();
             }
-            if (attrY instanceof Integer) {
-                attrY = ((Integer) attrY).doubleValue();
+            double y = 0;
+            if(yValue instanceof Number) {
+                y = ((Number) yValue).doubleValue();
             }
-            XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
-                    (Double) attrX,
-                    (Double) attrY
-            );
+            ScatterChart.Data<Double, Double> dataPoint = new ScatterChart.Data<>(x, y);
+
 
             dataPoint.setNode(ViewUtil.getForm(newData, new Rectangle(10, 10), controller));
             if (!scatterChart.getData().isEmpty()) {
-                series4.getData().add(dataPoint);
+                System.out.append("Value " + dataPoint.getXValue() + " , " + dataPoint.getYValue());
+                System.out.println("Add data: " + newData);
+                ScatterChart.Series<Double, Double> serie = serieList.get(newData.getClassification());
+                if(serie == null){
+                    serie = new ScatterChart.Series<>();
+                }
+                serie.getData().add(dataPoint);
+                serieList.put(newData.getClassification(), serie);
+                scatterChart.getData().add(serie);
+                /*series4.getData().add(dataPoint);
                 series4.setName("indéfini");
                 scatterChart.getData().add(series4);
+
+                 */
             }
 
 
