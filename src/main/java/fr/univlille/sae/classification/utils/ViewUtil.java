@@ -2,14 +2,21 @@ package fr.univlille.sae.classification.utils;
 
 import fr.univlille.sae.classification.controller.DataStageController;
 import fr.univlille.sae.classification.controller.MainStageController;
+import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.LoadableData;
+import javafx.geometry.Pos;
+import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,23 +65,51 @@ public class ViewUtil {
         Rectangle rectangle = new Rectangle(10, 10);
         rectangle.setFill(colors.remove("undefined"));
         Label label = new Label("undefined");
-        HBox hbox = new HBox();
+        VBox legend = new VBox();
+        legend.setAlignment(Pos.CENTER);
+        HBox line = new HBox();
+        line.setSpacing(10);
+        line.setAlignment(Pos.CENTER);
+
         HBox tempHBox = new HBox();
         tempHBox.getChildren().addAll(rectangle, label);
-        hbox.getChildren().add(tempHBox);
+        line.getChildren().add(tempHBox);
 
+        String[] colorsString = colors.keySet().toArray(new String[0]);
+        for(int i = 0 ; i < colorsString.length ; i+= 7) {
+            for(int j = 0 ; i+j < colorsString.length && j < i+7 ; j++) {
+                if(j%7 == 0 && i != 0 ) {
+                    legend.getChildren().add(line);
+                    line = new HBox();
+                    line.setSpacing(10);
+                    line.setAlignment(Pos.CENTER);
+                }
 
-        for(String s : colors.keySet()) {
-            Circle c = new Circle(5);
-            c.setFill(colors.get(s));
-            label = new Label(s);
-            tempHBox = new HBox();
-            tempHBox.getChildren().addAll(c, label);
+                tempHBox = new HBox();
+                label = new Label(colorsString[i+j]);
+                rectangle = new Rectangle(10, 10);
+                rectangle.setFill(colors.get(colorsString[i+j]));
+                tempHBox.getChildren().addAll(rectangle, label);
+                line.getChildren().add(tempHBox);
 
-            hbox.getChildren().add(tempHBox);
+            }
         }
 
-        return hbox;
+        if(colorsString.length < 7) legend.getChildren().add(line);
+
+/**
+ for(String s : colors.keySet()) {
+ Circle c = new Circle(5);
+ c.setFill(colors.get(s));
+ label = new Label(s);
+ tempHBox = new HBox();
+ tempHBox.getChildren().addAll(c, label);
+
+ hbox.getChildren().add(tempHBox);
+ }
+ */
+
+        return legend;
     }
 
 }
