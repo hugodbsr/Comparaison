@@ -1,9 +1,8 @@
 package fr.univlille.sae.classification.model;
 
 import com.opencsv.bean.CsvBindByName;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+
+import java.util.*;
 
 public class Pokemon extends LoadableData{
 
@@ -38,8 +37,10 @@ public class Pokemon extends LoadableData{
     private boolean isLegendary;
 
 
+
     public Pokemon(String name, int attack, int baseEggSteps, double captureRate, int defense, int experienceGrowth, int hp, int spAttack, int spDefense, String type1, String type2, double speed, boolean isLegendary) {
         super();
+        classificationType = 9;
         this.name = name;
         this.attack = attack;
         this.baseEggSteps = baseEggSteps;
@@ -67,7 +68,7 @@ public class Pokemon extends LoadableData{
      * Constructeur par défaut.
      */
     public Pokemon() {
-        //
+        classificationType = 9;
     }
 
     /**
@@ -76,8 +77,8 @@ public class Pokemon extends LoadableData{
      * @return classification sous forme de chaîne.
      */
     @Override
-    public String getClassification() {
-        return type1;
+    public String getClassification() throws IllegalAccessException {
+        return (String) this.getClass().getDeclaredFields()[classificationType].get(this).toString();
     }
 
     /**
@@ -86,10 +87,46 @@ public class Pokemon extends LoadableData{
      * @param classification classification à définir.
      */
     @Override
-    public void setClassification(String classification) {
-        this.type1 = classification;
+    public void setClassification(String classification) throws IllegalAccessException {
+       this.getClass().getDeclaredFields()[classificationType].set("", classification);
     }
 
+
+    /**
+     * Permet de modifier l'attribut sur lequelle ont souhaite classifier
+     * Ne sont valable que les attributs present dans getClassificationAttributes()
+     *
+     * Le numéro de l'attribut correspond a sa place dans la liste de tous le attributs.
+     * @param classificationType
+     */
+    public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
+        if(classificationType < 0 || classificationType > getAttributesNames().size()) throw new IllegalArgumentException("Cette attribut n'existe pas");
+        String keyToVerify = getAttributesNames().keySet().toArray(new String[0])[classificationType];
+        if(!getClassifiedAttributes().containsKey(keyToVerify)) throw new IllegalArgumentException("Cette attribut ne peut pas être utiliser pour la classification");
+        LoadableData.classificationType = classificationType;
+        System.out.println("Set type to : " + classificationType);
+
+        LoadableData.setClassificationTypes(ClassificationModel.getClassificationModel().getDatas());
+    }
+
+
+
+
+    public Map<String, Object> getClassifiedAttributes() {
+        Map<String, Object> attributes = new LinkedHashMap<>();
+
+        attributes.put("Experience growth", experienceGrowth);
+        attributes.put("Type 1", type1);
+        attributes.put("Type 2", type2);
+        attributes.put("Is legendary", isLegendary);
+
+        return attributes;
+    }
+
+    @Override
+    public int getClassificationType() {
+        return classificationType;
+    }
 
     /**
      * Renvoie les noms des attributs de l'objet.
@@ -109,6 +146,8 @@ public class Pokemon extends LoadableData{
         attrNames.put("HP", hp);
         attrNames.put("Special attack", spAttack);
         attrNames.put("Special defense", spDefense);
+        attrNames.put("Type 1", type1);
+        attrNames.put("Type 2", type2);
         attrNames.put("Speed", speed);
         attrNames.put("Is legendary", isLegendary);
         return attrNames;

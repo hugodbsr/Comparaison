@@ -1,13 +1,11 @@
 package fr.univlille.sae.classification.model;
 
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
-import java.util.Map;
+import java.util.*;
 import java.util.HashMap;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Classe abstraite représentant des données pouvant être chargées.
@@ -17,6 +15,8 @@ public abstract class LoadableData {
     private static Set<String> classificationTypes;
 
     private static Map<String, Color> classification = new HashMap<>() ;
+
+    protected static int classificationType = 1;
 
     /**
      * Constructeur par défaut.
@@ -29,7 +29,7 @@ public abstract class LoadableData {
      * Renvoie la classification de l'objet.
      * @return classification sous forme de chaîne.
      */
-    public abstract String getClassification();
+    public abstract String getClassification() throws IllegalAccessException;
 
     /**
      * Renvoie les types de classification définis.
@@ -43,12 +43,25 @@ public abstract class LoadableData {
         return classification;
     }
 
+    public static void setClassificationTypeGlobal(int classificationType) throws IllegalArgumentException, IllegalAccessException {
+        LoadableData.classificationType = classificationType;
+    }
+
+    public abstract void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException;
+
     /**
      * Définit les types de classification disponibles.
-     * @param classificationTypes ensemble de types de classification à définir.
-     */
-    public static void setClassificationTypes(Set<String> classificationTypes) {
-        LoadableData.classificationTypes = classificationTypes;
+      */
+    public static void setClassificationTypes(List<LoadableData> datas) throws IllegalAccessException {
+
+        Set<String> types = new HashSet<>();
+            for (LoadableData d : datas) {
+                types.add(d.getClassification());
+            }
+
+
+        classificationTypes = types;
+
         LoadableData.classification.clear();
         int nbOfColors = classificationTypes.size() + 1;
         int nb = 0;
@@ -97,11 +110,15 @@ public abstract class LoadableData {
 
     */
 
+    public abstract Map<String, Object> getClassifiedAttributes();
+
+    public abstract int getClassificationType() ;
+
     /**
      * Définit la classification de l'objet.
      * @param classification classification à définir.
      */
-    public abstract void setClassification(String classification);
+    public abstract void setClassification(String classification) throws IllegalAccessException;
 
     public abstract Map<String, Object> getAttributesNames();
 

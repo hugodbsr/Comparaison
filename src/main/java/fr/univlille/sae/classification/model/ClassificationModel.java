@@ -90,17 +90,16 @@ public class ClassificationModel extends Observable {
                     .withType(type.getClazz())
                     .build().parse();
 
-            Set<String> types = new HashSet<>();
-            for (LoadableData d : datas) {
-                types.add(d.getClassification());
-            }
 
             Collections.shuffle(datas);
 
-            LoadableData.setClassificationTypes(types);
+
+            LoadableData.setClassificationTypes(getDatas());
             notifyObservers();
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement des données : " + e.getMessage());
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -121,7 +120,11 @@ public class ClassificationModel extends Observable {
     public void classifierDonnee(LoadableData data) {
         if(dataToClass.get(data) != null && dataToClass.get(data)) return;
         this.dataToClass.remove(data);
-        data.setClassification(MethodKNN.estimateClass(datas, data, k, distance));
+        try {
+            data.setClassification(MethodKNN.estimateClass(datas, data, k, distance));
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
         notifyObservers(data);
         dataToClass.put(data, true);
     }

@@ -76,9 +76,9 @@ public class ViewUtil {
         line.getChildren().add(tempHBox);
 
         String[] colorsString = colors.keySet().toArray(new String[0]);
-        for(int i = 0 ; i < colorsString.length ; i+= 7) {
-            for(int j = 0 ; i+j < colorsString.length && j < i+7 ; j++) {
-                if(j%7 == 0 && i != 0 ) {
+        for (int i = 0; i < colorsString.length; i += 7) {
+            for (int j = 0; i + j < colorsString.length && j < i + 7; j++) {
+                if (j % 7 == 0 && i != 0) {
                     legend.getChildren().add(line);
                     line = new HBox();
                     line.setSpacing(10);
@@ -86,30 +86,29 @@ public class ViewUtil {
                 }
 
                 tempHBox = new HBox();
-                label = new Label(colorsString[i+j]);
+                label = new Label(colorsString[i + j]);
                 Circle circle = new Circle(5);
-                circle.setFill(colors.get(colorsString[i+j]));
+                circle.setFill(colors.get(colorsString[i + j]));
                 tempHBox.getChildren().addAll(circle, label);
                 line.getChildren().add(tempHBox);
-
             }
         }
+                if (colorsString.length < 7) legend.getChildren().add(line);
 
-        if(colorsString.length < 7) legend.getChildren().add(line);
+                    /**
+                     for(String s : colors.keySet()) {
+                     Circle c = new Circle(5);
+                     c.setFill(colors.get(s));
+                     label = new Label(s);
+                     tempHBox = new HBox();
+                     tempHBox.getChildren().addAll(c, label);
 
-/**
- for(String s : colors.keySet()) {
- Circle c = new Circle(5);
- c.setFill(colors.get(s));
- label = new Label(s);
- tempHBox = new HBox();
- tempHBox.getChildren().addAll(c, label);
+                     hbox.getChildren().add(tempHBox);
+                     }
+                     */
 
- hbox.getChildren().add(tempHBox);
- }
- */
+                return legend;
+            }
 
-        return legend;
+
     }
-
-}
