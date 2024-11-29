@@ -2,6 +2,7 @@ package fr.univlille.sae.classification.model;
 
 import com.opencsv.bean.CsvBindByName;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 public class Pokemon extends LoadableData{
@@ -60,8 +61,22 @@ public class Pokemon extends LoadableData{
         this.isLegendary = isLegendary;
     }
 
-    public Pokemon(Object[] list) {
+ /**   public Pokemon(Object[] list) {
         this((String) list[0], (Integer) list[1], (Integer) list[2], (Double) list[3], (Integer) list[4], (Integer) list[5], (Integer) list[6], (Integer) list[7], (Integer) list[8], (String) list[9], (String) list[10], (Double) list[11], (Boolean) list[12]);
+    }
+  */
+
+    public Pokemon(Object[] list) throws IllegalAccessException {
+
+        Field[] fields = getClass().getDeclaredFields();
+        for(int i = 0; i<fields.length; i++) {
+            if(i != LoadableData.classificationType) {
+                fields[i].set(this, list[i]);
+            }else if(fields[i].getType().equals(String.class)) {
+                fields[i].set(this, "undefinied");
+            }
+        }
+
     }
 
     /**

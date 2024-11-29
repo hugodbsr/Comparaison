@@ -18,6 +18,10 @@ public abstract class LoadableData {
 
     protected static int classificationType = 1;
 
+
+
+    // Ho-Ho 130, 30720, 3, 90, 1250000, 106, 154, 90 fire, flying, 199s
+
     /**
      * Constructeur par défaut.
      */

@@ -22,7 +22,7 @@ import java.util.*;
  */
 public abstract class DataVisualizationView {
 
-    private static Set<DataVisualizationView> views;
+    private static Set<DataVisualizationView> views = new HashSet<>();
 
 
     public DataVisualizationController controller;
