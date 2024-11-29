@@ -42,6 +42,7 @@ public abstract class DataVisualizationView {
     protected DataVisualizationView(ClassificationModel model) {
         this.serieList = new HashMap<String, ScatterChart.Series<Double, Double>>();
         this.model = model;
+        this.series4 = new XYChart.Series();
     }
 
     /**
