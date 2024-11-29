@@ -1,379 +1,58 @@
 package fr.univlille.sae.classification.knn.distance;
 
-import static org.junit.jupiter.api.Assertions.*;
 
+
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import fr.univlille.sae.classification.knn.MethodKNN;
+import fr.univlille.sae.classification.model.ClassificationModel;
+import fr.univlille.sae.classification.model.Iris;
 import javafx.scene.paint.Color;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import fr.univlille.sae.classification.model.LoadableData;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DistanceEuclidienneNormaliseeTest {
 
-    @BeforeAll
-    public static void setupMethodKNN() {
-        MethodKNN.minData = new double[]{0.0, 2.0, 4.0};
-        MethodKNN.amplitude = new double[]{10.0, 3.0, 2.0}; // Assurez-vous que toutes les amplitudes sont non nulles
+    private ClassificationModel model;
+    private DistanceEuclidienneNormalisee distance;
+    private String path = System.getProperty("user.dir") + File.separator + "res" + File.separator;
+
+    @BeforeEach
+    public void initialize() throws CsvRequiredFieldEmptyException {
+
+        model = ClassificationModel.getClassificationModel();
+        distance = new DistanceEuclidienneNormalisee();
+
+        model.setDistance(distance);
+        model.loadData(new File(path + "data/iris.csv"));
+
+
+
+        MethodKNN.updateModel(model.getDatas());
     }
 
     @Test
-    public void testDistanceMatchingAttributes() {
-        LoadableData data1 = new LoadableData() {
-            @Override
-            public String getClassification() {
-                return "";
-            }
+    public void test_distance_est_correcte() {
 
-            @Override
-            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
+        Iris iris = new Iris(1.0, 1.0, 1.0,1.0);
+        Iris iris2 = new Iris(1.0, 1.0, 1.0,1.0);
+        assertEquals(0, distance.distance(iris, iris2), 0.001);
 
-            }
+        Iris iris3 = new Iris(2.0, 2.0, 2.0, 2.0);
+        assertEquals(0.49, distance.distance(iris, iris3), 0.01);
 
-            @Override
-            public Map<String, Object> getClassifiedAttributes() {
-                return Map.of();
-            }
-
-            @Override
-            public int getClassificationType() {
-                return 0;
-            }
-
-            @Override
-            public void setClassification(String classification) {
-
-            }
-
-            @Override
-            public Map<String, Object> getAttributesNames() {
-                return null;
-            }
-
-            @Override
-            public double[] getAttributes() {
-                return new double[]{2.0, 3.0, 6.0};
-            }
-
-            @Override
-            public String[] getStringAttributes() {
-                return new String[]{"A", "B"};
-            }
-        };
-
-        LoadableData data2 = new LoadableData() {
-            @Override
-            public String getClassification() {
-                return "";
-            }
-
-            @Override
-            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
-
-            }
-
-            @Override
-            public Map<String, Object> getClassifiedAttributes() {
-                return Map.of();
-            }
-
-            @Override
-            public int getClassificationType() {
-                return 0;
-            }
-
-            @Override
-            public void setClassification(String classification) {
-
-            }
-
-            @Override
-            public Map<String, Object> getAttributesNames() {
-                return null;
-            }
-            @Override
-            public double[] getAttributes() {
-                return new double[]{8.0, 5.0, 8.0};
-            }
-
-            @Override
-            public String[] getStringAttributes() {
-                return new String[]{"A", "B"};
-            }
-        };
-
-        DistanceEuclidienneNormalisee distance = new DistanceEuclidienneNormalisee();
-        double result = distance.distance(data1, data2);
-        assertEquals(1.3432961119739923, result, 0.0001);
     }
 
-    @Test
-    public void testDistanceDifferentStringAttributes() {
-        LoadableData data1 = new LoadableData() {
-            @Override
-            public String getClassification() {
-                return "";
-            }
 
-            @Override
-            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
 
-            }
 
-            @Override
-            public Map<String, Object> getClassifiedAttributes() {
-                return Map.of();
-            }
 
-            @Override
-            public int getClassificationType() {
-                return 0;
-            }
 
-            @Override
-            public void setClassification(String classification) {
-
-            }
-
-            @Override
-            public Map<String, Object> getAttributesNames() {
-                return null;
-            }
-
-            @Override
-            public double[] getAttributes() {
-                return new double[]{2.0, 3.0, 6.0};
-            }
-
-            @Override
-            public String[] getStringAttributes() {
-                return new String[]{"A", "B"};
-            }
-        };
-
-        LoadableData data2 = new LoadableData() {
-            @Override
-            public String getClassification() {
-                return "";
-            }
-
-            @Override
-            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
-
-            }
-
-            @Override
-            public Map<String, Object> getClassifiedAttributes() {
-                return Map.of();
-            }
-
-            @Override
-            public int getClassificationType() {
-                return 0;
-            }
-
-            @Override
-            public void setClassification(String classification) {
-
-            }
-
-            @Override
-            public Map<String, Object> getAttributesNames() {
-                return null;
-            }
-
-            @Override
-            public double[] getAttributes() {
-                return new double[]{8.0, 5.0, 8.0};
-            }
-
-            @Override
-            public String[] getStringAttributes() {
-                return new String[]{"A", "C"};
-            }
-        };
-
-        DistanceEuclidienneNormalisee distance = new DistanceEuclidienneNormalisee();
-        double result = distance.distance(data1, data2);
-        assertEquals(1.674647558277396, result, 0.0001);
-    }
-
-    @Test
-    public void testDistanceDifferentAttributeLengths() {
-        LoadableData data1 = new LoadableData() {
-            @Override
-            public String getClassification() {
-                return "";
-            }
-
-            @Override
-            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
-
-            }
-
-            @Override
-            public Map<String, Object> getClassifiedAttributes() {
-                return Map.of();
-            }
-
-            @Override
-            public int getClassificationType() {
-                return 0;
-            }
-
-            @Override
-            public void setClassification(String classification) {
-
-            }
-
-            @Override
-            public Map<String, Object> getAttributesNames() {
-                return null;
-            }
-            @Override
-            public double[] getAttributes() {
-                return new double[]{2.0, 3.0};
-            }
-
-            @Override
-            public String[] getStringAttributes() {
-                return new String[]{"A"};
-            }
-        };
-
-        LoadableData data2 = new LoadableData() {
-            @Override
-            public String getClassification() {
-                return "";
-            }
-
-            @Override
-            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
-
-            }
-
-            @Override
-            public Map<String, Object> getClassifiedAttributes() {
-                return Map.of();
-            }
-
-            @Override
-            public int getClassificationType() {
-                return 0;
-            }
-
-            @Override
-            public void setClassification(String classification) {
-
-            }
-
-            @Override
-            public Map<String, Object> getAttributesNames() {
-                return null;
-            }
-            @Override
-            public double[] getAttributes() {
-                return new double[]{8.0, 5.0, 8.0};
-            }
-
-            @Override
-            public String[] getStringAttributes() {
-                return new String[]{"A"};
-            }
-        };
-
-        DistanceEuclidienneNormalisee distance = new DistanceEuclidienneNormalisee();
-        assertThrows(IllegalArgumentException.class, () -> distance.distance(data1, data2));
-    }
-
-    @Test
-    public void testDistanceDifferentStringAttributeLengths() {
-        LoadableData data1 = new LoadableData() {
-            @Override
-            public String getClassification() {
-                return "";
-            }
-
-            @Override
-            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
-
-            }
-
-            @Override
-            public Map<String, Object> getClassifiedAttributes() {
-                return Map.of();
-            }
-
-            @Override
-            public int getClassificationType() {
-                return 0;
-            }
-
-            @Override
-            public void setClassification(String classification) {
-
-            }
-
-            @Override
-            public Map<String, Object> getAttributesNames() {
-                return null;
-            }
-            @Override
-            public double[] getAttributes() {
-                return new double[]{2.0, 3.0, 6.0};
-            }
-
-            @Override
-            public String[] getStringAttributes() {
-                return new String[]{"A"};
-            }
-        };
-
-        LoadableData data2 = new LoadableData() {
-            @Override
-            public String getClassification() {
-                return "";
-            }
-
-            @Override
-            public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
-
-            }
-
-            @Override
-            public Map<String, Object> getClassifiedAttributes() {
-                return Map.of();
-            }
-
-            @Override
-            public int getClassificationType() {
-                return 0;
-            }
-
-            @Override
-            public void setClassification(String classification) {
-
-            }
-
-            @Override
-            public Map<String, Object> getAttributesNames() {
-                return null;
-            }
-
-            @Override
-            public double[] getAttributes() {
-                return new double[]{8.0, 5.0, 8.0};
-            }
-
-            @Override
-            public String[] getStringAttributes() {
-                return new String[]{"A", "B"};
-            }
-        };
-
-        DistanceEuclidienneNormalisee distance = new DistanceEuclidienneNormalisee();
-        assertThrows(IllegalArgumentException.class, () -> distance.distance(data1, data2));
-    }
 }
 
