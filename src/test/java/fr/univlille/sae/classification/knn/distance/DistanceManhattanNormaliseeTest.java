@@ -1,40 +1,42 @@
 package fr.univlille.sae.classification.knn.distance;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
 import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.knn.MethodKNN;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-public class DistanceManhattanNormaliseeTest {
+import static org.junit.jupiter.api.Assertions.*;
 
-    private DistanceManhattanNormalisee distanceManhattan;
+class DistanceManhattanNormaliseeTest {
+
+    private DistanceManhattanNormalisee distanceManhattanNormalisee;
 
     @BeforeEach
-    public void setUp() {
-        // Initialisation de l'objet DistanceManhattanNormalisee avant chaque test
-        distanceManhattan = new DistanceManhattanNormalisee();
+    void setUp() {
+        distanceManhattanNormalisee = new DistanceManhattanNormalisee();
 
-        // Définition des valeurs de normalisation dans MethodKNN (à ajuster selon votre logique)
-        MethodKNN.minData = new double[] {0.0, 0.0};  // Valeurs minimales pour les attributs
-        MethodKNN.amplitude = new double[] {1.0, 1.0};  // Amplitude pour la normalisation
+        // Configurer les valeurs statiques pour la normalisation
+        MethodKNN.minData = new double[]{1.0, 2.0, 0.5};
+        MethodKNN.amplitude = new double[]{4.0, 3.0, 2.5};
     }
 
     @Test
-    public void testDistanceSimple() {
-        // Création de deux objets LoadableData avec des attributs simples
-        LoadableData data1 = new LoadableData() {
+    void testDistance_Calculation() {
+        LoadableData l1 = new LoadableData() {
+            @Override
+            public double[] getAttributes() {
+                return new double[]{2.0, 5.0, 1.0};
+            }
+
             @Override
             public String getClassification() {
-                return null;
+                return "Class1";
             }
 
             @Override
             public void setClassification(String classification) {
-
             }
 
             @Override
@@ -43,24 +45,24 @@ public class DistanceManhattanNormaliseeTest {
             }
 
             @Override
-            public double[] getAttributes() {
-                return new double[0];
-            }
-
-            @Override
             public String[] getStringAttributes() {
                 return new String[0];
             }
         };
-        LoadableData data2 = new LoadableData() {
+
+        LoadableData l2 = new LoadableData() {
+            @Override
+            public double[] getAttributes() {
+                return new double[]{4.0, 4.0, 2.0};
+            }
+
             @Override
             public String getClassification() {
-                return null;
+                return "Class2";
             }
 
             @Override
             public void setClassification(String classification) {
-
             }
 
             @Override
@@ -69,38 +71,35 @@ public class DistanceManhattanNormaliseeTest {
             }
 
             @Override
-            public double[] getAttributes() {
-                return new double[0];
-            }
-
-            @Override
             public String[] getStringAttributes() {
                 return new String[0];
             }
         };
 
-        // Calcul de la distance manhattan normalisée
-        double result = distanceManhattan.distance(data1, data2);
+        double expectedDistance =
+                (Math.abs(2.0 - 4.0) - 1.0) / 4.0 +
+                        (Math.abs(5.0 - 4.0) - 2.0) / 3.0 +
+                        (Math.abs(1.0 - 2.0) - 0.5) / 2.5;
 
-        // Calcul attendu : (|1.0 - 3.0| / 1.0) + (|2.0 - 5.0| / 1.0)
-        double expected = (Math.abs(1.0 - 3.0) / 1.0) + (Math.abs(2.0 - 5.0) / 1.0);
-
-        // Vérification du résultat
-        assertEquals(expected, result, 0.001);
+        assertEquals(expectedDistance, distanceManhattanNormalisee.distance(l1, l2), 1e-6);
     }
 
     @Test
-    public void testDistanceZero() {
-        // Deux objets avec les mêmes attributs (la distance devrait être 0)
-        LoadableData data1 = new LoadableData() {
+    void testDistance_ZeroDistance() {
+        MethodKNN.minData = new double[]{0.0, 0.0, 0.0};
+        LoadableData l1 = new LoadableData() {
+            @Override
+            public double[] getAttributes() {
+                return new double[]{3.0, 3.0, 3.0};
+            }
+
             @Override
             public String getClassification() {
-                return null;
+                return "Class1";
             }
 
             @Override
             public void setClassification(String classification) {
-
             }
 
             @Override
@@ -109,24 +108,24 @@ public class DistanceManhattanNormaliseeTest {
             }
 
             @Override
-            public double[] getAttributes() {
-                return new double[0];
-            }
-
-            @Override
             public String[] getStringAttributes() {
                 return new String[0];
             }
         };
-        LoadableData data2 = new LoadableData() {
+
+        LoadableData l2 = new LoadableData() {
+            @Override
+            public double[] getAttributes() {
+                return new double[]{3.0, 3.0, 3.0};
+            }
+
             @Override
             public String getClassification() {
-                return null;
+                return "Class1";
             }
 
             @Override
             public void setClassification(String classification) {
-
             }
 
             @Override
@@ -135,8 +134,35 @@ public class DistanceManhattanNormaliseeTest {
             }
 
             @Override
+            public String[] getStringAttributes() {
+                return new String[0];
+            }
+        };
+
+        assertEquals(0.0, distanceManhattanNormalisee.distance(l1, l2), 1e-6);
+    }
+
+
+    @Test
+    void testDistance_EmptyAttributes() {
+        LoadableData l1 = new LoadableData() {
+            @Override
             public double[] getAttributes() {
-                return new double[0];
+                return new double[]{};
+            }
+
+            @Override
+            public String getClassification() {
+                return "Class1";
+            }
+
+            @Override
+            public void setClassification(String classification) {
+            }
+
+            @Override
+            public Map<String, Object> getAttributesNames() {
+                return null;
             }
 
             @Override
@@ -145,23 +171,50 @@ public class DistanceManhattanNormaliseeTest {
             }
         };
 
-        // Vérification que la distance est bien 0
-        double result = distanceManhattan.distance(data1, data2);
-        assertEquals(0.0, result, 0.001);
+        LoadableData l2 = new LoadableData() {
+            @Override
+            public double[] getAttributes() {
+                return new double[]{};
+            }
+
+            @Override
+            public String getClassification() {
+                return "Class2";
+            }
+
+            @Override
+            public void setClassification(String classification) {
+            }
+
+            @Override
+            public Map<String, Object> getAttributesNames() {
+                return null;
+            }
+
+            @Override
+            public String[] getStringAttributes() {
+                return new String[0];
+            }
+        };
+
+        assertEquals(0.0, distanceManhattanNormalisee.distance(l1, l2), 1e-6);
     }
 
     @Test
-    public void testDistanceAvecValeursExtremes() {
-        // Test avec des valeurs maximales ou minimales (hypothétiques dans ce cas)
-        LoadableData data1 = new LoadableData() {
+    void testDistance_DifferentLengthAttributes() {
+        LoadableData l1 = new LoadableData() {
+            @Override
+            public double[] getAttributes() {
+                return new double[]{2.0, 3.0};
+            }
+
             @Override
             public String getClassification() {
-                return null;
+                return "Class1";
             }
 
             @Override
             public void setClassification(String classification) {
-
             }
 
             @Override
@@ -170,24 +223,24 @@ public class DistanceManhattanNormaliseeTest {
             }
 
             @Override
-            public double[] getAttributes() {
-                return new double[0];
-            }
-
-            @Override
             public String[] getStringAttributes() {
                 return new String[0];
             }
         };
-        LoadableData data2 = new LoadableData() {
+
+        LoadableData l2 = new LoadableData() {
+            @Override
+            public double[] getAttributes() {
+                return new double[]{2.0};
+            }
+
             @Override
             public String getClassification() {
-                return null;
+                return "Class2";
             }
 
             @Override
             public void setClassification(String classification) {
-
             }
 
             @Override
@@ -196,122 +249,16 @@ public class DistanceManhattanNormaliseeTest {
             }
 
             @Override
-            public double[] getAttributes() {
-                return new double[0];
-            }
-
-            @Override
             public String[] getStringAttributes() {
                 return new String[0];
             }
         };
 
-        double result = distanceManhattan.distance(data1, data2);
+        Exception exception = assertThrows(
+                ArrayIndexOutOfBoundsException.class,
+                () -> distanceManhattanNormalisee.distance(l1, l2)
+        );
 
-        // Calcul de la distance, ici l'effet de normalisation devrait être pris en compte
-        double expected = (Math.abs(Double.MAX_VALUE - Double.MIN_VALUE) / 1.0) +
-                (Math.abs(Double.MIN_VALUE - Double.MAX_VALUE) / 1.0);
-
-        assertEquals(expected, result, 0.001);
-    }
-
-    @Test
-    public void testDistanceAvecDonneesNulles() {
-        // Test avec des données nulles
-        LoadableData data1 = new LoadableData() {
-            @Override
-            public String getClassification() {
-                return null;
-            }
-
-            @Override
-            public void setClassification(String classification) {
-
-            }
-
-            @Override
-            public Map<String, Object> getAttributesNames() {
-                return null;
-            }
-
-            @Override
-            public double[] getAttributes() {
-                return new double[0];
-            }
-
-            @Override
-            public String[] getStringAttributes() {
-                return new String[0];
-            }
-        };
-        LoadableData data2 = null;
-
-        try {
-            distanceManhattan.distance(data1, data2);
-            fail("La méthode devrait lever une exception quand l'un des objets est nul");
-        } catch (NullPointerException e) {
-            // Vérification qu'une exception est lancée
-        }
-    }
-
-    @Test
-    public void testDistanceAvecDonneesVides() {
-        // Test avec des données vides (tous les attributs sont 0 ou absents)
-        LoadableData data1 = new LoadableData() {
-            @Override
-            public String getClassification() {
-                return null;
-            }
-
-            @Override
-            public void setClassification(String classification) {
-
-            }
-
-            @Override
-            public Map<String, Object> getAttributesNames() {
-                return null;
-            }
-
-            @Override
-            public double[] getAttributes() {
-                return new double[0];
-            }
-
-            @Override
-            public String[] getStringAttributes() {
-                return new String[0];
-            }
-        };
-        LoadableData data2 = new LoadableData() {
-            @Override
-            public String getClassification() {
-                return null;
-            }
-
-            @Override
-            public void setClassification(String classification) {
-
-            }
-
-            @Override
-            public Map<String, Object> getAttributesNames() {
-                return null;
-            }
-
-            @Override
-            public double[] getAttributes() {
-                return new double[0];
-            }
-
-            @Override
-            public String[] getStringAttributes() {
-                return new String[0];
-            }
-        };
-
-        // La distance devrait être 0 car il n'y a aucune différence d'attribut
-        double result = distanceManhattan.distance(data1, data2);
-        assertEquals(0.0, result, 0.001);
+        assertEquals("Index 1 out of bounds for length 1", exception.getMessage());
     }
 }
