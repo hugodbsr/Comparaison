@@ -37,7 +37,8 @@ public abstract class DataVisualizationView {
     private Map<String, ScatterChart.Series<Double, Double>> serieList;
     public ClassificationModel model;
     /**
-     * Constructeur par défaut.
+     * Constructeur pour initialiser la vue de données.
+     * @param model le modèle de classification utilisé pour gérer les données.
      */
     protected DataVisualizationView(ClassificationModel model) {
         this.serieList = new HashMap<String, ScatterChart.Series<Double, Double>>();
@@ -91,7 +92,10 @@ public abstract class DataVisualizationView {
     public abstract void reload();
 
 
-
+    /**
+     * Met à jour l'affichage des données en fonction des changements dans le modèle.
+     * @param observable modèle observé.
+     */
     public void update(Observable observable) {
         try {
             if (scatterChart == null || !(observable instanceof ClassificationModel)) {
@@ -172,7 +176,11 @@ public abstract class DataVisualizationView {
         }
     }
 
-
+    /**
+     * Met à jour l'affichage en ajoutant un nouveau point de données.
+     * @param observable modèle observé.
+     * @param data point de données à ajouter.
+     */
     public void update(Observable observable, Object data) {
         try {
             if (scatterChart == null || !(observable instanceof ClassificationModel)) {
