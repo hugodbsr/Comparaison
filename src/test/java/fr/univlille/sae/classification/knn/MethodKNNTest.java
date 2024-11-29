@@ -1,5 +1,6 @@
 package fr.univlille.sae.classification.knn;
 
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import fr.univlille.sae.classification.knn.distance.DistanceEuclidienne;
 import fr.univlille.sae.classification.knn.distance.DistanceEuclidienneNormalisee;
 import fr.univlille.sae.classification.model.ClassificationModel;
@@ -41,7 +42,7 @@ public class MethodKNNTest {
 
 
     @Test
-    public void testKVoisins_distance_euclidienne() throws IOException {
+    public void testKVoisins_distance_euclidienne() throws IOException, CsvRequiredFieldEmptyException {
 
         model.loadData(csvTemp);
         List<LoadableData> datas = model.getDatas();
@@ -59,7 +60,7 @@ public class MethodKNNTest {
 
 
     @Test
-    public void testKVoisins_distance_euclidienne_normalise() throws IOException {
+    public void testKVoisins_distance_euclidienne_normalise() throws IOException, CsvRequiredFieldEmptyException {
 
         model.loadData(csvTemp);
         List<LoadableData> datas = model.getDatas();
