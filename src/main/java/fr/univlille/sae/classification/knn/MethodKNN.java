@@ -169,6 +169,9 @@ public class MethodKNN {
         MethodKNN.updateModel(model.getDatas());
         System.out.println();
 
+        // Permet de definir l'attribut sur lequel ont souhaite classifier:
+        LoadableData.setClassificationTypeGlobal(12);
+
         List<LoadableData> datas = ClassificationModel.getClassificationModel().getDatas();
         // On mélange les données pour tester sur differentes variétes car le fichier de base est trié.
         Collections.shuffle(datas);
