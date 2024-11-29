@@ -25,7 +25,7 @@ public class Iris extends LoadableData {
     private String variety;
 
     /**
-     * Constructeur pour créer une instance de Iris avec tous les attributs.
+     * Constructeur pour créer une instance d'Iris avec tous les attributs.
      * @param sepalLength longueur du sépale.
      * @param sepalWidth largeur du sépale.
      * @param petalLength longueur du pétale.
@@ -157,10 +157,6 @@ public class Iris extends LoadableData {
     public String[] getStringAttributes() {
         return new String[0];
     }
-
-
-
-
 
     /**
      * Renvoie les noms des attributs de l'Iris.

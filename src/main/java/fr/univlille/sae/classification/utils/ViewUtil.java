@@ -27,10 +27,10 @@ import java.util.Map;
 public class ViewUtil {
 
     /**
-     * Définit la couleur de la forme
-     * @param form       forme à configurer.
-     * @param controller contrôleur principale pour le menu contextuel.
-     * @return forme configurée.
+     * Définit la couleur de la forme.
+     * @param form       Forme à configurer
+     * @param controller Contrôleur principal pour le menu contextuel
+     * @return Forme configurée
      */
     public static Shape getForm(LoadableData dataLoaded, Shape form, Object controller) {
         try {
@@ -57,7 +57,10 @@ public class ViewUtil {
         return form;
     }
 
-
+    /**
+     * Configuration de la légende.
+     * @return Le conteneur contenant la légende
+     */
     public static VBox loadLegend() {
         //Color
 
@@ -109,6 +112,4 @@ public class ViewUtil {
 
                 return legend;
             }
-
-
     }

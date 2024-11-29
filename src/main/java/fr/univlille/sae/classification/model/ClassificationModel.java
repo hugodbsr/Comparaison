@@ -20,15 +20,21 @@ import java.util.concurrent.ConcurrentHashMap;
  * Gère le chargement, l'ajout et la classification des données.
  */
 public class ClassificationModel extends Observable {
-
+    /**
+     * Données du modèle.
+     */
     private List<LoadableData> datas;
     private final Map<LoadableData, Boolean> dataToClass;
 
+    /**
+     * Type de données.
+     */
     private DataType type;
-
     private static ClassificationModel model;
-
     private Distance distance;
+    /**
+     * Valeurs de k liées à l'algorithme KNN.
+     */
     private int kOptimal;
     private int k;
 

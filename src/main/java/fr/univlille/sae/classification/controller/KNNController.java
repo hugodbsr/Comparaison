@@ -19,24 +19,44 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Contrôleur pour la fenêtre de l'algorithme KNN.
+ */
 public class KNNController {
 
+    /**
+     * Fenêtre associée à cette vue.
+     */
     @FXML
     private Stage stage;
 
+    /**
+     * Menu déroulant pour sélectionner l'algorithme de calcul de distances.
+     */
     @FXML
     ChoiceBox<String> algoSelector;
 
+    /**
+     * Spinner pour définir le nombre de k (voisins).
+     */
     @FXML
     Spinner<Integer> kEntry;
 
+    /**
+     * Bouton pour calculer automatiquement le k optimal.
+     */
     @FXML
     Button autoK;
 
+    /**
+     * Bouton pour valider la classification du point.
+     */
     @FXML
     Button confirmK;
 
-
+    /**
+     * Initialisation du contrôleur.
+     */
     @FXML
     public void initialize() {
         int max = (int) Math.sqrt(ClassificationModel.getClassificationModel().getDatas().size());
@@ -51,8 +71,9 @@ public class KNNController {
         algoSelector.setValue(Distance.getDistanceName(ClassificationModel.getClassificationModel().getDistance()));
     }
 
-
-
+    /**
+     * Calcul du k optimal en fonction des données actuelles.
+     */
     public void bestK() {
         ClassificationModel model = ClassificationModel.getClassificationModel();
 
@@ -61,8 +82,6 @@ public class KNNController {
             kEntry.getValueFactory().setValue(model.getkOptimal());
         }else {
             // Calcul du K Optimal:
-
-
             Task<Scene> knnTask = new Task<>() {
                 @Override
                 protected Scene call() throws Exception {
@@ -130,15 +149,13 @@ public class KNNController {
             });
 
             new Thread(knnTask).start();
-
-
-
-
         }
 
     }
 
-
+    /**
+     * Validation des paramètres de l'algorithme KNN.
+     */
     public void validate() {
 
         ClassificationModel model = ClassificationModel.getClassificationModel();

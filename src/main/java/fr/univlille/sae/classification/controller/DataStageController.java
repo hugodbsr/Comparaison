@@ -13,45 +13,43 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Controlleur pour le FXML data-view-stage, pour gérer la vue supplémentaire
+ * Contrôleur pour le fichier FXML "data-view-stage", pour gérer la vue supplémentaire.
  */
 public class DataStageController extends DataVisualizationController{
+    /**
+     * Fenêtre associée à cette vue.
+     */
     @FXML
     Stage stage;
 
-
-
-
+    /**
+     * Composant ListView pour l'affichage des informations des données d'un point.
+     */
     @FXML
     ListView PointInfo;
 
-
-
-
+    /**
+     * Initialise le contrôleur en configurant le zoom et le déplacement de la vue.
+     */
     public void initialize() {
         setupZoom();
         setupDrag();
     }
 
-
-
     /**
-     * Associe la dataStageView associer à la classe
-     * @param dataStageView
+     * Associe la dataStageView associée à la classe.
+     * @param dataStageView Instance de dataStageView à associer.
      */
     public void setDataStageView (DataStageView dataStageView) {
         this.view = dataStageView;
     }
 
-
-
-
-
-
+    /**
+     * Retourne l'instance de PointInfo.
+     * @return Instance de PointInfo.
+     */
     public ListView getPointInfo(){
         return this.PointInfo;
     };
-
-
 
 }
