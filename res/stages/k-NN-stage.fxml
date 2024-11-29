@@ -36,7 +36,7 @@
                      </HBox>
                      <HBox alignment="CENTER" prefHeight="36.0" prefWidth="364.0" spacing="20.0">
                         <children>
-                           <Spinner fx:id="kEntry" />
+                           <Spinner fx:id="kEntry" stylesheets="@../css/style.css" />
                            <Button fx:id="autoK" mnemonicParsing="false" onAction="#bestK" stylesheets="@../css/style.css" text="Attribution auto" textFill="WHITE">
                               <font>
                                  <Font name="System Bold" size="13.0" />
@@ -46,7 +46,7 @@
                      </HBox>
                             <HBox alignment="CENTER" prefHeight="59.0" prefWidth="364.0">
                                 <children>
-                                    <Button fx:id="confirmK" onAction="#validate" mnemonicParsing="false" stylesheets="@../css/style.css" text="Valider" textFill="WHITE">
+                                    <Button fx:id="confirmK" mnemonicParsing="false" onAction="#validate" stylesheets="@../css/style.css" text="Valider" textFill="WHITE">
                               <font>
                                  <Font name="System Bold" size="14.0" />
                               </font></Button>
