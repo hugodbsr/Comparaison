@@ -11,16 +11,17 @@ import java.util.Map;
  * Classe abstraite représentant des données pouvant être chargées.
  */
 public abstract class LoadableData {
-
+    /**
+     * Ensemble des types de classification actuellement définis.
+     */
     private static Set<String> classificationTypes;
 
+    /**
+     * Map contenant les classifications associées à leur couleur représentative.
+     */
     private static Map<String, Color> classification = new HashMap<>() ;
 
     protected static int classificationType = 1;
-
-
-
-    // Ho-Ho 130, 30720, 3, 90, 1250000, 106, 154, 90 fire, flying, 199s
 
     /**
      * Constructeur par défaut.
@@ -43,19 +44,37 @@ public abstract class LoadableData {
         return classificationTypes;
     }
 
+    /**
+     * Renvoie une Map des classifications avec leur couleur réprésentative.
+     * @return Map des classifications avec leur couleur
+     */
     public static Map<String, Color> getClassifications() {
         return classification;
     }
 
+    /**
+     * Définit le type de classification global à utiliser.
+     * @param classificationType Index du type de classification
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
     public static void setClassificationTypeGlobal(int classificationType) throws IllegalArgumentException, IllegalAccessException {
         LoadableData.classificationType = classificationType;
     }
 
+    /**
+     * Définit le type de classification pour un objet spécifique.
+     * @param classificationType Index du type de classification
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
     public abstract void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException;
 
     /**
      * Définit les types de classification disponibles.
-      */
+     * @param datas Liste des objets
+     * @throws IllegalAccessException
+     */
     public static void setClassificationTypes(List<LoadableData> datas) throws IllegalAccessException {
 
         Set<String> types = new HashSet<>();
@@ -78,7 +97,12 @@ public abstract class LoadableData {
         LoadableData.classification.put("undefined", getColor(nb,nbOfColors));
     }
 
-
+    /**
+     * Génère une couleur unique pour chaque type de classification.
+     * @param nb Numéro de la couleur
+     * @param totalColors Nombre total de couleurs nécessaires
+     * @return La couleur générée
+     */
     private static Color getColor(int nb, int totalColors) {
         // Ratio pour répartir les couleurs uniformément
         double ratio = (double) nb / (double) totalColors;
@@ -100,22 +124,16 @@ public abstract class LoadableData {
         return Color.color(red, green, blue);
     }
 
-   /* private static Color getColor(int i) {
-        double ratio = (double) i / classificationTypes.size();
-
-        // Réduire les composantes pour éviter les tons clairs
-        double red = 0.2 + 0.6 * ratio; // Entre 0.2 et 0.8
-        double green = 0.8 - 0.6 * ratio; // Entre 0.8 et 0.2
-        double blue = 0.5 + 0.3 * Math.sin(ratio * Math.PI); // Entre 0.5 et 0.8
-
-        return Color.color(red, green, blue);
-    }
-
-
-    */
-
+    /**
+     * Renvoie une Map des attributs valides pour la classification.
+     * @return Map des attributs avec leur nom et valeur
+     */
     public abstract Map<String, Object> getClassifiedAttributes();
 
+    /**
+     *
+     * @return Renvoie l'index du type de la classification.
+     */
     public abstract int getClassificationType() ;
 
     /**
@@ -124,12 +142,22 @@ public abstract class LoadableData {
      */
     public abstract void setClassification(String classification) throws IllegalAccessException;
 
+    /**
+     * Renvoie les noms des attributs de l'objet.
+     * @return Tableau de chaînes contenant les noms des attributs ainsi que leur variable
+     */
     public abstract Map<String, Object> getAttributesNames();
 
-
-
+    /**
+     * Renvoie les attributs numériques.
+     * @return Tableau des attributs numériques
+     */
     public abstract double[] getAttributes();
 
+    /**
+     * Renvoie les attributs de type chaînes de caractères.
+     * @return Tableau des attributs String
+     */
     public abstract String[] getStringAttributes();
 
 }

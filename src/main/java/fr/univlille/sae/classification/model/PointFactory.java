@@ -9,9 +9,9 @@ public class PointFactory {
 
     /**
      * Crée un point de données en fonction du type spécifié et des coordonnées fournies.
-     * @param type type de données
-     * @param coords coordonnées du point à créer.
-     * @return instance de LoadableData correspondant aux coordonnées, ou null en cas d'erreur.
+     * @param type Type de données
+     * @param coords Coordonnées du point à créer
+     * @return Instance de LoadableData correspondant aux coordonnées, ou null en cas d'erreur
      * @throws IllegalArgumentException si le nombre de coordonnées ne correspond pas au type spécifié.
      */
     public static LoadableData createPoint(DataType type, Object[] coords) throws IllegalArgumentException {

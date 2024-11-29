@@ -11,15 +11,24 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Classe représentant la vue de classification des données avec KNN.
+ */
 public class KNNView {
-
+    /**
+     * Modèle de classification utilisé pour gérer les données.
+     */
     private ClassificationModel model;
+
+    /**
+     * Fenêtre parente de la vue.
+     */
     private Stage owner;
 
     /**
      * Constructeur de la vue de chargement des données.
-     * @param model modèle de classification à utiliser.
-     * @param owner fenêtre parente.
+     * @param model Modèle de classification à utiliser
+     * @param owner Fenêtre parente
      */
     public KNNView(ClassificationModel model, Stage owner) {
         this.model = model;
@@ -27,7 +36,7 @@ public class KNNView {
     }
 
     /**
-     *
+     * Charge le fichier FXML et initialise la scène.
      */
     public void show() {
         FXMLLoader loader = new FXMLLoader();

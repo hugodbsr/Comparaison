@@ -29,7 +29,7 @@ public class ViewUtil {
     /**
      * Définit la couleur de la forme.
      * @param form       Forme à configurer
-     * @param controller Contrôleur principal pour le menu contextuel.
+     * @param controller Contrôleur principal pour le menu contextuel
      * @return Forme configurée
      */
     public static Shape getForm(LoadableData dataLoaded, Shape form, Object controller) {

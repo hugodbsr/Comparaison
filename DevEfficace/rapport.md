@@ -101,7 +101,7 @@ En appliquant cette méthode, voici les résultats que nous avons obtenus avec :
 
 On obtient donc un taux de réussite plutôt élevé. À chaque fois, l'algorithme choisit le K avec le plus haut taux de réussite. En cas d'égalité, il choisit le plus petit K parmi les égalités.
 
-### Pokemon
+### Pokémon
 
 **Classification selon le type**
 
@@ -113,21 +113,19 @@ On obtient donc un taux de réussite plutôt élevé. À chaque fois, l'algorith
 | Distance Manhattan (normalisée)   | 0.178 | 0.188 | 0.2 | 0.215 | 0.205 | 0.203 | 0.194 | 0.190 | 0.184 | 0.180 | 0.190 | 7        |
 ---
 
-Le taux de reussiste est ici plus bas, cela s'explique notement par le nombre d'attribut different et la complexité a identifier le type d'un pokemon. 
-Cependant le taux de reussiste reste satisfaisant et stable.
+Le taux de réussite est ici plus bas, cela s'explique notamment par le nombre d'attributs différents et la complexité à identifier le type d'un Pokémon. 
+Cependant, le taux de réussite reste satisfaisant et stable.
 
-**Classification Legendaire ou Non Legendaire**
+**Classification (légendaire ou non légendaire)**
 
+| Distance \ K                      | 1     | 3   | 5 | 7 | 9 | 11 |  13 | 15 | 17 | 19 | 21  | K choisit |
+|-----------------------------------|-------|-------|-------|-------|-------|-------|----|----|----|----|----|----|
+| Distance euclidienne              | 0.986 | 0.978 | 0.984 | 0.980 | 0.984 | 0.984 | 0.984 | 0.984 | 0.984 | 0.984 | 0.984 | 1 |
+| Distance euclidienne (normalisée) | 1.0 | 0.998 | 0.998 | 0.996 | 0.996 | 0.998 | 0.998 | 0.998 | 0.998 | 0.998 | 0.998 | 1 |
+| Distance Manhattan                | 0.978 | 0.972 | 0.984 | 0.980 | 0.984 | 0.984 | 0.984 | 0.984 | 0.984 | 0.984 | 0.984 | 5 |
+| Distance Manhattan (normalisée)   | 0.980 | 0.984 | 0.988 | 0.984 | 0.984 | 0.986 | 0.986 | 0.986 | 0.986 | 0.986 | 0.984 | 5 |
 
-
-| Distance \ K                    | 1     | 3   | 5 | 7 | 9 | 11 |  13 | 15 | 17 | 19 | 21  | K choisit |
-|---------------------------------|-------|-------|-------|-------|-------|-------|----|----|----|----|----|----|
-| Distance Euclidienne | 0.986 | 0.978 | 0.984 | 0.980 | 0.984 | 0.984 | 0.984 | 0.984 | 0.984 | 0.984 | 0.984 | 1 |
-| Distance Euclidienne Normalisée | 1.0 | 0.998 | 0.998 | 0.996 | 0.996 | 0.998 | 0.998 | 0.998 | 0.998 | 0.998 | 0.998 | 1 |
-| Distance Manhattan | 0.978 | 0.972 | 0.984 | 0.980 | 0.984 | 0.984 | 0.984 | 0.984 | 0.984 | 0.984 | 0.984 | 5 |
-| Distance Manhattan Normalisée | 0.980 | 0.984 | 0.988 | 0.984 | 0.984 | 0.986 | 0.986 | 0.986 | 0.986 | 0.986 | 0.984 | 5 |
-
-On a ici des résultats bien meilleurs. En effet, estimer si un Pokemon est legendaire ou non est bien plus simple qu'estimer son type, les attributs des pokemons legendaires sont bien différent des pokemons non-legendaire contrairement aux types, ou selon les types, les valeurs ne fluctuent pas autant
+On a ici des résultats bien meilleurs. En effet, estimer si un Pokémon est légendaire ou non est bien plus simple qu'estimer son type, les attributs des Pokémons légendaires sont bien différents de ceux non-légendaires, contrairement aux types, où, selon les types, les valeurs ne fluctuent pas autant.
 
 ---
 

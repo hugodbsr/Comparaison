@@ -15,14 +15,20 @@ import java.net.URL;
  * Classe responsable de l'affichage de la vue de chargement des données.
  */
 public class LoadDataView {
-
+    /**
+     * Modèle de classification utilisé pour gérer les données.
+     */
     private ClassificationModel model;
+
+    /**
+     * Fenêtre parente de la vue.
+     */
     private Stage owner;
 
     /**
      * Constructeur de la vue de chargement des données.
-     * @param model modèle de classification à utiliser.
-     * @param owner fenêtre parente.
+     * @param model Modèle de classification à utiliser
+     * @param owner Fenêtre parente
      */
     public LoadDataView(ClassificationModel model, Stage owner) {
         this.model = model;
@@ -30,7 +36,7 @@ public class LoadDataView {
     }
 
     /**
-     * Affiche la fenêtre de chargement des données.
+     * Charge le fichier FXML et initialise la scène.
      */
     public void show() {
         FXMLLoader loader = new FXMLLoader();

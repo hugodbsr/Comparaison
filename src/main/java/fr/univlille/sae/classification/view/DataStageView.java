@@ -30,17 +30,17 @@ import java.util.Map;
  * Implémente l'interface Observer pour recevoir des notifications de mise à jour.
  */
 public class DataStageView extends DataVisualizationView implements Observer {
-
-
-
-
-
-
+    /**
+     * Regroupements de points.
+     */
     private XYChart.Series series1;
     private XYChart.Series series2;
     private XYChart.Series series3;
     private XYChart.Series series4;
 
+    /**
+     * Fenêtre de la vue secondaire.
+     */
     private Stage root;
 
     /**
@@ -49,8 +49,6 @@ public class DataStageView extends DataVisualizationView implements Observer {
      */
     public DataStageView(ClassificationModel model) {
         super(model);
-
-
         this.series1 = new XYChart.Series();
         this.series2 = new XYChart.Series();
         this.series3 = new XYChart.Series();

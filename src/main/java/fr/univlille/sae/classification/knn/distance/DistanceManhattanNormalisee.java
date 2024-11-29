@@ -6,6 +6,12 @@ import fr.univlille.sae.classification.model.LoadableData;
 
 public class DistanceManhattanNormalisee implements Distance{
 
+    /**
+     * Calcul de la distance.
+     * @param l1 Point 1
+     * @param l2 Point 2
+     * @return Distance calculée entre les 2 points
+     */
     @Override
     public double distance(LoadableData l1, LoadableData l2) {
         double distance = 0;
