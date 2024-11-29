@@ -6,6 +6,8 @@ import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 import fr.univlille.sae.classification.model.LoadableData;
 
+import java.util.Map;
+
 public class DistanceManhattanTest {
 
     @Test
@@ -22,18 +24,8 @@ public class DistanceManhattanTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
-            }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
             }
 
             @Override
@@ -59,18 +51,8 @@ public class DistanceManhattanTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
-            }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
             }
 
             @Override
@@ -103,18 +85,8 @@ public class DistanceManhattanTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
-            }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
             }
 
             @Override
@@ -140,18 +112,8 @@ public class DistanceManhattanTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
-            }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
             }
 
             @Override
@@ -184,18 +146,8 @@ public class DistanceManhattanTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
-            }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
             }
 
             @Override
@@ -221,18 +173,8 @@ public class DistanceManhattanTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
-            }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
             }
 
             @Override
@@ -265,20 +207,9 @@ public class DistanceManhattanTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
             }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
-            }
-
             @Override
             public double[] getAttributes() {
                 return new double[]{1.0, 2.0};
@@ -302,18 +233,8 @@ public class DistanceManhattanTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
-            }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
             }
 
             @Override
@@ -345,18 +266,8 @@ public class DistanceManhattanTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
-            }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
             }
 
             @Override
@@ -382,18 +293,8 @@ public class DistanceManhattanTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
-            }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
             }
 
             @Override

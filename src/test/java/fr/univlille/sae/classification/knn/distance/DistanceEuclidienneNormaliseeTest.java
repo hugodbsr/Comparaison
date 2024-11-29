@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import fr.univlille.sae.classification.model.LoadableData;
 
+import java.util.Map;
+
 public class DistanceEuclidienneNormaliseeTest {
 
     @BeforeAll
@@ -30,18 +32,8 @@ public class DistanceEuclidienneNormaliseeTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
-            }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
             }
 
             @Override
@@ -67,20 +59,9 @@ public class DistanceEuclidienneNormaliseeTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
             }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
-            }
-
             @Override
             public double[] getAttributes() {
                 return new double[]{8.0, 5.0, 8.0};
@@ -94,7 +75,7 @@ public class DistanceEuclidienneNormaliseeTest {
 
         DistanceEuclidienneNormalisee distance = new DistanceEuclidienneNormalisee();
         double result = distance.distance(data1, data2);
-        assertEquals(1.2093, result, 0.0001);
+        assertEquals(1.3432961119739923, result, 0.0001);
     }
 
     @Test
@@ -111,18 +92,8 @@ public class DistanceEuclidienneNormaliseeTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
-            }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
             }
 
             @Override
@@ -148,18 +119,8 @@ public class DistanceEuclidienneNormaliseeTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
-            }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
             }
 
             @Override
@@ -175,7 +136,7 @@ public class DistanceEuclidienneNormaliseeTest {
 
         DistanceEuclidienneNormalisee distance = new DistanceEuclidienneNormalisee();
         double result = distance.distance(data1, data2);
-        assertEquals(1.6093, result, 0.0001);
+        assertEquals(1.674647558277396, result, 0.0001);
     }
 
     @Test
@@ -192,20 +153,9 @@ public class DistanceEuclidienneNormaliseeTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
             }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
-            }
-
             @Override
             public double[] getAttributes() {
                 return new double[]{2.0, 3.0};
@@ -229,20 +179,9 @@ public class DistanceEuclidienneNormaliseeTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
             }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
-            }
-
             @Override
             public double[] getAttributes() {
                 return new double[]{8.0, 5.0, 8.0};
@@ -272,20 +211,9 @@ public class DistanceEuclidienneNormaliseeTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
             }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
-            }
-
             @Override
             public double[] getAttributes() {
                 return new double[]{2.0, 3.0, 6.0};
@@ -309,18 +237,8 @@ public class DistanceEuclidienneNormaliseeTest {
             }
 
             @Override
-            public String[] getAttributesName() {
-                return new String[0];
-            }
-
-            @Override
-            public Color getColor() {
+            public Map<String, Object> getAttributesNames() {
                 return null;
-            }
-
-            @Override
-            public double getDataType(String axes) {
-                return 0;
             }
 
             @Override

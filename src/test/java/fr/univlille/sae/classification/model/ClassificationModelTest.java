@@ -1,5 +1,6 @@
 package fr.univlille.sae.classification.model;
 
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -55,7 +56,7 @@ class ClassificationModelTest {
     }
 
     @Test
-    void testLoadData() throws IOException {
+    void testLoadData() throws IOException, CsvRequiredFieldEmptyException {
 
         model.loadData(csvTemp);
 
@@ -80,7 +81,7 @@ class ClassificationModelTest {
     }
 
     @Test
-    void testClassifierDonnees() {
+    void testClassifierDonnees() throws CsvRequiredFieldEmptyException {
         model.loadData(csvTemp);
 
         model.ajouterDonnee(5.1, 3.5, 1.4, 0.2);

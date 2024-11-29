@@ -32,10 +32,10 @@ class IrisTest {
 
     @Test
     void getDataType() {
-        assertEquals(3.0 , iris.getDataType("sepalWidth"));
-        assertEquals(2.8, iris.getDataType("sepalLength"));
-        assertEquals(4.1, iris.getDataType("petalWidth"));
-        assertEquals(1.9, iris.getDataType("petalLength"));
+        assertEquals(3.0 , iris.getSepalWidth());
+        assertEquals(2.8, iris.getSepalLength());
+        assertEquals(4.1, iris.getPetalWidth());
+        assertEquals(1.9, iris.getPetalLength());
     }
 
     @Test
