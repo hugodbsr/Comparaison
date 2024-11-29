@@ -21,7 +21,7 @@ public abstract class DataVisualizationController {
     Label AxesSelected;
 
     @FXML
-    HBox legend;
+    VBox legend;
 
 
     @FXML
@@ -148,9 +148,9 @@ public abstract class DataVisualizationController {
 
 
 
-    public void loadLegend(VBox hbox) {
+    public void loadLegend(VBox vBox) {
         this.legend.getChildren().clear();
-        this.legend.getChildren().addAll(hbox.getChildren());
+        this.legend.getChildren().addAll(vBox.getChildren());
     }
 
 

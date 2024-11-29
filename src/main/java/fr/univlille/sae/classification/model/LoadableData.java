@@ -50,18 +50,40 @@ public abstract class LoadableData {
     public static void setClassificationTypes(Set<String> classificationTypes) {
         LoadableData.classificationTypes = classificationTypes;
         LoadableData.classification.clear();
-
+        int nbOfColors = classificationTypes.size() + 1;
         int nb = 0;
         for(String s : classificationTypes) {
             // Génération de couleurs avec une plage évitant le blanc
 
-            LoadableData.classification.put(s, getColor(nb++));
+            LoadableData.classification.put(s, getColor(nb++, nbOfColors));
         }
 
-        LoadableData.classification.put("undefined", getColor(nb));
+        LoadableData.classification.put("undefined", getColor(nb,nbOfColors));
     }
 
-    private static Color getColor(int i) {
+
+    private static Color getColor(int nb, int totalColors) {
+        // Ratio pour répartir les couleurs uniformément
+        double ratio = (double) nb / (double) totalColors;
+
+        // Utilisation de fonctions trigonométriques pour des transitions douces
+        double red = 0.5 + 0.4 * Math.sin(2 * Math.PI * ratio); // Oscille entre 0.1 et 0.9
+        double green = 0.5 + 0.4 * Math.sin(2 * Math.PI * ratio + Math.PI / 3); // Décalage de phase
+        double blue = 0.5 + 0.4 * Math.sin(2 * Math.PI * ratio + 2 * Math.PI / 3); // Décalage de phase
+
+        // Réduction de la luminosité pour éviter le blanc et gris clair
+        double maxComponent = Math.max(red, Math.max(green, blue));
+        if (maxComponent > 0.8) {
+            red *= 0.8 / maxComponent;
+            green *= 0.8 / maxComponent;
+            blue *= 0.8 / maxComponent;
+        }
+
+        // Conversion en objet Color
+        return Color.color(red, green, blue);
+    }
+
+   /* private static Color getColor(int i) {
         double ratio = (double) i / classificationTypes.size();
 
         // Réduire les composantes pour éviter les tons clairs
@@ -72,6 +94,8 @@ public abstract class LoadableData {
         return Color.color(red, green, blue);
     }
 
+
+    */
 
     /**
      * Définit la classification de l'objet.

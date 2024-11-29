@@ -44,11 +44,11 @@
                                              </Label>
                                              <VBox layoutY="345.0" prefHeight="78.0" prefWidth="678.0">
                                                 <children>
-                                                   <HBox fx:id="legend" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                                   <VBox fx:id="legend" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                                       <padding>
                                                          <Insets left="2.0" right="2.0" />
                                                       </padding>
-                                                   </HBox>
+                                                   </VBox>
                                                 </children></VBox>
                                           </children>
                                           <HBox.margin>

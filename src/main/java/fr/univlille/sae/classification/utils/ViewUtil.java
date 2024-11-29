@@ -92,21 +92,19 @@ public class ViewUtil {
                 tempHBox.getChildren().addAll(rectangle, label);
                 line.getChildren().add(tempHBox);
 
-            }
-        }
 
         if(colorsString.length < 7) legend.getChildren().add(line);
 
 /**
- for(String s : colors.keySet()) {
- Circle c = new Circle(5);
- c.setFill(colors.get(s));
- label = new Label(s);
- tempHBox = new HBox();
- tempHBox.getChildren().addAll(c, label);
+        for(String s : colors.keySet()) {
+            Circle c = new Circle(5);
+            c.setFill(colors.get(s));
+            label = new Label(s);
+            tempHBox = new HBox();
+            tempHBox.getChildren().addAll(c, label);
 
- hbox.getChildren().add(tempHBox);
- }
+            hbox.getChildren().add(tempHBox);
+        }
  */
 
         return legend;

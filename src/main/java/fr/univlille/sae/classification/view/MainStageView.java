@@ -13,6 +13,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
 
@@ -58,7 +59,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            URL fxmlFileUrl = getClass().getClassLoader().getResource("stages" + File.separator + "main-stage.fxml");
+            URL fxmlFileUrl = getClass().getClassLoader().getResource("stages"+File.separator+"main-stage.fxml");
 
             if (fxmlFileUrl == null) {
                 System.out.println("Impossible de charger le fichier fxml");
