@@ -20,15 +20,21 @@ import java.util.concurrent.ConcurrentHashMap;
  * Gère le chargement, l'ajout et la classification des données.
  */
 public class ClassificationModel extends Observable {
-
+    /**
+     * Données du modèle.
+     */
     private List<LoadableData> datas;
     private final Map<LoadableData, Boolean> dataToClass;
 
+    /**
+     * Type de données.
+     */
     private DataType type;
-
     private static ClassificationModel model;
-
     private Distance distance;
+    /**
+     * Valeurs de k liées à l'algorithme KNN.
+     */
     private int kOptimal;
     private int k;
 
@@ -90,17 +96,16 @@ public class ClassificationModel extends Observable {
                     .withType(type.getClazz())
                     .build().parse();
 
-            Set<String> types = new HashSet<>();
-            for (LoadableData d : datas) {
-                types.add(d.getClassification());
-            }
 
             Collections.shuffle(datas);
 
-            LoadableData.setClassificationTypes(types);
+
+            LoadableData.setClassificationTypes(getDatas());
             notifyObservers();
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement des données : " + e.getMessage());
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -121,7 +126,11 @@ public class ClassificationModel extends Observable {
     public void classifierDonnee(LoadableData data) {
         if(dataToClass.get(data) != null && dataToClass.get(data)) return;
         this.dataToClass.remove(data);
-        data.setClassification(MethodKNN.estimateClass(datas, data, k, distance));
+        try {
+            data.setClassification(MethodKNN.estimateClass(datas, data, k, distance));
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
         notifyObservers(data);
         dataToClass.put(data, true);
     }

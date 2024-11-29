@@ -1,6 +1,7 @@
 package fr.univlille.sae.classification.view;
 
 import fr.univlille.sae.classification.controller.AddDataController;
+import fr.univlille.sae.classification.controller.ChooseAttributesController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -12,9 +13,9 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * Classe responsable de la création et de l'affichage de la vue d'ajout de données.
+ * Classe responsable du choix des attributs.
  */
-public class AddDataView {
+public class ChooseAttributesView {
 
     /**
      * Modèle de classification utilisé pour gérer les données.
@@ -27,28 +28,21 @@ public class AddDataView {
     private Stage owner;
 
     /**
-     * La vue principale.
-     */
-    private MainStageView mainStageView;
-
-    /**
-     * Constructeur pour initialiser la vue d'ajout de données.
-     * @param model Le modèle de classification utilisé pour gérer les données
+     * Constructeur pour initialiser la vue de choix des attributs.
+     * @param model Le modèle de classification
      * @param owner La fenêtre parente de cette vue
-     * @param mainStageView La vue principale associée
      */
-    public AddDataView(ClassificationModel model, Stage owner, MainStageView mainStageView) {
+    public ChooseAttributesView(ClassificationModel model, Stage owner) {
         this.model = model;
         this.owner = owner;
-        this.mainStageView = mainStageView;
     }
 
     /**
-     * Charge le fichier FXML et initialise la scène.
+     * Affiche la vue du choix des attributs.
      */
     public void show() {
         FXMLLoader loader = new FXMLLoader();
-        URL fxmlFileUrl = getClass().getClassLoader().getResource("stages"+File.separator+"add-data-stage.fxml");
+        URL fxmlFileUrl = getClass().getClassLoader().getResource("stages"+ File.separator+"choose-attributes.fxml");
 
         if (fxmlFileUrl == null) {
             System.out.println("Impossible de charger le fichier fxml");
@@ -59,14 +53,13 @@ public class AddDataView {
 
         try {
             Stage root = loader.load();
-            AddDataController controller = loader.getController();
-            controller.setMainStageView(mainStageView);
+           // ChooseAttributesController controller = loader.getController();
 
             if (model.getDatas().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Erreur");
                 alert.setHeaderText(null);
-                alert.setContentText("Veuillez d'abord charger les données avant de pouvoir ajouter un point");
+                alert.setContentText("Veuillez d'abord charger les données avant de pouvoir choisir l'attribut a classifier");
                 alert.showAndWait();
                 return;
             }
@@ -74,11 +67,13 @@ public class AddDataView {
             root.setResizable(false);
             root.initOwner(owner);
             root.initModality(Modality.APPLICATION_MODAL);
-            root.setTitle("Ajout de donnée");
+            root.setTitle("Choix d'attribut");
 
             root.showAndWait();
         } catch (IOException e) {
             System.out.println("Erreur lors du chargement de la scène : " + e.getMessage());
+            e.printStackTrace();
         }
     }
+
 }

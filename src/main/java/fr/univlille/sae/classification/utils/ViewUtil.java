@@ -26,11 +26,13 @@ import java.util.Map;
  */
 public class ViewUtil {
 
+    private static Shape clickedForm;
+
     /**
-     * Définit la couleur de la forme
-     * @param form       forme à configurer.
-     * @param controller contrôleur principale pour le menu contextuel.
-     * @return forme configurée.
+     * Définit la couleur de la forme.
+     * @param form       Forme à configurer
+     * @param controller Contrôleur principal pour le menu contextuel
+     * @return Forme configurée
      */
     public static Shape getForm(LoadableData dataLoaded, Shape form, Object controller) {
         try {
@@ -39,14 +41,20 @@ public class ViewUtil {
             form.setFill(color);
 
             form.setOnMouseClicked(e -> {
+                if(clickedForm!=null) {
+                    clickedForm.setStyle("-fx-stroke-width: 0;");
+                }
                 if (controller instanceof DataStageController) {
                     DataStageController dataController = (DataStageController) controller;
                     dataController.getPointInfo().getItems().clear();
                     dataController.getPointInfo().getItems().add(dataLoaded.toString());
+                    form.setStyle("-fx-stroke-width: 2;");
                 } else if (controller instanceof MainStageController) {
                     MainStageController mainController = (MainStageController) controller;
                     mainController.getPointInfo().getItems().clear();
                     mainController.getPointInfo().getItems().add(dataLoaded.toString());
+                    form.setStyle("-fx-stroke: #60ffc6; -fx-stroke-width: 3;");
+                    clickedForm = form;
                 } else {
                     System.err.println("Contrôleur inconnu");
                 }
@@ -57,7 +65,10 @@ public class ViewUtil {
         return form;
     }
 
-
+    /**
+     * Configuration de la légende.
+     * @return Le conteneur contenant la légende
+     */
     public static VBox loadLegend() {
         //Color
 
@@ -76,7 +87,7 @@ public class ViewUtil {
         line.getChildren().add(tempHBox);
 
         String[] colorsString = colors.keySet().toArray(new String[0]);
-        for(int i = 0 ; i < colorsString.length ; i+= 7) {
+        for (int i = 0; i < colorsString.length; i += 7) {
             for (int j = 0; i + j < colorsString.length && j < i + 7; j++) {
                 if (j % 7 == 0 && i != 0) {
                     legend.getChildren().add(line);
@@ -87,27 +98,26 @@ public class ViewUtil {
 
                 tempHBox = new HBox();
                 label = new Label(colorsString[i + j]);
-                rectangle = new Rectangle(10, 10);
-                rectangle.setFill(colors.get(colorsString[i + j]));
-                tempHBox.getChildren().addAll(rectangle, label);
+                Circle circle = new Circle(5);
+                circle.setFill(colors.get(colorsString[i + j]));
+                tempHBox.getChildren().addAll(circle, label);
                 line.getChildren().add(tempHBox);
-
-            }}
+            }
+        }
                 if (colorsString.length < 7) legend.getChildren().add(line);
 
-/**
- for(String s : colors.keySet()) {
- Circle c = new Circle(5);
- c.setFill(colors.get(s));
- label = new Label(s);
- tempHBox = new HBox();
- tempHBox.getChildren().addAll(c, label);
+                    /**
+                     for(String s : colors.keySet()) {
+                     Circle c = new Circle(5);
+                     c.setFill(colors.get(s));
+                     label = new Label(s);
+                     tempHBox = new HBox();
+                     tempHBox.getChildren().addAll(c, label);
 
- hbox.getChildren().add(tempHBox);
- }
- */
+                     hbox.getChildren().add(tempHBox);
+                     }
+                     */
 
                 return legend;
             }
-
-        }
+    }

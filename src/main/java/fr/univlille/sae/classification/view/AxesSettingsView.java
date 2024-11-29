@@ -19,15 +19,26 @@ import java.util.ArrayList;
  */
 public class AxesSettingsView {
 
+    /**
+     * Modèle de classification utilisé pour gérer les données.
+     */
     private ClassificationModel model;
+
+    /**
+     * Fenêtre parente de la vue.
+     */
     private Stage owner;
+
+    /**
+     * Vue de visualisation des données.
+     */
     private DataVisualizationView dataVisualizationView;
 
     /**
      * Constructeur pour initialiser la vue de configuration des axes.
-     * @param model modèle de classification utilisé pour gérer les données.
-     * @param owner fenêtre parente de cette vue.
-     * @param dataVisualizationView vue de visualisation des données associée.
+     * @param model Modèle de classification utilisé pour gérer les données
+     * @param owner Fenêtre parente de cette vue
+     * @param dataVisualizationView Vue de visualisation des données associée
      */
     public AxesSettingsView(ClassificationModel model, Stage owner, DataVisualizationView dataVisualizationView) {
         this.model = model;

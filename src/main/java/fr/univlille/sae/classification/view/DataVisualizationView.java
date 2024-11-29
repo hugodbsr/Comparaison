@@ -8,23 +8,21 @@ import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.utils.Observable;
 import fr.univlille.sae.classification.utils.ViewUtil;
 import javafx.scene.Node;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Classe abstraite représentant une vue de visualisation des données.
  * Elle gère les axes actuels et le graphique de dispersion.
  */
 public abstract class DataVisualizationView {
-
+    private static Set<DataVisualizationView> views = new HashSet<>();
     public DataVisualizationController controller;
     private ScatterChart.Series series1;
     private ScatterChart.Series series2;
@@ -45,6 +43,27 @@ public abstract class DataVisualizationView {
         this.serieList = new HashMap<String, ScatterChart.Series<Double, Double>>();
         this.model = model;
         this.series4 = new XYChart.Series();
+        views.add(this);
+    }
+
+    /**
+     * Réinitialisation des axes.
+     */
+    public static void resetEachAxis() {
+        // call method resetAxis for each instance of DataVisualizationView (views)
+        for(DataVisualizationView view : views) {
+            view.resetAxis();
+        }
+    }
+
+    /**
+     * Réinitialisation des axes.
+     */
+    public void resetAxis(){
+        setActualY("");
+        setActualX("");
+        ((NumberAxis) scatterChart.getXAxis()).setLabel("");
+        ((NumberAxis) scatterChart.getYAxis()).setLabel("");
     }
 
     /**
@@ -107,11 +126,12 @@ public abstract class DataVisualizationView {
             scatterChart.getData().clear();
             serieList.clear();
 
-            if (actualX == null && actualY == null) {
+            if (actualX == null && actualY == null || actualY.isEmpty() || actualX.isEmpty()) {
                 controller.setAxesSelected("Aucuns axes sélectionnés");
+                controller.setAxesSelectedDisability(false);
             } else {
                 controller.setAxesSelected("");
-                controller.setAxesSelectedDisable();
+                controller.setAxesSelectedDisability(true);
 
                 List<LoadableData> points = new ArrayList<>(model.getDatas());
                 points.addAll(model.getDataToClass().keySet());
@@ -152,7 +172,7 @@ public abstract class DataVisualizationView {
                     if(editSerie == null){
                         editSerie = new ScatterChart.Series<Double, Double>();
                     }
-                    if(data.getClassification().equals("undefined") || model.getDataToClass().containsKey(data)) {
+                    if(data.getClassification().equals("undefined") || data.getClassification().equals("null") || model.getDataToClass().containsKey(data)) {
                         nodePoint = ViewUtil.getForm(data, new Rectangle(10,10), controller);
                     }
 
@@ -189,11 +209,10 @@ public abstract class DataVisualizationView {
                 return;
             }
 
-
-
             LoadableData newData = (LoadableData) data;
-            if (actualX == null || actualY == null) {
+            if (actualX == null || actualY == null || actualY.isEmpty() || actualX.isEmpty()) {
                 controller.setAxesSelected("Aucuns axes sélectionnés");
+                controller.setAxesSelectedDisability(false);
                 return;
             }
             Object attrX = newData.getAttributesNames().get(actualX);

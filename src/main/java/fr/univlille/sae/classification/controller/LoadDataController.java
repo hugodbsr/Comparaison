@@ -4,6 +4,9 @@ import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.DataType;
+import fr.univlille.sae.classification.model.LoadableData;
+import fr.univlille.sae.classification.view.ChooseAttributesView;
+import fr.univlille.sae.classification.view.DataVisualizationView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -15,24 +18,37 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Contrôleur pour la fenêtre de chargement des données.
+ */
 public class LoadDataController {
 
-
+    /**
+     * Fenêtre associée à cette vue.
+     */
     @FXML
     Stage stage;
 
-
+    /**
+     * Champ de texte affichant le chemin du fichier sélectionné.
+     */
     @FXML
     TextField filePath;
 
+    /**
+     * Menu déroulant permettant de sélectionner une classification pré-fabriquée des données du fichier.
+     */
     @FXML
     ChoiceBox<DataType> fileType = new ChoiceBox<>();
 
     /**
-     * Fichier sélectionné
+     * Fichier sélectionné.
      */
     File file;
 
+    /**
+     * Initialisation du contrôleur.
+     */
     @FXML
     public void initialize() {
         fileType.getItems().addAll(DataType.values());
@@ -40,7 +56,7 @@ public class LoadDataController {
     }
 
     /**
-     * Ouvre un explorateur de fichiers pour sélectionner le fichier à étudier
+     * Ouvre un explorateur de fichiers pour sélectionner le fichier à étudier.
      */
     public void openFileChooser() {
         FileChooser fileChooser = new FileChooser();
@@ -54,9 +70,8 @@ public class LoadDataController {
     }
 
 
-
     /**
-     * Valide le fichier sélectionné au préalable
+     * Valide le fichier sélectionné au préalable.
      */
     public void validate(){
 
@@ -76,13 +91,20 @@ public class LoadDataController {
 
         ClassificationModel.getClassificationModel().setType(typeChoisi);
         try {
+            DataVisualizationView.resetEachAxis();
+            LoadableData.setClassificationTypeGlobal(-1);
             ClassificationModel.getClassificationModel().loadData(file);
+            ChooseAttributesView chooseAttributesView = new ChooseAttributesView(ClassificationModel.getClassificationModel(), (Stage) stage.getOwner());
+            chooseAttributesView.show();
         }catch (RuntimeException | CsvRequiredFieldEmptyException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(stage);
             alert.setHeaderText(e.toString());
             alert.setContentText("Le chargement du fichier à echoué, veuillez reessayer !");
             alert.showAndWait();
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
         stage.close();
     }
