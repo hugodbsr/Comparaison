@@ -34,7 +34,7 @@ public class Iris extends LoadableData {
      */
     public Iris(double sepalLength, double sepalWidth, double petalLength, double petalWidth, String variety) {
         super();
-        classificationType = 4;
+
         this.sepalWidth = sepalWidth;
         this.sepalLength = sepalLength;
         this.petalWidth = petalWidth;
@@ -57,7 +57,7 @@ public class Iris extends LoadableData {
      * Constructeur par défaut.
      */
     public Iris() {
-        //
+        classificationType = 4;
     }
 
     /**
@@ -109,7 +109,8 @@ public class Iris extends LoadableData {
      */
     @Override
     public void setClassification(String classification) throws IllegalAccessException {
-        this.getClass().getDeclaredFields()[classificationType].set("", classification);
+        System.out.println();
+        this.getClass().getDeclaredFields()[classificationType].set(this, classification);
     }
 
     /**

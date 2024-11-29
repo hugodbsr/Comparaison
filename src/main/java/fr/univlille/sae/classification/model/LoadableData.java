@@ -1,5 +1,6 @@
 package fr.univlille.sae.classification.model;
 
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
 import java.util.*;
@@ -43,7 +44,7 @@ public abstract class LoadableData {
     }
 
     public static void setClassificationTypeGlobal(int classificationType) throws IllegalArgumentException, IllegalAccessException {
-        ClassificationModel.getClassificationModel().getDatas().get(0).setClassificationType(classificationType);
+        LoadableData.classificationType = classificationType;
     }
 
     public abstract void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException;
@@ -55,11 +56,16 @@ public abstract class LoadableData {
     public static void setClassificationTypes(List<LoadableData> datas) throws IllegalAccessException {
 
         Set<String> types = new HashSet<>();
-        for (LoadableData d : datas) {
-            types.add(d.getClassification());
-        }
-        classificationTypes = types;
+            for (LoadableData d : datas) {
+                types.add(d.getClassification());
+            }
 
+
+        classificationTypes = types;
+        System.out.println("types "  + types);
+       // classificationType = 1;
+
+        System.out.println(classificationType);
 
         LoadableData.classification.clear();
         int nbOfColors = classificationTypes.size() + 1;

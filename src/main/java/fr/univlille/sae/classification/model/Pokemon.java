@@ -68,7 +68,7 @@ public class Pokemon extends LoadableData{
      * Constructeur par défaut.
      */
     public Pokemon() {
-        //
+        classificationType = 9;
     }
 
     /**

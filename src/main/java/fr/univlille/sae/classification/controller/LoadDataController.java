@@ -4,7 +4,9 @@ import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.DataType;
+import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.view.ChooseAttributesView;
+import fr.univlille.sae.classification.view.DataVisualizationView;
 import fr.univlille.sae.classification.view.MainStageView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -78,6 +80,8 @@ public class LoadDataController {
 
         ClassificationModel.getClassificationModel().setType(typeChoisi);
         try {
+            DataVisualizationView.resetAxis();
+            LoadableData.setClassificationTypeGlobal(-1);
             ClassificationModel.getClassificationModel().loadData(file);
             ChooseAttributesView chooseAttributesView = new ChooseAttributesView(ClassificationModel.getClassificationModel(), (Stage) stage.getOwner());
             chooseAttributesView.show();
@@ -87,6 +91,9 @@ public class LoadDataController {
             alert.setHeaderText(e.toString());
             alert.setContentText("Le chargement du fichier à echoué, veuillez reessayer !");
             alert.showAndWait();
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
         stage.close();
     }

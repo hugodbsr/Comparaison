@@ -40,6 +40,7 @@ public class ChooseAttributesController {
         String selected = choice.getValue();
         LoadableData rdmData = ClassificationModel.getClassificationModel().getDatas().get(0);
 
+        System.out.println(LoadableData.getClassifications());
         List<String> temp = new ArrayList<>(rdmData.getAttributesNames().keySet());
 
         System.out.println(selected);
@@ -48,6 +49,7 @@ public class ChooseAttributesController {
         try {
             rdmData.setClassificationType(temp.indexOf(selected));
         } catch (IllegalAccessException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
         stage.close();

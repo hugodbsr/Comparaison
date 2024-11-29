@@ -14,16 +14,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Classe abstraite représentant une vue de visualisation des données.
  * Elle gère les axes actuels et le graphique de dispersion.
  */
 public abstract class DataVisualizationView {
+
+    private static Set<DataVisualizationView> views;
+
 
     public DataVisualizationController controller;
     private ScatterChart.Series series1;
@@ -45,6 +45,12 @@ public abstract class DataVisualizationView {
         this.serieList = new HashMap<String, ScatterChart.Series<Double, Double>>();
         this.model = model;
         this.series4 = new XYChart.Series();
+        views.add(this);
+    }
+
+
+    public static void resetAxis() {
+        // call method resetAxis for each instance of DataVisualizationView (views)
     }
 
     /**
