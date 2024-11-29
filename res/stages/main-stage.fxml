@@ -9,7 +9,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.stage.*?>
 
-<Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.MainStageController">
+<Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.MainStageController">
     <scene>
         <Scene>
             <AnchorPane prefHeight="535.0" prefWidth="922.0">
@@ -37,12 +37,19 @@
                                                  <NumberAxis fx:id="ordAxe" prefHeight="354.0" prefWidth="54.0" side="LEFT" stylesheets="@../css/style.css" />
                                                </yAxis>
                                              </ScatterChart>
-                                             <Label fx:id="AxesSelected" alignment="CENTER" layoutX="73.0" layoutY="152.0" prefHeight="38.0" prefWidth="600.0">
+                                             <Label fx:id="AxesSelected" alignment="CENTER" layoutX="-2.0" layoutY="3.0" prefHeight="380.0" prefWidth="682.0">
                                                 <font>
                                                    <Font size="21.0" />
                                                 </font>
                                              </Label>
-                                             <VBox layoutY="345.0" prefHeight="78.0" prefWidth="678.0" />
+                                             <VBox layoutY="345.0" prefHeight="78.0" prefWidth="678.0">
+                                                <children>
+                                                   <HBox fx:id="legend" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                                      <padding>
+                                                         <Insets left="2.0" right="2.0" />
+                                                      </padding>
+                                                   </HBox>
+                                                </children></VBox>
                                           </children>
                                           <HBox.margin>
                                              <Insets left="10.0" />

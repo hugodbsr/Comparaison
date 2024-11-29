@@ -8,9 +8,11 @@ import fr.univlille.sae.classification.model.LoadableData;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -37,10 +39,11 @@ public class KNNController {
 
     @FXML
     public void initialize() {
+        int max = (int) Math.sqrt(ClassificationModel.getClassificationModel().getDatas().size());
         kEntry.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,
-                        (int) Math.sqrt(ClassificationModel.getClassificationModel().getDatas().size()),
+                        (max%2 == 0) ? max-1 : max,
                         1,
-                        1));
+                        2));
 
         kEntry.getValueFactory().setValue(ClassificationModel.getClassificationModel().getK());
 
@@ -59,13 +62,10 @@ public class KNNController {
         }else {
             // Calcul du K Optimal:
 
-            HBox hBox = new HBox();
-
 
             Task<Scene> knnTask = new Task<>() {
                 @Override
                 protected Scene call() throws Exception {
-                    System.out.println("Call call()");
                     updateProgress(0, 3);
                     updateMessage("Préparation des données ");
 
@@ -104,30 +104,32 @@ public class KNNController {
                     return scene;
                 }
             };
-
+            VBox vBox = new VBox();
             ProgressBar pBar = new ProgressBar();
             pBar.progressProperty().bind(knnTask.progressProperty());
             Label statusLabel = new Label();
             statusLabel.textProperty().bind(knnTask.messageProperty());
 
-
-            hBox.getChildren().addAll(statusLabel, pBar);
+            vBox.alignmentProperty().setValue(Pos.CENTER);
+            vBox.getChildren().addAll( pBar, statusLabel);
             Stage stageLoad = new Stage();
-            Scene scene = new Scene(hBox);
+            Scene scene = new Scene(vBox);
+            stageLoad.setTitle("Alogirhme K-NN");
+            stageLoad.setMinWidth(300);
 
             stageLoad.setScene(scene);
             stageLoad.show();
 
             Stage stageFinished = new Stage();
-
+            stageFinished.setTitle("Algorithme K-NN - results");
             knnTask.setOnSucceeded(e -> {
                 stageLoad.close();
                 stageFinished.setScene(knnTask.getValue());
                 stageFinished.show();
 
             });
-            knnTask.run();
-            //new Thread(knnTask).start();
+
+            new Thread(knnTask).start();
 
 
 

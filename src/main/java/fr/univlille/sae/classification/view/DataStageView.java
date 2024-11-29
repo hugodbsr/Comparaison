@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -36,10 +37,10 @@ public class DataStageView extends DataVisualizationView implements Observer {
 
     private Map<String, ScatterChart.Series<Double, Double>> serieList;
 
-    private ScatterChart.Series series1;
-    private ScatterChart.Series series2;
-    private ScatterChart.Series series3;
-    private ScatterChart.Series series4;
+    private XYChart.Series series1;
+    private XYChart.Series series2;
+    private XYChart.Series series3;
+    private XYChart.Series series4;
 
     private Stage root;
 
@@ -79,7 +80,7 @@ public class DataStageView extends DataVisualizationView implements Observer {
             controller = loader.getController();
             controller.setDataStageView(this);
             scatterChart = controller.getScatterChart();
-
+            scatterChart.setLegendVisible(false);
             scatterChart.getData().addAll(series4, series1, series2, series3);
 
             controller.setAxesSelected("Aucun fichier sélectionné");
@@ -92,6 +93,118 @@ public class DataStageView extends DataVisualizationView implements Observer {
         }
     }
 
+    /**
+     * Met à jour l'affichage des données en fonction des changements dans le modèle.
+     * @param observable modèle observé.
+     */
+    @Override
+    public void update(Observable observable) {
+        try {
+            if (scatterChart == null || !(observable instanceof ClassificationModel)) {
+                System.err.println("Erreur de mise à jour.");
+                return;
+            }
+
+            scatterChart.getData().clear();
+            serieList.clear();
+
+            if (actualX == null && actualY == null) {
+                controller.setAxesSelected("Aucuns axes sélectionnés");
+            } else {
+                controller.setAxesSelected("");
+                controller.setAxesSelectedDisable();
+
+                List<LoadableData> points = new ArrayList<>(model.getDatas());
+                points.addAll(model.getDataToClass().keySet());
+                for (LoadableData data : points) {
+                    Object xValue = data.getAttributesNames().get(actualX);
+                    Object yValue = data.getAttributesNames().get(actualY);
+
+                    Double x = 0.0;
+                    if (xValue instanceof Integer) {
+                        x = ((Integer) xValue).doubleValue();
+                    } else if (xValue instanceof Double) {
+                        x = (Double) xValue;
+                    }
+
+                    Double y = 0.0;
+                    if (yValue instanceof Integer) {
+                        y = ((Integer) yValue).doubleValue();
+                    } else if (yValue instanceof Double) {
+                        y = (Double) yValue;
+                    }
+
+                    ScatterChart.Data<Double, Double> dataPoint = new ScatterChart.Data<>(x, y);
+
+                    Node nodePoint = ViewUtil.getForm(data, new Circle(5), controller);
+
+                    ScatterChart.Series<Double, Double> editSerie = serieList.get(data.getClassification());
+                    if(editSerie == null){
+                        editSerie = new ScatterChart.Series<Double, Double>();
+                    }
+                    if(data.getClassification().equals("undefined") || model.getDataToClass().containsKey(data)) {
+                        nodePoint = ViewUtil.getForm(data, new Rectangle(10,10), controller);
+                    }
+                    dataPoint.setNode(nodePoint);
+                    editSerie.getData().add(dataPoint);
+                    serieList.put(data.getClassification(), editSerie);
+                }
+
+                for(String serie : serieList.keySet()) {
+                    serieList.get(serie).setName(serie);
+                }
+                scatterChart.getData().addAll(serieList.values());
+
+                HBox hBox = ViewUtil.loadLegend();
+                controller.loadLegend(hBox);
+            }
+        } catch (Exception e) {
+            System.err.println("Erreur de mise à jour : " + e.getMessage());
+        }
+    }
+
+    /**
+     * Met à jour l'affichage en ajoutant un nouveau point de données.
+     * @param observable modèle observé.
+     * @param data point de données à ajouter.
+     */
+    @Override
+    public void update(Observable observable, Object data) {
+        try {
+            if (scatterChart == null || !(observable instanceof ClassificationModel)) {
+                System.err.println("Erreur de mise à jour.");
+                return;
+            }
+            LoadableData newData = (LoadableData) data;
+            if (actualX == null || actualY == null) {
+                controller.setAxesSelected("Aucuns axes sélectionnés");
+                return;
+            }
+            Object attrX = newData.getAttributesNames().get(actualX);
+            Object attrY = newData.getAttributesNames().get(actualY);
+            if (attrX instanceof Integer) {
+                attrX = ((Integer) attrX).doubleValue();
+            }
+            if (attrY instanceof Integer) {
+                attrY = ((Integer) attrY).doubleValue();
+            }
+            XYChart.Data<Double, Double> dataPoint = new XYChart.Data<>(
+                    (Double) attrX,
+                    (Double) attrY
+            );
+
+            dataPoint.setNode(ViewUtil.getForm(newData, new Rectangle(10, 10), controller));
+            if (!scatterChart.getData().isEmpty()) {
+                series4.getData().add(dataPoint);
+                series4.setName("indéfini");
+                scatterChart.getData().add(series4);
+            }
+            HBox hBox = ViewUtil.loadLegend();
+            controller.loadLegend(hBox);
+        } catch (Exception e) {
+            System.err.println("Erreur de mise à jour : " + e.getMessage());
+        }
+    }
 
     /**
      * Renvoie le contrôleur associé à cette vue.

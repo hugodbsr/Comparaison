@@ -40,7 +40,7 @@ class IrisTest {
 
     @Test
     void getColor() {
-        assertEquals(Color.RED, iris.getColor());
+        assertEquals(Color.RED, iris.getClassifications().get(iris.getClassification()));
     }
 
     @Test

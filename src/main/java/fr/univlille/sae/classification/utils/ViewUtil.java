@@ -2,13 +2,22 @@ package fr.univlille.sae.classification.utils;
 
 import fr.univlille.sae.classification.controller.DataStageController;
 import fr.univlille.sae.classification.controller.MainStageController;
+import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.LoadableData;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Classe utilitaire pour la gestion des vues.
@@ -23,7 +32,9 @@ public class ViewUtil {
      */
     public static Shape getForm(LoadableData dataLoaded, Shape form, Object controller) {
         try {
-            form.setFill(dataLoaded.getColor());
+            Color color = LoadableData.getClassifications().get(dataLoaded.getClassification());
+
+            form.setFill(color);
 
             form.setOnMouseClicked(e -> {
                 if (controller instanceof DataStageController) {
@@ -42,6 +53,33 @@ public class ViewUtil {
             System.err.println("Erreur lors de la création de la forme : " + e.getMessage());
         }
         return form;
+    }
+
+
+    public static HBox loadLegend() {
+        //Color
+
+        Map<String, Color> colors = new HashMap<>(Map.copyOf(LoadableData.getClassifications()));
+        Rectangle rectangle = new Rectangle(10, 10);
+        rectangle.setFill(colors.remove("undefined"));
+        Label label = new Label("undefined");
+        HBox hbox = new HBox();
+        HBox tempHBox = new HBox();
+        tempHBox.getChildren().addAll(rectangle, label);
+        hbox.getChildren().add(tempHBox);
+
+
+        for(String s : colors.keySet()) {
+            Circle c = new Circle(5);
+            c.setFill(colors.get(s));
+            label = new Label(s);
+            tempHBox = new HBox();
+            tempHBox.getChildren().addAll(c, label);
+
+            hbox.getChildren().add(tempHBox);
+        }
+
+        return hbox;
     }
 
 }

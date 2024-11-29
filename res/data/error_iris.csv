@@ -1,0 +1,6 @@
+"sepal.length","sepal.width","petal.length","petal.width","variety"
+"abc","xyz","pqr","uvw","Setosa"
+"def","lmn","stu","ijk","Setosa"
+"ghi","opq","vwx","rst","Setosa"
+"jkl","mno","yza","bcd","Setosa"
+"qrs","tuv","efg","hij","Setosa"
