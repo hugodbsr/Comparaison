@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.stage.*?>
 
-<Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.AddDataController">
+<Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.AddDataController">
     <scene>
         <Scene>
             <AnchorPane prefHeight="406.0" prefWidth="385.0">
@@ -18,7 +18,7 @@
                            <Font name="System Bold" size="13.0" />
                         </font></Button>
                         </children></VBox>
-               <VBox fx:id="entries" layoutY="16.0" prefHeight="366.0" prefWidth="385.0" spacing="10.0" />
+               <VBox fx:id="entries" layoutY="16.0" prefHeight="366.0" prefWidth="385.0" spacing="10.0" stylesheets="@../css/style.css" />
                 </children></AnchorPane>
         </Scene>
     </scene>

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Scene?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
-<?import javafx.stage.Stage?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.stage.*?>
 
-<Stage fx:id="stage" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.ChooseAttributesController">
+<Stage fx:id="stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.sae.classification.controller.ChooseAttributesController">
     <scene>
         <Scene>
             <AnchorPane prefHeight="175.0" prefWidth="317.0">
@@ -17,7 +15,10 @@
                   <children>
                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Veuillez selectionner l'attribut sur lequel vous souhaitez classifier les données" textAlignment="CENTER" wrappingWidth="254.06924438476562" />
                      <ChoiceBox fx:id="choice" prefWidth="150.0" stylesheets="@../css/style.css" />
-                     <Button mnemonicParsing="false" onAction="#validate" stylesheets="@../css/style.css" text="Valider" textFill="WHITE" />
+                     <Button mnemonicParsing="false" onAction="#validate" stylesheets="@../css/style.css" text="Valider" textFill="WHITE">
+                        <font>
+                           <Font name="System Bold" size="13.0" />
+                        </font></Button>
                   </children>
                </VBox>
             </children></AnchorPane>

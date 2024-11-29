@@ -29,7 +29,10 @@
                      </HBox>
                      <HBox alignment="CENTER" prefHeight="76.0" prefWidth="310.0">
                         <children>
-                           <Button fx:id="confirmDataSelection" mnemonicParsing="false" onAction="#validate" stylesheets="@../css/style.css" text="Valider" textFill="WHITE" />
+                           <Button fx:id="confirmDataSelection" mnemonicParsing="false" onAction="#validate" stylesheets="@../css/style.css" text="Valider" textFill="WHITE">
+                              <font>
+                                 <Font name="System Bold" size="13.0" />
+                              </font></Button>
                         </children>
                      </HBox>
                   </children>
