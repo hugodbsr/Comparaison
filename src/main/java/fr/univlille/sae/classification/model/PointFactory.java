@@ -38,7 +38,11 @@ public class PointFactory {
                         }
                     }
                     else if (coords.length == 12) {
-                        data = new Pokemon((String) coords[0], (Integer) coords[1], (Integer) coords[2], (Double) coords[3], (Integer) coords[4], (Integer) coords[5], (Integer) coords[6], (Integer) coords[7], (Integer) coords[8], "undefined", "", (Double) coords[9], (Boolean) coords[10]);
+                        try {
+                            data = new Pokemon(coords);
+                        } catch (IllegalAccessException e) {
+                            throw new IllegalArgumentException("Une erreur est survenue lors de la création du point");
+                        }
                     }
                     break;
                 default:

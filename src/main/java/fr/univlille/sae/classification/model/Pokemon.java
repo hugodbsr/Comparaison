@@ -35,7 +35,7 @@ public class Pokemon extends LoadableData{
     @CsvBindByName(column = "speed")
     private double speed;
     @CsvBindByName(column = "is_legendary")
-    private boolean isLegendary;
+    private Boolean isLegendary = null ;
 
 
 
@@ -103,7 +103,13 @@ public class Pokemon extends LoadableData{
      */
     @Override
     public void setClassification(String classification) throws IllegalAccessException {
-       this.getClass().getDeclaredFields()[classificationType].set("", classification);
+        Field field = this.getClass().getDeclaredFields()[classificationType];
+        if(field.getClass().equals(String.class)) {
+            field.set(this, classification);
+        }else if(field.getType().equals(Boolean.class)) {
+            field.set(this, Boolean.valueOf(classification));
+        }
+
     }
 
 
