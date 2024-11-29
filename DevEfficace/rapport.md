@@ -120,7 +120,10 @@ On obtient donc un taux de reussiste plutôt élevé. A chaque fois l'algorithme
 | Distance Manhattan Normalisée | 0.178 | 0.188 | 0.2 | 0.215 | 0.205 | 0.203 | 0.194 | 0.190 | 0.184 | 0.180 | 0.190 | 7 |
 ---
 
-ajoyter un commentaire sur les resultats
+Le taux de reussiste est ici plus bas, cela s'explique notement par le nombre d'attribut different et la complexité a identifier le type d'un pokemon. 
+Cependant le taux de reussiste reste satisfaisant et stable.
+
+Classification par isLegendary
 
 ## Efficacité
 

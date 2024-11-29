@@ -51,15 +51,6 @@ public class MethodKNN {
         }
     }
 
-    /**
-     * Permet de recuperer les K-voisins les plus proches d'une données dans un jeu de données
-     * en fonction d'une Distance.
-     * @param datas Le jeu de données
-     * @param data  La donnée avec laquelle calculer la distance
-     * @param k     Le nombre de voisins a recupérer
-     * @param distance
-     * @return
-     */
     public static List<LoadableData> kVoisins(List<LoadableData> datas, LoadableData data, int k, Distance distance) {
 
         // On recupere toutes les données
@@ -77,7 +68,7 @@ public class MethodKNN {
 
 
 
-    public static String estimateClass(List<LoadableData> datas, LoadableData data, int k, Distance distance) {
+    public static String estimateClass(List<LoadableData> datas, LoadableData data, int k, Distance distance) throws IllegalAccessException {
 
         // On recupere les K voisions  de data.
         List<LoadableData> kVoisins = MethodKNN.kVoisins(datas, data, k, distance);
@@ -105,7 +96,7 @@ public class MethodKNN {
     }
 
 
-    public static int bestK(List<LoadableData> datas, Distance distance) {
+    public static int bestK(List<LoadableData> datas, Distance distance) throws IllegalAccessException {
         // On borne le K pour eviter de trouver un K trop grand
         int maxK = (int) (Math.sqrt(datas.size()));
         System.out.println("Max k: " + maxK);
@@ -128,7 +119,7 @@ public class MethodKNN {
     }
 
 
-    public static double robustesse(List<LoadableData> datas, int k, Distance distance, double testPart) {
+    public static double robustesse(List<LoadableData> datas, int k, Distance distance, double testPart) throws IllegalAccessException {
 
 
 
@@ -167,7 +158,7 @@ public class MethodKNN {
         return taux/(1/testPart);
     }
 
-    public static void main(String[] args) throws CsvRequiredFieldEmptyException {
+    public static void main(String[] args) throws CsvRequiredFieldEmptyException, IllegalAccessException {
 
         //Test de la robustesse et du meillleur K
 

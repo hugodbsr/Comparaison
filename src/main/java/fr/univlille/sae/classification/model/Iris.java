@@ -68,6 +68,16 @@ public class Iris extends LoadableData {
         return variety;
     }
 
+    @Override
+    public Map<String, Object> getClassifiedAttributes() {
+        return Map.of();
+    }
+
+    @Override
+    public int getClassificationType() {
+        return 0;
+    }
+
     /**
      * Définit la classification (variété) de l'Iris.
      * @param classification variété à définir.
