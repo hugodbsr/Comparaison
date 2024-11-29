@@ -14,7 +14,7 @@ public abstract class LoadableData {
     /**
      * Ensemble des types de classification actuellement définis.
      */
-    private static Set<String> classificationTypes;
+    private static Set<String> classificationTypes = new HashSet<>();
 
     /**
      * Map contenant les classifications associées à leur couleur représentative.

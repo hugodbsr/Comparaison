@@ -12,8 +12,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.text.ParseException;
 import java.time.temporal.Temporal;
 import java.util.*;
+import java.util.*;
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 
 /**
  * Contrôleur pour le fichier FXML "add-data-stage", permettant à l'utilisateur
@@ -75,6 +79,22 @@ public class AddDataController {
                                         0.5
                                 );
                         doubleSpinner.setValueFactory(valueFactory);
+
+                        TextField editor = doubleSpinner.getEditor();
+
+                        // On bloque la siasi de texte autre que des chiffres dans le spinner
+                        Pattern validDoublePattern = Pattern.compile("-?\\d*(\\.\\d*)?");
+                        UnaryOperator<TextFormatter.Change> filter = change -> {
+                            String newText = change.getControlNewText();
+                            if (validDoublePattern.matcher(newText).matches()) {
+                                return change;
+                            }
+                            return null;
+                        };
+
+                        TextFormatter<String> textFormatter = new TextFormatter<>(filter);
+                        editor.setTextFormatter(textFormatter);
+
                         hbox.getChildren().add(doubleSpinner);
                         components.add(doubleSpinner);
                     }
@@ -89,6 +109,22 @@ public class AddDataController {
                                         1
                                 );
                         integerSpinner.setValueFactory(valueFactory);
+
+                        TextField editor = integerSpinner.getEditor();
+
+                        Pattern validIntegerPattern = Pattern.compile("-?\\d*");
+                        UnaryOperator<TextFormatter.Change> filter = change -> {
+                            String newText = change.getControlNewText();
+                            if (validIntegerPattern.matcher(newText).matches()) {
+                                return change;
+                            }
+                            return null;
+                        };
+
+                        // Appliquer le TextFormatter au TextField du Spinner
+                        TextFormatter<String> textFormatter = new TextFormatter<>(filter);
+                        editor.setTextFormatter(textFormatter);
+
                         hbox.getChildren().add(integerSpinner);
                         components.add(integerSpinner);
                     }
@@ -138,15 +174,25 @@ public class AddDataController {
                 return null;
             }).toArray();
 
+
             System.out.println(Arrays.toString(values));
             ClassificationModel.getClassificationModel().ajouterDonnee(values);
-        }catch (IllegalArgumentException e){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText(null);
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+        }catch (NumberFormatException e) {
+            openErrorStage(e, "Erreur, les données ne respecte pas le format specifié");
+        }catch (IllegalArgumentException e) {
+            openErrorStage(e);
         }
         stage.close();
+    }
+    private void openErrorStage(Exception e, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur - " + e.getClass());
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void openErrorStage(Exception e) {
+        openErrorStage(e, e.getMessage());
     }
 }

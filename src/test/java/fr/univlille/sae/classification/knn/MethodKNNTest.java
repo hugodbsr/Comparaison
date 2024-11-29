@@ -4,6 +4,7 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import fr.univlille.sae.classification.knn.distance.DistanceEuclidienne;
 import fr.univlille.sae.classification.knn.distance.DistanceEuclidienneNormalisee;
 import fr.univlille.sae.classification.model.ClassificationModel;
+import fr.univlille.sae.classification.model.Iris;
 import fr.univlille.sae.classification.model.LoadableData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,15 +47,20 @@ public class MethodKNNTest {
 
         model.loadData(csvTemp);
         List<LoadableData> datas = model.getDatas();
-        LoadableData first = datas.get(0);
-        LoadableData second = datas.get(1);
+        LoadableData data = new Iris(3.5,2.6,1.0,0.5);
 
-        System.out.println(first);
-        System.out.println(second);
+        System.out.println(data);
+        MethodKNN.updateModel(datas);
+        List<LoadableData> kVoisins = MethodKNN.kVoisins(datas, data, 1, new DistanceEuclidienne());
 
-        List<LoadableData> kVoisins = MethodKNN.kVoisins(datas, first, 1, new DistanceEuclidienne());
+        assertEquals(1, kVoisins.size());
 
-        assertEquals(second, kVoisins.get(0));
+        LoadableData voisin = kVoisins.get(0);
+        System.out.println(voisin);
+        assertEquals(3.7, voisin.getAttributes()[0], 0.001);
+        assertEquals(2.7, voisin.getAttributes()[1], 0.001);
+        assertEquals(1.1, voisin.getAttributes()[2], 0.001);
+        assertEquals(0.4, voisin.getAttributes()[3], 0.001);
     }
 
 
@@ -64,15 +70,20 @@ public class MethodKNNTest {
 
         model.loadData(csvTemp);
         List<LoadableData> datas = model.getDatas();
-        LoadableData first = datas.get(0);
-        LoadableData second = datas.get(1);
+        LoadableData data = new Iris(3.5,2.6,1.0,0.5);
 
-        System.out.println(first);
-        System.out.println(second);
+        System.out.println(data);
+        MethodKNN.updateModel(datas);
+        List<LoadableData> kVoisins = MethodKNN.kVoisins(datas, data, 1, new DistanceEuclidienneNormalisee());
 
-        List<LoadableData> kVoisins = MethodKNN.kVoisins(datas, first, 1, new DistanceEuclidienneNormalisee());
+        assertEquals(1, kVoisins.size());
 
-        assertEquals(second, kVoisins.get(0));
+        LoadableData voisin = kVoisins.get(0);
+        System.out.println(voisin);
+        assertEquals(3.7, voisin.getAttributes()[0], 0.001);
+        assertEquals(2.7, voisin.getAttributes()[1], 0.001);
+        assertEquals(1.1, voisin.getAttributes()[2], 0.001);
+        assertEquals(0.4, voisin.getAttributes()[3], 0.001);
     }
 
 }
