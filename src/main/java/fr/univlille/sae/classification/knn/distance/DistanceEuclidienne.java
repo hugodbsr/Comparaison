@@ -4,7 +4,12 @@ import fr.univlille.sae.classification.model.LoadableData;
 
 public class DistanceEuclidienne implements Distance {
 
-
+    /**
+     * Calcul de la distance.
+     * @param l1 Point 1
+     * @param l2 Point 2
+     * @return Distance calculée entre les 2 points
+     */
     @Override
     public double distance(LoadableData l1, LoadableData l2) {
         if(l1.getAttributes().length != l2.getAttributes().length) throw new IllegalArgumentException("Error while trying to get Distance : Attributes do not match");

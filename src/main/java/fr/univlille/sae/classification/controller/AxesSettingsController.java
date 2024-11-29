@@ -10,18 +10,27 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 
 /**
- * Controlleur pour le FXML axes-settings-stage, pour gérer les axes de la vue
+ * Contrôleur pour le fichier FXML "axes-settings-stage", pour gérer les axes de la vue.
  */
 public class AxesSettingsController{
+    /**
+     * Fenêtre associée à cette vue.
+     */
     @FXML
     Stage stage;
 
+    /**
+     * Choix des données en axes (abscisse et ordonnée).
+     */
     @FXML
     ChoiceBox selectOrd;
 
     @FXML
     ChoiceBox selectAbs;
 
+    /**
+     * Choix des limites inférieures et supérieures des axes.
+     */
     @FXML
     Spinner OrdSizeLower;
 
@@ -36,12 +45,12 @@ public class AxesSettingsController{
 
 
     /**
-     * DataVisualizationView associé au controlleur
+     * DataVisualizationView associé au contrôleur.
      */
     DataVisualizationView dataVisualizationView;
 
     /**
-     * Ajout des éléments à sélectionner pour les ordonnées de la grille
+     * Ajout des éléments à sélectionner pour les ordonnées de la grille.
      * @param fields Éléments à ajouter
      */
     public void setSelectOrd(String[] fields){
@@ -51,7 +60,7 @@ public class AxesSettingsController{
     }
 
     /**
-     * Ajout des éléments à sélectionner pout les abscisses de la grille
+     * Ajout des éléments à sélectionner pour les abscisses de la grille.
      * @param fields Éléments à ajouter
      */
     public void setSelectAbs(String[] fields){
@@ -60,18 +69,34 @@ public class AxesSettingsController{
         selectAbs.setValue(dataVisualizationView.getActualX());
     }
 
+    /**
+     * Configure la limite supérieure de l'axe des ordonnées.
+     * @param value Valeur initiale à définir pour la limite supérieure.
+     */
     public void setOrdSizeUpper(double value){
         OrdSizeUpper.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 9999, value,1));
     }
 
+    /**
+     * Configure la limite inférieure de l'axe des ordonnées.
+     * @param value Valeur initiale à définir pour la limite inférieure.
+     */
     public void setOrdSizeLower(double value){
         OrdSizeLower.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 9999, value,1));
     }
 
+    /**
+     * Configure la limite supérieure de l'axe des abscisses.
+     * @param value Valeur initiale à définir pour la limite supérieure.
+     */
     public void setAbsSizeUpper(double value){
         AbsSizeUpper.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 9999, value,1));
     }
 
+    /**
+     * Configure la limite inférieure de l'axe des abscisses.
+     * @param value Valeur initiale à définir pour la limite inférieure.
+     */
     public void setAbsSizeLower(double value){
         AbsSizeLower.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 9999, value,1));
     }
@@ -85,7 +110,7 @@ public class AxesSettingsController{
     }
 
     /**
-     * Validation des paramètres des axes
+     * Validation des paramètres des axes.
      */
     public void validate(){
         if(dataVisualizationView.getActualX() != null || dataVisualizationView.getActualY() != null){
@@ -128,6 +153,10 @@ public class AxesSettingsController{
         stage.close();
     }
 
+    /**
+     * Réinitialise les paramètres des axes en activant l'ajustement
+     * automatique et recharge la visualisation des données.
+     */
     public void reset(){
         ((NumberAxis) dataVisualizationView.getScatterChart().getXAxis()).setAutoRanging(true);
         ((NumberAxis) dataVisualizationView.getScatterChart().getYAxis()).setAutoRanging(true);

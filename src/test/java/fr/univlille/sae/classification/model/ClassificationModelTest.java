@@ -5,6 +5,7 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import fr.univlille.sae.classification.knn.DataComparator;
 import fr.univlille.sae.classification.knn.distance.DistanceEuclidienne;
 import fr.univlille.sae.classification.knn.distance.DistanceManhattan;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

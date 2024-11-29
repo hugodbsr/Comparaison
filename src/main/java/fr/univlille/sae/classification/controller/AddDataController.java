@@ -15,29 +15,41 @@ import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.time.temporal.Temporal;
 import java.util.*;
+import java.util.*;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
 /**
- * Controlleur pour le FXML add-data-stage, pour ajouter une nouvelle donnée
+ * Contrôleur pour le fichier FXML "add-data-stage", permettant à l'utilisateur
+ * d'ajouter une nouvelle donnée dans le modèle de classification.
  */
 public class AddDataController {
 
+    /**
+     * Fenêtre associée à cette vue.
+     */
     @FXML
     private Stage stage;
 
+    /**
+     * Conteneur contenant les champs d'entrée de données.
+     */
     @FXML
     private VBox entries;
 
     /**
-     * MainStageView associé au controlleur
+     * MainStageView associée au contrôleur.
      */
     MainStageView mainStageView;
 
+    /**
+     * Liste des composants d'entrée gérés dynamiquement (Spinner, TextField,
+     * ChoiceBox) selon le type des données.
+     */
     private List<Object> components;
 
     /**
-     * Méthode d'intitialisation du controlleur
+     * Méthode d'initialisation du contrôleur.
      */
     @FXML
     public void initialize() {
@@ -137,14 +149,14 @@ public class AddDataController {
     }
 
     /**
-     * Méthode permettante d'attribuer la mainStageView associer à la classe
+     * Méthode permettant d'attribuer la mainStageView associée à la classe.
      * @param mainStageView mainStageView à attribuer
      */
     public void setMainStageView(MainStageView mainStageView) {
         this.mainStageView = mainStageView;
     }
     /**
-     * Validation des données à ajouter
+     * Validation des données à ajouter.
      */
     public void validate() {
         System.out.println("validé");
@@ -162,7 +174,6 @@ public class AddDataController {
                 return null;
             }).toArray();
 
-            System.out.println("State in");
 
             System.out.println(Arrays.toString(values));
             ClassificationModel.getClassificationModel().ajouterDonnee(values);
@@ -184,5 +195,4 @@ public class AddDataController {
     private void openErrorStage(Exception e) {
         openErrorStage(e, e.getMessage());
     }
-
 }

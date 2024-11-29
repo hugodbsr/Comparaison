@@ -16,15 +16,26 @@ import java.net.URL;
  */
 public class AddDataView {
 
+    /**
+     * Modèle de classification utilisé pour gérer les données.
+     */
     private ClassificationModel model;
+
+    /**
+     * Fenêtre parente de la vue.
+     */
     private Stage owner;
+
+    /**
+     * La vue principale.
+     */
     private MainStageView mainStageView;
 
     /**
      * Constructeur pour initialiser la vue d'ajout de données.
-     * @param model le modèle de classification utilisé pour gérer les données.
-     * @param owner la fenêtre parente de cette vue.
-     * @param mainStageView la vue principale associée.
+     * @param model Le modèle de classification utilisé pour gérer les données
+     * @param owner La fenêtre parente de cette vue
+     * @param mainStageView La vue principale associée
      */
     public AddDataView(ClassificationModel model, Stage owner, MainStageView mainStageView) {
         this.model = model;

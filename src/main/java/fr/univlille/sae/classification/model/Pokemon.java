@@ -5,10 +5,11 @@ import com.opencsv.bean.CsvBindByName;
 import java.lang.reflect.Field;
 import java.util.*;
 
+/**
+ * Représente un point Pokémon.
+ * Contient des informations sur les statistiques (attaque, défense, PV...) ainsi que les types du monstre.
+ */
 public class Pokemon extends LoadableData{
-
-    // name,attack,base_egg_steps,capture_rate,defense,experience_growth,hp,sp_attack,sp_defense,type1,type2,speed,is_legendary
-    // Swablu,40,5120,255.0,60,600000,45,75,50,normal,flying,1.2,False
 
     @CsvBindByName(column = "name")
     private String name;
@@ -37,8 +38,22 @@ public class Pokemon extends LoadableData{
     @CsvBindByName(column = "is_legendary")
     private Boolean isLegendary = null ;
 
-
-
+    /**
+     * Constructeur pour créer une instance de Pokémon avec tous les attributs.
+     * @param name Nom du monstre
+     * @param attack Statistique d'attaque
+     * @param baseEggSteps Pas nécessaires à l'éclosion de son œuf
+     * @param captureRate Taux de capture
+     * @param defense Statistique de défense
+     * @param experienceGrowth Taux de croissance de l'expérience
+     * @param hp Points de vie
+     * @param spAttack Statistique d'attaque spéciale
+     * @param spDefense Statistique de défense spéciale
+     * @param type1 Type principal
+     * @param type2 Type secondaire (non obligatoire)
+     * @param speed Statistique de vitesse
+     * @param isLegendary Est-il un Pokémon légendaire
+     */
     public Pokemon(String name, int attack, int baseEggSteps, double captureRate, int defense, int experienceGrowth, int hp, int spAttack, int spDefense, String type1, String type2, double speed, boolean isLegendary) {
         super();
         classificationType = 9;
@@ -61,11 +76,11 @@ public class Pokemon extends LoadableData{
         this.isLegendary = isLegendary;
     }
 
- /**   public Pokemon(Object[] list) {
-        this((String) list[0], (Integer) list[1], (Integer) list[2], (Double) list[3], (Integer) list[4], (Integer) list[5], (Integer) list[6], (Integer) list[7], (Integer) list[8], (String) list[9], (String) list[10], (Double) list[11], (Boolean) list[12]);
-    }
-  */
-
+    /**
+     * Constructeur avec un tableau.
+     * @param list Tableau d'élements
+     * @throws IllegalAccessException
+     */
     public Pokemon(Object[] list) throws IllegalAccessException {
 
         Field[] fields = getClass().getDeclaredFields();
@@ -89,7 +104,7 @@ public class Pokemon extends LoadableData{
     /**
      * Renvoie la classification de l'objet.
      *
-     * @return classification sous forme de chaîne.
+     * @return Classification sous forme de chaîne
      */
     @Override
     public String getClassification() throws IllegalAccessException {
@@ -99,7 +114,7 @@ public class Pokemon extends LoadableData{
     /**
      * Définit la classification de l'objet.
      *
-     * @param classification classification à définir.
+     * @param classification Classification à définir
      */
     @Override
     public void setClassification(String classification) throws IllegalAccessException {
@@ -114,10 +129,9 @@ public class Pokemon extends LoadableData{
 
 
     /**
-     * Permet de modifier l'attribut sur lequelle ont souhaite classifier
-     * Ne sont valable que les attributs present dans getClassificationAttributes()
-     *
-     * Le numéro de l'attribut correspond a sa place dans la liste de tous le attributs.
+     * Permet de modifier l'attribut sur laquelle l'on souhaite classifier
+     * Ne sont valables que les attributs présents dans getClassificationAttributes()
+     * Le numéro de l'attribut correspond à sa place dans la liste de tous les attributs.
      * @param classificationType
      */
     public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
@@ -130,9 +144,10 @@ public class Pokemon extends LoadableData{
         LoadableData.setClassificationTypes(ClassificationModel.getClassificationModel().getDatas());
     }
 
-
-
-
+    /**
+     * Renvoie une Map des attributs valides pour la classification.
+     * @return Map des attributs avec leur nom et valeur
+     */
     public Map<String, Object> getClassifiedAttributes() {
         Map<String, Object> attributes = new LinkedHashMap<>();
 
@@ -144,6 +159,10 @@ public class Pokemon extends LoadableData{
         return attributes;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getClassificationType() {
         return classificationType;
@@ -151,10 +170,8 @@ public class Pokemon extends LoadableData{
 
     /**
      * Renvoie les noms des attributs de l'objet.
-     *
-     * @return tableau de chaînes contenant les noms des attributs.
+     * @return Tableau de chaînes contenant les noms des attributs ainsi que leur variable
      */
-
     @Override
     public Map<String, Object> getAttributesNames() {
         Map<String, Object> attrNames = new LinkedHashMap<>();
@@ -174,22 +191,29 @@ public class Pokemon extends LoadableData{
         return attrNames;
     }
 
-
-
-
-
-
+    /**
+     * Renvoie les attributs numériques sous forme de tableau.
+     * @return Tableau des attributs numériques
+     */
     @Override
     public double[] getAttributes() {
         return new double[]{attack, baseEggSteps, captureRate, defense,
                             experienceGrowth, hp, spAttack, spDefense, speed};
     }
 
+    /**
+     * Renvoie les attributs de type chaînes de caractères.
+     * @return Tableau des attributs String
+     */
     @Override
     public String[] getStringAttributes() {
         return new String[]{type2, String.valueOf(isLegendary)};
     }
 
+    /**
+     * Représentation sous forme de chaîne de l'objet Pokémon.
+     * @return Chaîne contenant les informations du Pokémon
+     */
     @Override
     public String toString(){
         return(

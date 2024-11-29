@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Main {
     /**
      * Point d'entrée principal de l'application.
-     * @param args les arguments de ligne de commande.
+     * @param args Les arguments de ligne de commande.
      */
     public static void main(String[] args) {
             ClassificationApp.main(args);
