@@ -27,10 +27,7 @@ import java.util.*;
 public class MainStageView extends DataVisualizationView implements Observer {
 
 
-
-
     private Stage root;
-
 
 
     private ScatterChart.Series series1;
@@ -40,6 +37,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
 
     /**
      * Constructeur de la vue principale.
+     *
      * @param model modèle de classification à utiliser.
      */
     public MainStageView(ClassificationModel model) {
@@ -60,7 +58,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            URL fxmlFileUrl = getClass().getClassLoader().getResource("stages"+File.separator+"main-stage.fxml");
+            URL fxmlFileUrl = getClass().getClassLoader().getResource("stages" + File.separator + "main-stage.fxml");
 
             if (fxmlFileUrl == null) {
                 System.out.println("Impossible de charger le fichier fxml");
@@ -101,13 +99,22 @@ public class MainStageView extends DataVisualizationView implements Observer {
     }
 
 
-
+    /**
+     * Retourne le contrôleur principal de la scène.
+     *
+     * @return le contrôleur principal de la scène en tant qu'instance.
+     */
     public MainStageController getController() {
         return (MainStageController) controller;
     }
 
+    /**
+     * Recharge les données nécessaires à partir du modèle de classification.
+     * Cette méthode met à jour l'état en fonction des données actuelles
+     */
     @Override
     public void reload() {
         this.update(ClassificationModel.getClassificationModel());
     }
 }
+
