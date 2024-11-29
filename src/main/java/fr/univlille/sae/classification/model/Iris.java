@@ -13,13 +13,13 @@ import java.util.Map;
  */
 public class Iris extends LoadableData {
 
-    @CsvBindByName(column = "sepal.length")
+    @CsvBindByName(column = "sepal.length", required = true)
     private double sepalLength;
-    @CsvBindByName(column = "sepal.width")
+    @CsvBindByName(column = "sepal.width", required = true)
     private double sepalWidth;
-    @CsvBindByName(column = "petal.length")
+    @CsvBindByName(column = "petal.length", required = true)
     private double petalLength;
-    @CsvBindByName(column = "petal.width")
+    @CsvBindByName(column = "petal.width", required = true)
     private double petalWidth;
     @CsvBindByName(column = "variety")
     private String variety;
@@ -109,6 +109,7 @@ public class Iris extends LoadableData {
         return petalLength;
     }
 
+
     @Override
     public double[] getAttributes() {
         return new double[]{sepalLength, sepalWidth, petalLength, petalWidth} ;
@@ -120,23 +121,8 @@ public class Iris extends LoadableData {
     }
 
 
-    /**
-     * Renvoie la couleur associée à la variété de l'Iris.
-     * @return couleur correspondant à la variété.
-     */
-    @Override
-    public Color getColor() {
-        switch (this.variety) {
-            case "Setosa":
-                return Color.RED;
-            case "Versicolor":
-                return Color.BLUE;
-            case "Virginica":
-                return Color.GREEN;
-            default:
-                return Color.BLACK; // Couleur par défaut si la variété est inconnue
-        }
-    }
+
+
 
     /**
      * Renvoie les noms des attributs de l'Iris.

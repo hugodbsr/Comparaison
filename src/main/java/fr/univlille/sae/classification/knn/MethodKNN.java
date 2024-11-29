@@ -1,5 +1,6 @@
 package fr.univlille.sae.classification.knn;
 
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import fr.univlille.sae.classification.knn.distance.*;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.DataType;
@@ -12,7 +13,6 @@ import java.util.*;
 public class MethodKNN {
 
 
-    private static final Random random = new Random();
 
 
     public static String path = System.getProperty("user.dir") + File.separator + "res" + File.separator;
@@ -20,22 +20,29 @@ public class MethodKNN {
     public static double[] minData;
     public static double[] maxData;
 
-    public MethodKNN(ClassificationModel model) {
+   private MethodKNN() {
 
-        updateModel(model.getDatas());
-
-    }
+   }
 
 
+    /**
+     * Permet de mettre a jour les données de l'algorithme. Recalcul les amplitudes et les min/max des données
+     * @param datas Les données sur lequel l'algorithme doit travailler
+     */
     public static void updateModel(List<LoadableData> datas) {
         if(datas.isEmpty()) return;
-        minData = new double[datas.get(0).getAttributes().length];
-        maxData = new double[datas.get(0).getAttributes().length];
-        amplitude = new double[datas.get(0).getAttributes().length];
+
+        int numAttributes = datas.get(0).getAttributes().length;
+        minData = new double[numAttributes];
+        maxData = new double[numAttributes];
+        amplitude = new double[numAttributes];
+
+
         for(LoadableData l :datas) {
-            for(int i = 0; i<l.getAttributes().length; i++) {
-                if(l.getAttributes()[i] < minData[i]) minData[i] = l.getAttributes()[i];
-                if(l.getAttributes()[i] > maxData[i]) maxData[i] = l.getAttributes()[i];
+            double[] attributes = l.getAttributes();
+            for(int i = 0; i<numAttributes; i++) {
+                if(attributes[i] < minData[i]) minData[i] = attributes[i];
+                if(attributes[i] > maxData[i]) maxData[i] = attributes[i];
             }
         }
 
@@ -44,6 +51,15 @@ public class MethodKNN {
         }
     }
 
+    /**
+     * Permet de recuperer les K-voisins les plus proches d'une données dans un jeu de données
+     * en fonction d'une Distance.
+     * @param datas Le jeu de données
+     * @param data  La donnée avec laquelle calculer la distance
+     * @param k     Le nombre de voisins a recupérer
+     * @param distance
+     * @return
+     */
     public static List<LoadableData> kVoisins(List<LoadableData> datas, LoadableData data, int k, Distance distance) {
 
         // On recupere toutes les données
@@ -65,45 +81,49 @@ public class MethodKNN {
 
         // On recupere les K voisions  de data.
         List<LoadableData> kVoisins = MethodKNN.kVoisins(datas, data, k, distance);
-        System.out.println("Neighbours: " + kVoisins);
-
-       // System.out.println("Neighbours found :  " + kVoisins);
 
         // On compte le nombre de représentation de chaque class parmis les voisins
+        // Et on récupere la plus présente
+
         Map<String, Integer> classOfNeighbours = new HashMap<>();
+        String currentClass = kVoisins.get(0).getClassification();
+
+
+
         for(LoadableData voisin : kVoisins) {
             int newValue =  ((classOfNeighbours.get(voisin.getClassification()) == null) ? 0 : classOfNeighbours.get(voisin.getClassification()) )+ 1;
             classOfNeighbours.put(voisin.getClassification(), newValue);
-        }
-        // On recupere la classe la plus repésenté parmis les voisins (au hasard si egalité entre 2)
-        String currentClass = kVoisins.get(0).getClassification();
-        for(String classification : classOfNeighbours.keySet()) {
-            if(classOfNeighbours.get(classification) > classOfNeighbours.get(currentClass)) {
-                currentClass = classification;
-            }else if (classOfNeighbours.get(classification).equals(classOfNeighbours.get(currentClass))) {
-                if(random.nextInt(2) == 1) currentClass = classification;
+            // si la classe est plus presente que la classe acutelemnt majoritaire, on change la classe majoritaire.
+            // Si il y'a egalité alors on garde la premiere trouvé
+            if(classOfNeighbours.get(voisin.getClassification()) > classOfNeighbours.get(currentClass)) {
+                currentClass = voisin.getClassification();
             }
+
         }
 
-      //  System.out.println("Estimate class = " + currentClass);
         return currentClass;
     }
 
 
     public static int bestK(List<LoadableData> datas, Distance distance) {
+        // On borne le K pour eviter de trouver un K trop grand
         int maxK = (int) (Math.sqrt(datas.size()));
         System.out.println("Max k: " + maxK);
 
-        Map<Integer, Double> results = new HashMap<>();
+        int betK = 1;
+
+        Map<Integer, Double> results = new LinkedHashMap<>();
         // Pour chaque valeur impaire possible de K, on calcul la robustesse (le taux de reussite) de l'algorithme.
         for(int i =1; i<maxK; i = i +2) {
             results.put(i, robustesse(datas, i, distance, 0.2));
+            // On modifie le meilleur k si le taux est superieur au K precedent
+            // Si egalité, on garde le premier trouvé
+            if(results.get(i) > results.get(betK)) betK = i;
         }
 
-        System.out.println(results);
+        System.out.println("Results: " + results);
 
-        // On return le K ayant le meilleur taux de reussite ( ou l'un des K si egalités).
-        return Collections.max(results.entrySet(), Map.Entry.comparingByValue()).getKey();
+        return betK;
 
     }
 
@@ -114,7 +134,7 @@ public class MethodKNN {
 
         double taux = 0;
 
-        for(int i = 0; i<(int)1/testPart; i++) {
+        for(int i = 0; i<1/testPart; i++) {
 
             int totalFind = 0;
             int totalTry = 0;
@@ -132,10 +152,7 @@ public class MethodKNN {
             for(LoadableData l : testData) {
                 totalTry++;
                 String baseClass = l.getClassification();
-                //  System.out.println("Base class : " + baseClass);
-                //  System.out.println("Base data: " + l);
                 if(baseClass.equals(MethodKNN.estimateClass(trainingData,l, k, distance))) totalFind++;
-
             }
 
 
@@ -150,14 +167,14 @@ public class MethodKNN {
         return taux/(1/testPart);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CsvRequiredFieldEmptyException {
 
         //Test de la robustesse et du meillleur K
 
         ClassificationModel model = ClassificationModel.getClassificationModel();
 
-        model.setType(DataType.IRIS);
-        model.loadData(new File(path+"data/iris.csv"));
+        model.setType(DataType.POKEMON);
+        model.loadData(new File(path+"data/pokemon_train.csv"));
         MethodKNN.updateModel(model.getDatas());
         System.out.println();
 
@@ -179,7 +196,7 @@ public class MethodKNN {
 
 
 
-        }
+    }
 
 
 
