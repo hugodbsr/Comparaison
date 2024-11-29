@@ -86,11 +86,11 @@ class DistanceManhattanNormaliseeTest {
 
     @Test
     void testDistance_ZeroDistance() {
-        MethodKNN.minData = new double[]{0.0, 0.0, 0.0};
+        MethodKNN.minData = new double[]{1.0, 1.0, 1.0};
         LoadableData l1 = new LoadableData() {
             @Override
             public double[] getAttributes() {
-                return new double[]{3.0, 3.0, 3.0};
+                return new double[]{2.0, 2.0, 2.0};
             }
 
             @Override
@@ -116,7 +116,7 @@ class DistanceManhattanNormaliseeTest {
         LoadableData l2 = new LoadableData() {
             @Override
             public double[] getAttributes() {
-                return new double[]{3.0, 3.0, 3.0};
+                return new double[]{1.0, 1.0, 1.0};
             }
 
             @Override
