@@ -1,11 +1,11 @@
 package fr.univlille.sae.classification.knn;
 
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
-import fr.univlille.sae.classification.knn.distance.*;
+import fr.univlille.sae.classification.knn.distance.Distance;
+import fr.univlille.sae.classification.knn.distance.DistanceManhattanNormalisee;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.DataType;
 import fr.univlille.sae.classification.model.LoadableData;
-
 
 import java.io.File;
 import java.util.*;

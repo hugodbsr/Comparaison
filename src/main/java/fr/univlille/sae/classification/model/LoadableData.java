@@ -1,11 +1,8 @@
 package fr.univlille.sae.classification.model;
 
-import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
 import java.util.*;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Classe abstraite représentant des données pouvant être chargées.

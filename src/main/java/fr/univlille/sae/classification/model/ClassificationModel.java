@@ -6,13 +6,15 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import fr.univlille.sae.classification.knn.MethodKNN;
 import fr.univlille.sae.classification.knn.distance.Distance;
 import fr.univlille.sae.classification.knn.distance.DistanceEuclidienne;
-import fr.univlille.sae.classification.knn.distance.DistanceManhattan;
 import fr.univlille.sae.classification.utils.Observable;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**

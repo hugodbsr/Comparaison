@@ -1,6 +1,5 @@
 package fr.univlille.sae.classification.controller;
 
-import com.sun.scenario.effect.impl.state.HVSeparableKernel;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.view.MainStageView;
 import javafx.fxml.FXML;
@@ -10,12 +9,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.text.ParseException;
-import java.time.temporal.Temporal;
-import java.util.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 

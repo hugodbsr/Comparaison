@@ -1,6 +1,5 @@
 package fr.univlille.sae.classification.controller;
 
-import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.DataType;
@@ -9,14 +8,12 @@ import fr.univlille.sae.classification.view.ChooseAttributesView;
 import fr.univlille.sae.classification.view.DataVisualizationView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Contrôleur pour la fenêtre de chargement des données.

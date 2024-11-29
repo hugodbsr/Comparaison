@@ -3,14 +3,9 @@ package fr.univlille.sae.classification.controller;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.view.*;
 import javafx.fxml.FXML;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /**
  * Contrôleur de la fenêtre principale du programme.

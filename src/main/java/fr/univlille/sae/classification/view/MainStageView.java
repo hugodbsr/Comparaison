@@ -2,25 +2,17 @@ package fr.univlille.sae.classification.view;
 
 import fr.univlille.sae.classification.controller.MainStageController;
 import fr.univlille.sae.classification.model.ClassificationModel;
-import fr.univlille.sae.classification.model.LoadableData;
-import fr.univlille.sae.classification.utils.Observable;
 import fr.univlille.sae.classification.utils.Observer;
-import fr.univlille.sae.classification.utils.ViewUtil;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.Optional;
 
 /**
  * Classe représentant la vue principale de l'application de classification.

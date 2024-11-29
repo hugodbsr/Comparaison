@@ -2,21 +2,15 @@ package fr.univlille.sae.classification.utils;
 
 import fr.univlille.sae.classification.controller.DataStageController;
 import fr.univlille.sae.classification.controller.MainStageController;
-import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.LoadableData;
 import javafx.geometry.Pos;
-import javafx.scene.chart.ScatterChart;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import javafx.stage.Stage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,10 +30,12 @@ public class ViewUtil {
      */
     public static Shape getForm(LoadableData dataLoaded, Shape form, Object controller) {
         try {
+            System.out.println(dataLoaded.getClassification());
+            System.out.println(LoadableData.getClassifications());
             Color color = LoadableData.getClassifications().get(dataLoaded.getClassification());
 
             form.setFill(color);
-
+            System.out.println(color);
             form.setOnMouseClicked(e -> {
                 if(clickedForm!=null) {
                     clickedForm.setStyle("-fx-stroke-width: 0;");
