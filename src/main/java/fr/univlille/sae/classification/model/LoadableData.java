@@ -2,12 +2,9 @@ package fr.univlille.sae.classification.model;
 
 import javafx.scene.paint.Color;
 
-import java.util.Map;
+import java.util.*;
 import java.util.HashMap;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Classe abstraite représentant des données pouvant être chargées.
@@ -17,6 +14,8 @@ public abstract class LoadableData {
     private static Set<String> classificationTypes;
 
     private static Map<String, Color> classification = new HashMap<>() ;
+
+    protected static int classificationType = 1;
 
     /**
      * Constructeur par défaut.
@@ -43,12 +42,25 @@ public abstract class LoadableData {
         return classification;
     }
 
+    public static void setClassificationTypeGlobal(int classificationType) throws IllegalArgumentException, IllegalAccessException {
+        ClassificationModel.getClassificationModel().getDatas().get(0).setClassificationType(classificationType);
+    }
+
+    public abstract void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException;
+
     /**
+     *
      * Définit les types de classification disponibles.
-     * @param classificationTypes ensemble de types de classification à définir.
      */
-    public static void setClassificationTypes(Set<String> classificationTypes) {
-        LoadableData.classificationTypes = classificationTypes;
+    public static void setClassificationTypes(List<LoadableData> datas) throws IllegalAccessException {
+
+        Set<String> types = new HashSet<>();
+        for (LoadableData d : datas) {
+            types.add(d.getClassification());
+        }
+        classificationTypes = types;
+
+
         LoadableData.classification.clear();
         int nbOfColors = classificationTypes.size() + 1;
         int nb = 0;

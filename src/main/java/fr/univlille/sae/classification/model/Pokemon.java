@@ -36,10 +36,11 @@ public class Pokemon extends LoadableData{
     @CsvBindByName(column = "is_legendary")
     private boolean isLegendary;
 
-    private int classificationType = 5;
+
 
     public Pokemon(String name, int attack, int baseEggSteps, double captureRate, int defense, int experienceGrowth, int hp, int spAttack, int spDefense, String type1, String type2, double speed, boolean isLegendary) {
         super();
+        classificationType = 9;
         this.name = name;
         this.attack = attack;
         this.baseEggSteps = baseEggSteps;
@@ -98,17 +99,21 @@ public class Pokemon extends LoadableData{
      * Le numéro de l'attribut correspond a sa place dans la liste de tous le attributs.
      * @param classificationType
      */
-    public void setClassificationType(int classificationType) throws IllegalArgumentException{
+    public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
         if(classificationType < 0 || classificationType > getAttributesNames().size()) throw new IllegalArgumentException("Cette attribut n'existe pas");
-        if(getClassifiedAttributes().containsKey(getAttributesNames().keySet().toArray()[classificationType])) throw new IllegalArgumentException("Cette attribut ne peut pas être utiliser pour la classification");
-        this.classificationType = classificationType;
+        String keyToVerify = getAttributesNames().keySet().toArray(new String[0])[classificationType];
+        if(!getClassifiedAttributes().containsKey(keyToVerify)) throw new IllegalArgumentException("Cette attribut ne peut pas être utiliser pour la classification");
+        LoadableData.classificationType = classificationType;
+        System.out.println("Set type to : " + classificationType);
+
+        LoadableData.setClassificationTypes(ClassificationModel.getClassificationModel().getDatas());
     }
 
 
 
 
     public Map<String, Object> getClassifiedAttributes() {
-        Map<String, Object> attributes = new HashMap<>();
+        Map<String, Object> attributes = new LinkedHashMap<>();
 
         attributes.put("Experience growth", experienceGrowth);
         attributes.put("Type 1", type1);

@@ -90,14 +90,11 @@ public class ClassificationModel extends Observable {
                     .withType(type.getClazz())
                     .build().parse();
 
-            Set<String> types = new HashSet<>();
-            for (LoadableData d : datas) {
-                types.add(d.getClassification());
-            }
 
             Collections.shuffle(datas);
 
-            LoadableData.setClassificationTypes(types);
+
+            LoadableData.setClassificationTypes(getDatas());
             notifyObservers();
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement des données : " + e.getMessage());

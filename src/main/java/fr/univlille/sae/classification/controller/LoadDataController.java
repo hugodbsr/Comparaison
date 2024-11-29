@@ -4,6 +4,8 @@ import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.DataType;
+import fr.univlille.sae.classification.view.ChooseAttributesView;
+import fr.univlille.sae.classification.view.MainStageView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -77,6 +79,8 @@ public class LoadDataController {
         ClassificationModel.getClassificationModel().setType(typeChoisi);
         try {
             ClassificationModel.getClassificationModel().loadData(file);
+            ChooseAttributesView chooseAttributesView = new ChooseAttributesView(ClassificationModel.getClassificationModel(), (Stage) stage.getOwner());
+            chooseAttributesView.show();
         }catch (RuntimeException | CsvRequiredFieldEmptyException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(stage);

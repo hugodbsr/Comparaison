@@ -68,14 +68,14 @@
                                  </HBox>
                                  <VBox prefHeight="65.0" prefWidth="801.0">
                                     <children>
-                                       <HBox fx:id="legend" alignment="CENTER" prefHeight="58.0" prefWidth="762.0" spacing="10.0">
+                                       <VBox fx:id="legend" alignment="CENTER" prefHeight="58.0" prefWidth="762.0" spacing="10.0">
                                           <opaqueInsets>
                                              <Insets />
                                           </opaqueInsets>
                                           <padding>
                                              <Insets left="2.0" right="2.0" />
                                           </padding>
-                                       </HBox>
+                                       </VBox>
                                     </children>
                                  </VBox>
                               </children>

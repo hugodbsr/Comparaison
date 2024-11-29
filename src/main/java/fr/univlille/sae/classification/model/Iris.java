@@ -34,6 +34,7 @@ public class Iris extends LoadableData {
      */
     public Iris(double sepalLength, double sepalWidth, double petalLength, double petalWidth, String variety) {
         super();
+        classificationType = 4;
         this.sepalWidth = sepalWidth;
         this.sepalLength = sepalLength;
         this.petalWidth = petalWidth;
@@ -60,31 +61,55 @@ public class Iris extends LoadableData {
     }
 
     /**
-     * Renvoie la classification (variété) de l'Iris.
-     * @return variété de l'Iris.
+     * Renvoie la classification de l'objet.
+     *
+     * @return classification sous forme de chaîne.
      */
     @Override
-    public String getClassification() {
-        return variety;
+    public String getClassification() throws IllegalAccessException {
+        return (String) this.getClass().getDeclaredFields()[classificationType].get(this).toString();
+    }
+
+    /**
+     * Permet de modifier l'attribut sur lequelle ont souhaite classifier
+     * Ne sont valable que les attributs present dans getClassificationAttributes()
+     *
+     * Le numéro de l'attribut correspond a sa place dans la liste de tous le attributs.
+     * @param classificationType
+     */
+    @Override
+    public void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException {
+        if(classificationType < 0 || classificationType > getAttributesNames().size()) throw new IllegalArgumentException("Cette attribut n'existe pas");
+        String keyToVerify = getAttributesNames().keySet().toArray(new String[0])[classificationType];
+        if(!getClassifiedAttributes().containsKey(keyToVerify)) throw new IllegalArgumentException("Cette attribut ne peut pas être utiliser pour la classification");
+        LoadableData.classificationType = classificationType;
+        System.out.println("Set type to : " + classificationType);
+
+        LoadableData.setClassificationTypes(ClassificationModel.getClassificationModel().getDatas());
     }
 
     @Override
     public Map<String, Object> getClassifiedAttributes() {
-        return Map.of();
+        Map<String, Object> attributes = new LinkedHashMap<>();
+
+        attributes.put("Variété", variety);
+
+        return attributes;
     }
 
     @Override
     public int getClassificationType() {
-        return 0;
+        return classificationType;
     }
 
     /**
-     * Définit la classification (variété) de l'Iris.
-     * @param classification variété à définir.
+     * Définit la classification de l'objet.
+     *
+     * @param classification classification à définir.
      */
     @Override
-    public void setClassification(String classification) {
-        this.variety = classification;
+    public void setClassification(String classification) throws IllegalAccessException {
+        this.getClass().getDeclaredFields()[classificationType].set("", classification);
     }
 
     /**
@@ -146,6 +171,7 @@ public class Iris extends LoadableData {
         attrNames.put("Largeur des sépales", sepalWidth);
         attrNames.put("Longueur des pétales", petalLength);
         attrNames.put("Largeur des pétales", petalWidth);
+        attrNames.put("Variété", variety);
         return attrNames;
     }
 
@@ -155,12 +181,16 @@ public class Iris extends LoadableData {
      */
     @Override
     public String toString() {
-        return (
-                "Sepal length: " + sepalLength + "\n" +
-                "Sepal width: " + sepalWidth + "\n" +
-                "Petal length: " + petalLength + "\n" +
-                "Petal width: " + petalWidth + "\n" +
-                "Variety: " + getClassification()
-        );
+        try {
+            return (
+                    "Sepal length: " + sepalLength + "\n" +
+                    "Sepal width: " + sepalWidth + "\n" +
+                    "Petal length: " + petalLength + "\n" +
+                    "Petal width: " + petalWidth + "\n" +
+                    "Variety: " + getClassification()
+            );
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
