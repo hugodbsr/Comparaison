@@ -27,7 +27,7 @@ public class KNNView {
     }
 
     /**
-     * Affiche la fenêtre de chargement des données.
+     *
      */
     public void show() {
         FXMLLoader loader = new FXMLLoader();

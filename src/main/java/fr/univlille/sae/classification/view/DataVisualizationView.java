@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.*;
 
 import java.util.ArrayList;
@@ -166,8 +167,8 @@ public abstract class DataVisualizationView {
                 scatterChart.getData().addAll(serieList.values());
 
 
-                HBox hBox = ViewUtil.loadLegend();
-                controller.loadLegend(hBox);
+                VBox vBox = ViewUtil.loadLegend();
+                controller.loadLegend(vBox);
             }
 
 
