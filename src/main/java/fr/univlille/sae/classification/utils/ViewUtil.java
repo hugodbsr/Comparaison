@@ -92,8 +92,6 @@ public class ViewUtil {
                 tempHBox.getChildren().addAll(rectangle, label);
                 line.getChildren().add(tempHBox);
 
-            }
-        }
 
         if(colorsString.length < 7) legend.getChildren().add(line);
 

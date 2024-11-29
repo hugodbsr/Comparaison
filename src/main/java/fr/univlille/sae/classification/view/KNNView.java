@@ -26,6 +26,9 @@ public class KNNView {
         this.owner = owner;
     }
 
+    /**
+     *
+     */
     public void show() {
         FXMLLoader loader = new FXMLLoader();
         URL fxmlFileUrl = getClass().getClassLoader().getResource("stages"+ File.separator+"k-NN-stage.fxml");
