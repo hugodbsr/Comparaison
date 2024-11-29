@@ -1,6 +1,7 @@
 package fr.univlille.sae.classification.view;
 
 import fr.univlille.sae.classification.controller.DataStageController;
+import fr.univlille.sae.classification.controller.MainStageController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.DataType;
 import fr.univlille.sae.classification.model.Iris;
@@ -33,7 +34,7 @@ import java.util.Map;
 public class DataStageView extends DataVisualizationView implements Observer {
 
 
-    private DataStageController controller;
+
 
 
 
@@ -77,8 +78,9 @@ public class DataStageView extends DataVisualizationView implements Observer {
             root.setResizable(false);
             root.setTitle("SAE3.3 - Logiciel de classification");
             root.show();
+            controller = (MainStageController) controller;
             controller = loader.getController();
-            controller.setDataStageView(this);
+            ((DataStageController) controller).setDataStageView(this);
             scatterChart = controller.getScatterChart();
             scatterChart.setLegendVisible(false);
             scatterChart.getData().addAll(series4, series1, series2, series3);
@@ -99,7 +101,7 @@ public class DataStageView extends DataVisualizationView implements Observer {
      * @return contrôleur de la vue.
      */
     public DataStageController getController() {
-        return controller;
+        return (DataStageController) controller;
     }
 
     /**

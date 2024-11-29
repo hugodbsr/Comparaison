@@ -27,7 +27,7 @@ import java.util.*;
 public class MainStageView extends DataVisualizationView implements Observer {
 
 
-    private MainStageController controller;
+
 
     private Stage root;
 
@@ -87,8 +87,10 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 }
             });
 
+
+            controller = (MainStageController) controller;
             controller = loader.getController();
-            controller.setMainStageView(this);
+            ((MainStageController) controller).setMainStageView(this);
             scatterChart = controller.getScatterChart();
             //scatterChart.getData().addAll(series1, series2, series3, series4);
             controller.setAxesSelected("Aucun fichier sélectionné");
@@ -101,7 +103,7 @@ public class MainStageView extends DataVisualizationView implements Observer {
 
 
     public MainStageController getController() {
-        return controller;
+        return (MainStageController) controller;
     }
 
     @Override

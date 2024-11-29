@@ -1,5 +1,7 @@
 package fr.univlille.sae.classification.view;
 
+import fr.univlille.sae.classification.controller.DataStageController;
+import fr.univlille.sae.classification.controller.DataVisualizationController;
 import fr.univlille.sae.classification.controller.MainStageController;
 import fr.univlille.sae.classification.model.ClassificationModel;
 import fr.univlille.sae.classification.model.LoadableData;
@@ -22,6 +24,7 @@ import java.util.Map;
  */
 public abstract class DataVisualizationView {
 
+    public DataVisualizationController controller;
     private ScatterChart.Series series1;
     private ScatterChart.Series series2;
     private ScatterChart.Series series3;
@@ -29,7 +32,7 @@ public abstract class DataVisualizationView {
     protected String actualX;
     protected String actualY;
     protected ScatterChart scatterChart;
-    private MainStageController controller;
+
 
     private Map<String, ScatterChart.Series<Double, Double>> serieList;
     public ClassificationModel model;
