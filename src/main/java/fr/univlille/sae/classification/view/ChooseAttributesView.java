@@ -12,25 +12,34 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Classe responsable du choix des attributs.
+ */
 public class ChooseAttributesView {
 
-
-
+    /**
+     * Modèle de classification utilisé pour gérer les données.
+     */
     private ClassificationModel model;
+
+    /**
+     * Fenêtre parente de la vue.
+     */
     private Stage owner;
 
     /**
-     * Constructeur pour initialiser la vue de choix des attributs
-     * @param model le modèle de classification
-     * @param owner la fenêtre parente de cette vue.
+     * Constructeur pour initialiser la vue de choix des attributs.
+     * @param model Le modèle de classification
+     * @param owner La fenêtre parente de cette vue
      */
     public ChooseAttributesView(ClassificationModel model, Stage owner) {
         this.model = model;
         this.owner = owner;
     }
 
-
-
+    /**
+     * Affiche la vue du choix des attributs.
+     */
     public void show() {
         FXMLLoader loader = new FXMLLoader();
         URL fxmlFileUrl = getClass().getClassLoader().getResource("stages"+ File.separator+"choose-attributes.fxml");

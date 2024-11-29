@@ -12,23 +12,32 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Contrôleur de la fenêtre principale du programme.
+ */
 public class MainStageController extends DataVisualizationController{
 
-
-
+    /**
+     * Bouton pour classifier les points ajoutés par l'utilisateur à l'aide de
+     * l'algorithme KNN.
+     */
     @FXML
     Button classifyData;
 
-
-
-
+    /**
+     * Affichage des informations du point sélectionné par l'utilisateur.
+     */
     @FXML
     ListView PointInfo;
 
-
+    /**
+     * Vue principale associée à ce contrôleur.
+     */
     private MainStageView mainStageView;
 
-
+    /**
+     * Initialisation du contrôleur.
+     */
     public void initialize() {
         setupZoom();
         setupDrag();
@@ -43,6 +52,10 @@ public class MainStageController extends DataVisualizationController{
         loadDataView.show();
     }
 
+    /**
+     * Ouvre l'interface de classification des données entrées par l'utilisateur à
+     * l'aide de l'algorithme KNN.
+     */
     public void openClassification(){
         KNNView knnView = new KNNView(ClassificationModel.getClassificationModel(), stage);
         knnView.show();
@@ -111,10 +124,12 @@ public class MainStageController extends DataVisualizationController{
         return this.classifyData;
     }
 
+    /**
+     * Retourne l'instance de PointInfo.
+     * @return Instance de PointInfo.
+     */
     public ListView getPointInfo(){
         return this.PointInfo;
     };
-
-
 
 }

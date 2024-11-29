@@ -27,10 +27,14 @@ import java.util.*;
  */
 public class MainStageView extends DataVisualizationView implements Observer {
 
-
+    /**
+     * Fenêtre de la vue principale.
+     */
     private Stage root;
 
-
+    /**
+     * Regroupements de points.
+     */
     private ScatterChart.Series series1;
     private ScatterChart.Series series2;
     private ScatterChart.Series series3;

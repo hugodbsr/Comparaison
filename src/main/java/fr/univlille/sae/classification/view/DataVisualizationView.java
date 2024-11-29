@@ -22,10 +22,7 @@ import java.util.*;
  * Elle gère les axes actuels et le graphique de dispersion.
  */
 public abstract class DataVisualizationView {
-
     private static Set<DataVisualizationView> views = new HashSet<>();
-
-
     public DataVisualizationController controller;
     private ScatterChart.Series series1;
     private ScatterChart.Series series2;
@@ -49,7 +46,9 @@ public abstract class DataVisualizationView {
         views.add(this);
     }
 
-
+    /**
+     * Réinitialisation des axes.
+     */
     public static void resetEachAxis() {
         // call method resetAxis for each instance of DataVisualizationView (views)
         for(DataVisualizationView view : views) {
@@ -57,6 +56,9 @@ public abstract class DataVisualizationView {
         }
     }
 
+    /**
+     * Réinitialisation des axes.
+     */
     public void resetAxis(){
         setActualY("");
         setActualX("");

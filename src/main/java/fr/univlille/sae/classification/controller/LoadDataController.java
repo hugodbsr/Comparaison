@@ -18,24 +18,37 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Contrôleur pour la fenêtre de chargement des données.
+ */
 public class LoadDataController {
 
-
+    /**
+     * Fenêtre associée à cette vue.
+     */
     @FXML
     Stage stage;
 
-
+    /**
+     * Champ de texte affichant le chemin du fichier sélectionné.
+     */
     @FXML
     TextField filePath;
 
+    /**
+     * Menu déroulant permettant de sélectionner une classification pré-fabriquée des données du fichier.
+     */
     @FXML
     ChoiceBox<DataType> fileType = new ChoiceBox<>();
 
     /**
-     * Fichier sélectionné
+     * Fichier sélectionné.
      */
     File file;
 
+    /**
+     * Initialisation du contrôleur.
+     */
     @FXML
     public void initialize() {
         fileType.getItems().addAll(DataType.values());
@@ -43,7 +56,7 @@ public class LoadDataController {
     }
 
     /**
-     * Ouvre un explorateur de fichiers pour sélectionner le fichier à étudier
+     * Ouvre un explorateur de fichiers pour sélectionner le fichier à étudier.
      */
     public void openFileChooser() {
         FileChooser fileChooser = new FileChooser();
@@ -57,9 +70,8 @@ public class LoadDataController {
     }
 
 
-
     /**
-     * Valide le fichier sélectionné au préalable
+     * Valide le fichier sélectionné au préalable.
      */
     public void validate(){
 
