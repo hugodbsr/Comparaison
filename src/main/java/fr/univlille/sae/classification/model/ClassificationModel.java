@@ -58,7 +58,7 @@ public class ClassificationModel extends Observable {
         this.dataToClass = new ConcurrentHashMap<>();
         this.type = type;
         this.kOptimal = 0;
-        this.k = 0;
+        this.k = 1;
         this.distance =  new DistanceEuclidienne();
     }
     /**

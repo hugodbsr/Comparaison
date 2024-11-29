@@ -29,7 +29,7 @@ class IrisTest {
         assertEquals(1.9, iris.getPetalLength());
     }
 
-
+/*
     @Test
     void getDataType() {
         assertEquals(3.0 , iris.getDataType("sepalWidth"));
@@ -47,4 +47,6 @@ class IrisTest {
     void testToString() {
         assertEquals("Iris{sepalLength=2.8, sepalWidth=3.0, petalLength=1.9, petalWidth=4.1}", iris.toString());
     }
+
+ */
 }

@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public abstract class LoadableData {
 
-    private static Set<String> classificationTypes;
+    private static Set<String> classificationTypes = new HashSet<>();
 
     private static Map<String, Color> classification = new HashMap<>() ;
 
