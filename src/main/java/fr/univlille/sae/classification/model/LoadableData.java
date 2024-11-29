@@ -50,9 +50,8 @@ public abstract class LoadableData {
     public abstract void setClassificationType(int classificationType) throws IllegalArgumentException, IllegalAccessException;
 
     /**
-     *
      * Définit les types de classification disponibles.
-     */
+      */
     public static void setClassificationTypes(List<LoadableData> datas) throws IllegalAccessException {
 
         Set<String> types = new HashSet<>();
@@ -62,10 +61,6 @@ public abstract class LoadableData {
 
 
         classificationTypes = types;
-        System.out.println("types "  + types);
-       // classificationType = 1;
-
-        System.out.println(classificationType);
 
         LoadableData.classification.clear();
         int nbOfColors = classificationTypes.size() + 1;

@@ -34,7 +34,7 @@ public class Iris extends LoadableData {
      */
     public Iris(double sepalLength, double sepalWidth, double petalLength, double petalWidth, String variety) {
         super();
-
+        classificationType = 4;
         this.sepalWidth = sepalWidth;
         this.sepalLength = sepalLength;
         this.petalWidth = petalWidth;
@@ -88,6 +88,9 @@ public class Iris extends LoadableData {
         LoadableData.setClassificationTypes(ClassificationModel.getClassificationModel().getDatas());
     }
 
+    /**
+     * Définit la classification (variété) de l'Iris.
+     */
     @Override
     public Map<String, Object> getClassifiedAttributes() {
         Map<String, Object> attributes = new LinkedHashMap<>();
@@ -109,7 +112,6 @@ public class Iris extends LoadableData {
      */
     @Override
     public void setClassification(String classification) throws IllegalAccessException {
-        System.out.println();
         this.getClass().getDeclaredFields()[classificationType].set(this, classification);
     }
 

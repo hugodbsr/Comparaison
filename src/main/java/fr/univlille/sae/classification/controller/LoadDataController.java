@@ -7,7 +7,6 @@ import fr.univlille.sae.classification.model.DataType;
 import fr.univlille.sae.classification.model.LoadableData;
 import fr.univlille.sae.classification.view.ChooseAttributesView;
 import fr.univlille.sae.classification.view.DataVisualizationView;
-import fr.univlille.sae.classification.view.MainStageView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
