@@ -13,6 +13,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
 
@@ -169,8 +170,8 @@ public class MainStageView extends DataVisualizationView implements Observer {
                 scatterChart.getData().addAll(serieList.values());
 
 
-                HBox hBox = ViewUtil.loadLegend();
-                controller.loadLegend(hBox);
+                VBox vBox = ViewUtil.loadLegend();
+                controller.loadLegend(vBox);
             }
 
 
