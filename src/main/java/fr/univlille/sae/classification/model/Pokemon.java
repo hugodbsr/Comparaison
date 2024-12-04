@@ -115,7 +115,8 @@ public class Pokemon extends LoadableData{
      */
     @Override
     public String getClassification() throws IllegalAccessException {
-        return (String) this.getClass().getDeclaredFields()[classificationType].get(this).toString();
+        Object field = this.getClass().getDeclaredFields()[classificationType].get(this);
+        return (field == null) ? "undefined" : field.toString();
     }
 
     /**
