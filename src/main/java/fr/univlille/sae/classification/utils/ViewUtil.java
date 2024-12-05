@@ -44,7 +44,8 @@ public class ViewUtil {
                     DataStageController dataController = (DataStageController) controller;
                     dataController.getPointInfo().getItems().clear();
                     dataController.getPointInfo().getItems().add(dataLoaded.toString());
-                    form.setStyle("-fx-stroke-width: 2;");
+                    form.setStyle("-fx-stroke: #60ffc6; -fx-stroke-width: 3;");
+                    clickedForm = form;
                 } else if (controller instanceof MainStageController) {
                     MainStageController mainController = (MainStageController) controller;
                     mainController.getPointInfo().getItems().clear();
